@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "54916300922",
-    "firebase_url": "https://unishare-17cfc.firebaseio.com",
-    "project_id": "unishare-17cfc",
-    "storage_bucket": "unishare-17cfc.appspot.com"
+    "project_number": "596643167659",
+    "firebase_url": "https://unisharedatabase-fb8af.firebaseio.com",
+    "project_id": "unisharedatabase-fb8af",
+    "storage_bucket": "unisharedatabase-fb8af.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:54916300922:android:abef0c199d4aae61",
+        "mobilesdk_app_id": "1:596643167659:android:abef0c199d4aae61",
         "android_client_info": {
           "package_name": "com.example.dani.unishare"
         }
       },
       "oauth_client": [
         {
-          "client_id": "54916300922-bk4qbsf7an5m599q4dfur20e6o2l7iql.apps.googleusercontent.com",
+          "client_id": "596643167659-g5qu1qmnknhchnh54cck4ighm4h4s2qg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.dani.unishare",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "54916300922-akm0k94phfjt02qgme8mhm2tunfjdda1.apps.googleusercontent.com",
+          "client_id": "596643167659-8ei9h7vm0qhjohi7sfkb1cf6p72jsorc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAcVqHXFmmsPzSHAkv3EtSiUUxPDkIf8nQ"
+          "current_key": "AIzaSyDCNzYzI5ogLNgtahE8rvnxHpP3_d3TLlg"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "54916300922-akm0k94phfjt02qgme8mhm2tunfjdda1.apps.googleusercontent.com",
+              "client_id": "596643167659-8ei9h7vm0qhjohi7sfkb1cf6p72jsorc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

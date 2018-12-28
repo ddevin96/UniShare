@@ -2,6 +2,7 @@ package com.example.dani.unishare;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -36,19 +37,18 @@ public class MainActivity extends Activity {
 
         databaseBacheca = FirebaseDatabase.getInstance().getReference("bacheca");
 
-        editTextTitle = (EditText) findViewById(R.id.editTextTitle);
-        editTextDescription = (EditText) findViewById(R.id.editTextDescription);
-        editTextAuthor = (EditText) findViewById(R.id.editTextAuthor);
-        listViewBacheca = (ListView) findViewById(R.id.listViewBacheca);
+        editTextTitle = (EditText) this.findViewById(R.id.editTextTitle);
+        editTextDescription = (EditText) this.findViewById(R.id.editTextDescription);
+        editTextAuthor = (EditText) this.findViewById(R.id.editTextAuthor);
+        listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
+        addButton = (Button) this.findViewById(R.id.addButton);
         listaBacheca = new ArrayList<>();
 
         addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 addBacheca();
             }
         });
-
     }
 
     @Override
@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
         super.onStart();
         databaseBacheca.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listaBacheca.clear();
                 for (DataSnapshot personSnapshot: dataSnapshot.getChildren()) {
                     Bacheca bacheca = personSnapshot.getValue(Bacheca.class);
@@ -68,13 +68,13 @@ public class MainActivity extends Activity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
 
-    private void addBacheca() {
+    public void addBacheca() {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         String author = editTextAuthor.getText().toString();

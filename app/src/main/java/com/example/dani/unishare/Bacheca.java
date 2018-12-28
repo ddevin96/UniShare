@@ -1,5 +1,6 @@
 package com.example.dani.unishare;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Bacheca {
@@ -8,7 +9,7 @@ public class Bacheca {
     private String description;
     private String author; //tipo utente???
     // array di post
-    private Date data;
+    private Date date;
 
     public Bacheca() {
 
@@ -19,7 +20,7 @@ public class Bacheca {
         this.title = title;
         this.description = description;
         this.author = author;
-        this.data = data;
+        this.date = data;
     }
 
     public String getId() {
@@ -55,10 +56,10 @@ public class Bacheca {
     }
 
     public Date getData() {
-        return data;
+        return date;
     }
 
     public void setData(Date data) {
-        this.data = data;
+        this.date = data;
     }
 }

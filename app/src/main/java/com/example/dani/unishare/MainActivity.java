@@ -9,10 +9,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -20,8 +25,9 @@ public class MainActivity extends Activity {
     EditText editTextDescription;
     EditText editTextAuthor;
     Button addButton;
-    ListView listViewBacheche;
     DatabaseReference databaseBacheca;
+    ListView listViewBacheca;
+    List<Bacheca> listaBacheca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,8 @@ public class MainActivity extends Activity {
         editTextTitle = (EditText) findViewById(R.id.editTextTitle);
         editTextDescription = (EditText) findViewById(R.id.editTextDescription);
         editTextAuthor = (EditText) findViewById(R.id.editTextAuthor);
+        listViewBacheca = (ListView) findViewById(R.id.listViewBacheca);
+        listaBacheca = new ArrayList<>();
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +49,29 @@ public class MainActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseBacheca.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listaBacheca.clear();
+                for (DataSnapshot personSnapshot: dataSnapshot.getChildren()) {
+                    Bacheca bacheca = personSnapshot.getValue(Bacheca.class);
+                    listaBacheca.add(bacheca);
+                }
+
+                BachecaList adapter = new BachecaList(MainActivity.this, listaBacheca);
+                listViewBacheca.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void addBacheca() {

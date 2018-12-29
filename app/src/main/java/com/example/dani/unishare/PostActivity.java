@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PostActivity extends Activity {
@@ -58,7 +61,7 @@ public class PostActivity extends Activity {
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String title= (EditText) editTextTitle
+                showCreateDialog();
             }
         });
 
@@ -114,8 +117,36 @@ public class PostActivity extends Activity {
         pubblica = (Button) dialogView.findViewById(R.id.addPostButton);
 
         dialogBuilder.setTitle("post");
-        AlertDialog alertDialog= dialogBuilder.create();
+        final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();
+
+
+
+        pubblica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPost();
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+
+    public void addPost() {
+        String title = editTextTitle.getText().toString();
+        String description = editTextDescription.getText().toString();
+        String author = "";
+        Date data = new Date();
+
+        if (!TextUtils.isEmpty(title)&&!TextUtils.isEmpty(description)) {
+            String id = databasePost.push().getKey();
+            Post post= new Post(id, title, description, author, data);
+            databasePost.child(id).setValue(post);
+            Toast.makeText(this, "Post aggiunto", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
+
+
 
     }
 }

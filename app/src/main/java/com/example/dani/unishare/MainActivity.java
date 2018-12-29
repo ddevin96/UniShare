@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
         editTextDescription = (EditText) this.findViewById(R.id.editTextDescription);
         editTextAuthor = (EditText) this.findViewById(R.id.editTextAuthor);
         listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
-        addButton = (Button) this.findViewById(R.id.addButton);
+        addButton = (Button) this.findViewById(R.id.addBachecaButton);
         listaBacheca = new ArrayList<>();
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -112,23 +112,23 @@ public class MainActivity extends Activity {
         addBachecaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addBacheca();
+                String title = editTextTitle.getText().toString();
+                String description = editTextDescription.getText().toString();
+                String author = editTextAuthor.getText().toString();
+                Date data = new Date();
+                String id = databaseBacheca.push().getKey();
+                Bacheca bacheca = new Bacheca(id, title, description, author, data);
+                addBacheca(bacheca);
                 alertDialog.dismiss();
             }
         });
 
     }
 
-    public void addBacheca() {
-        String title = editTextTitle.getText().toString();
-        String description = editTextDescription.getText().toString();
-        String author = editTextAuthor.getText().toString();
-        Date data = new Date();
+    public void addBacheca(Bacheca bacheca) {
 
-        if (!TextUtils.isEmpty(title)&&!TextUtils.isEmpty(description)) {
-            String id = databaseBacheca.push().getKey();
-            Bacheca bacheca = new Bacheca(id, title, description, author, data);
-            databaseBacheca.child(id).setValue(bacheca);
+        if (!TextUtils.isEmpty(bacheca.getTitle())&&!TextUtils.isEmpty(bacheca.getDescription())) {
+            databaseBacheca.child(bacheca.getId()).setValue(bacheca);
             Toast.makeText(this, "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();

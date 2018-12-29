@@ -27,7 +27,7 @@ public class BachecaList extends ArrayAdapter<Bacheca> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_view_bacheca, null, true);
-        TextView title = (TextView) listViewItem.findViewById((R.id.textViewTitolo));
+        TextView title = (TextView) listViewItem.findViewById((R.id.textViewTitoloBacheca));
 
         Bacheca bacheca = listaBacheca.get(position);
         title.setText(bacheca.getTitle());

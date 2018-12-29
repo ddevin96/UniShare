@@ -39,6 +39,9 @@ public class PostActivity extends Activity {
     DatabaseReference databasePost;
     ListView listViewPost;
     List<Post> listaPost;
+    EditText editTextTitle;
+    EditText editTextDescription;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,6 +22,7 @@ import java.util.List;
 
 public class PostActivity extends Activity {
 
+
     public static final String POST_ID="postid";
     public static final String POST_TITLE="posttitle";
 

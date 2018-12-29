@@ -28,7 +28,6 @@ import java.util.List;
 
 public class PostActivity extends Activity {
 
-    public static final String BACHECA_ID="bachecaid";
     public static final String POST_ID="postid";
     public static final String POST_TITLE="posttitle";
 
@@ -55,9 +54,9 @@ public class PostActivity extends Activity {
         addPost = (Button) this.findViewById(R.id.addPost);
         listaPost = new ArrayList<>();
 
-        final Intent intent = getIntent();
+        Intent intent = getIntent();
         String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
-        final String id=intent.getStringExtra(MainActivity.BACHECA_ID);
+        String id=intent.getStringExtra(MainActivity.BACHECA_ID);
         textViewTitolo.setText(title);
 
         databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
@@ -140,7 +139,7 @@ public class PostActivity extends Activity {
         });
 
     }
-    //ciao
+
     public void addPost(Post post) {
         if (!TextUtils.isEmpty(post.getTitle())&&!TextUtils.isEmpty(post.getDescription())) {
             databasePost.child(post.getId()).setValue(post);

@@ -10,18 +10,18 @@ public class Post {
     private String description;
     private String author;
     private Date date;
-    private ArrayList<Commento> commenti = new ArrayList<>();
+
 
     public Post(String id, String title, String description, String author, Date data){
 
     }
 
-    public Post(String id, String description, String author, Date date, ArrayList<Commento> commenti) {
+    public Post(String id, String description, String author, Date date) {
         this.id = id;
         this.description = description;
         this.author = author;
         this.date = date;
-        this.commenti = commenti;
+
     }
 
     public String getId() {
@@ -40,9 +40,6 @@ public class Post {
         return date;
     }
 
-    public ArrayList<Commento> getCommenti() {
-        return commenti;
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -60,9 +57,7 @@ public class Post {
         this.date = date;
     }
 
-    public void setCommenti(ArrayList<Commento> commenti) {
-        this.commenti = commenti;
-    }
+
 
     public String getTitle() {
         return title;

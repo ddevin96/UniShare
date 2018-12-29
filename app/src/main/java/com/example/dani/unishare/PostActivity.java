@@ -54,8 +54,8 @@ public class PostActivity extends Activity {
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddPostFormActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(getApplicationContext(), AddPostFormActivity.class);
+                startActivity(intent1);
             }
         });
 

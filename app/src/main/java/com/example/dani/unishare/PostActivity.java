@@ -40,9 +40,10 @@ public class PostActivity extends Activity {
 
         Intent intent = getIntent();
         String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
+        String id=intent.getStringExtra(MainActivity.BACHECA_ID);
         textViewTitolo.setText(title);
 
-        databasePost = FirebaseDatabase.getInstance().getReference("post");
+        databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
 
         textViewTitolo = (TextView) this.findViewById(R.id.textViewTitolo);
         textViewDescrizione = (TextView) this.findViewById(R.id.textViewDescrizione);

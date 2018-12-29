@@ -146,9 +146,9 @@ public class PostActivity extends Activity {
             databasePost.child(post.getId()).setValue(post);
             Toast.makeText(this, "Post aggiunto", Toast.LENGTH_SHORT).show();
         }
-        else
+        else {
             Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
-
+        }
 
 
     }

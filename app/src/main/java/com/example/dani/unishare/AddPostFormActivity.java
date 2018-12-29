@@ -33,7 +33,7 @@ public class AddPostFormActivity extends Activity {
         setContentView(R.layout.activity_add_post_form);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra(MainActivity.BACHECA_ID);
+        String id = intent.getStringExtra(PostActivity.BACHECA_ID);
 
         databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
 

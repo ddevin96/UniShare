@@ -128,25 +128,25 @@ public class PostActivity extends Activity {
         pubblica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addPost();
+                String title = editTextTitle.getText().toString();
+                String description = editTextDescription.getText().toString();
+                String author = "";
+                Date data = new Date();
+                String id = databasePost.push().getKey();
+                Post post= new Post(id, title, description, author, data);
+                addPost(post);
                 alertDialog.dismiss();
             }
         });
 
     }
     //ciao
-    public void addPost() {
-        String title = editTextTitle.getText().toString();
-        String description = editTextDescription.getText().toString();
-        String author = "";
-        Date data = new Date();
-
-        if (!TextUtils.isEmpty(title)&&!TextUtils.isEmpty(description)) {
-            String id = databasePost.push().getKey();
-            Post post= new Post(id, title, description, author, data);
-            databasePost.child(id).setValue(post);
+    public void addPost(Post post) {
+        if (!TextUtils.isEmpty(post.getTitle())&&!TextUtils.isEmpty(post.getDescription())) {
+            databasePost.child(post.getId()).setValue(post);
             Toast.makeText(this, "Post aggiunto", Toast.LENGTH_SHORT).show();
-        } else
+        }
+        else
             Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
 
 

@@ -24,9 +24,7 @@ public class AddPostFormActivity extends Activity {
 
     final static String BACHECA_ID="bachecaid";
 
-    EditText editTextTitle;
-    EditText editTextDescription;
-    Button pubblica;
+
     DatabaseReference databasePost;
 
 
@@ -40,9 +38,7 @@ public class AddPostFormActivity extends Activity {
 
         databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
 
-        editTextTitle = (EditText) this.findViewById(R.id.titlePost);
-        editTextDescription = (EditText) this.findViewById(R.id.descrizionePost);
-        pubblica = (Button) this.findViewById(R.id.addPostButton);
+
 
 
         pubblica.setOnClickListener(new View.OnClickListener() {

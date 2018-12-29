@@ -1,9 +1,12 @@
 package com.example.dani.unishare;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -96,6 +99,22 @@ public class PostActivity extends Activity {
 
             }
         });
+    }
+
+    @SuppressLint("WrongViewCast")
+    private void showCreateDialog(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView= inflater.inflate(R.layout.activity_add_post_form, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextTitle;
+        final EditText editTextDescription;
+        final Button pubblica;
+
+        editTextTitle = (dialogView) this.findViewById(R.id.titlePost);
+        editTextDescription = (EditText) this.findViewById(R.id.descrizionePost);
+        pubblica = (Button) this.findViewById(R.id.addPostButton);
     }
 }
 

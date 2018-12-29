@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddPostFormActivity"></activity>
+        <activity android:name=".PostActivity"></activity>
+        <activity android:name=".CommentiActivity"></activity>
     </application>
 
 </manifest>

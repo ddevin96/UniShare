@@ -1,9 +1,9 @@
 package com.example.dani.unishare;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
-public class AddPostFormActivity extends AppCompatActivity {
+public class AddPostFormActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

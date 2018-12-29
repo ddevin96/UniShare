@@ -65,7 +65,7 @@ public class PostActivity extends Activity {
                 Post post = listaPost.get(position);
                 Intent intent = new Intent(getApplicationContext(), CommentiActivity.class);
                 intent.putExtra(POST_ID, post.getId());
-                intent.putExtra(POST_TITLE, post.getId());
+                intent.putExtra(POST_TITLE, post.getTitle());
                 startActivity(intent);
 
             }

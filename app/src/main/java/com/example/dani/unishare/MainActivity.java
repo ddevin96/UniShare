@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
                 Bacheca bacheca = listaBacheca.get(position);
                 Intent intent = new Intent(getApplicationContext(), PostActivity.class);
                 intent.putExtra(BACHECA_ID, bacheca.getId());
-                intent.putExtra(BACHECA_TITLE, bacheca.getId());
+                intent.putExtra(BACHECA_TITLE, bacheca.getTitle());
                 startActivity(intent);
 
             }

@@ -1,10 +1,12 @@
 package com.example.dani.unishare;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,6 +23,10 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends Activity {
+
+    public static final String BACHECA_ID = "bachecaid";
+    public static final String BACHECA_TITLE = "bachecatitle";
+
 
     EditText editTextTitle;
     EditText editTextDescription;
@@ -47,6 +53,18 @@ public class MainActivity extends Activity {
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 addBacheca();
+            }
+        });
+
+        listViewBacheca.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bacheca bacheca = listaBacheca.get(position);
+                Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+                intent.putExtra(BACHECA_ID, bacheca.getId());
+                intent.putExtra(BACHECA_TITLE, bacheca.getId());
+                startActivity(intent);
+
             }
         });
     }

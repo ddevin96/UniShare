@@ -16,8 +16,9 @@ public class Post {
 
     }
 
-    public Post(String id, String description, String author, Date date) {
+    public Post(String id, String title, String description, String author, Date date) {
         this.id = id;
+        this.title=title;
         this.description = description;
         this.author = author;
         this.date = date;

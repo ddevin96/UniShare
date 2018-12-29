@@ -38,19 +38,19 @@ public class PostActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        Intent intent = getIntent();
-        String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
-        String id=intent.getStringExtra(MainActivity.BACHECA_ID);
-        textViewTitolo.setText(title);
-
-        databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
-
         textViewTitolo = (TextView) this.findViewById(R.id.textViewTitolo);
         textViewDescrizione = (TextView) this.findViewById(R.id.textViewDescrizione);
         textViewAutore= (TextView) this.findViewById(R.id.textViewAuthor);
         listViewPost = (ListView) this.findViewById(R.id.listViewPost);
         addPost = (Button) this.findViewById(R.id.addPost);
         listaPost = new ArrayList<>();
+
+        Intent intent = getIntent();
+        String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
+        String id=intent.getStringExtra(MainActivity.BACHECA_ID);
+        textViewTitolo.setText(title);
+
+        databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

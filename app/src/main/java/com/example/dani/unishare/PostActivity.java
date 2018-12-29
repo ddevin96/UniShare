@@ -22,6 +22,7 @@ import java.util.List;
 
 public class PostActivity extends Activity {
 
+    public static final String BACHECA_ID="bachecaid";
     public static final String POST_ID="postid";
     public static final String POST_TITLE="posttitle";
 
@@ -54,7 +55,9 @@ public class PostActivity extends Activity {
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 Intent intent1 = new Intent(getApplicationContext(), AddPostFormActivity.class);
+                intent1.putExtra(BACHECA_ID, id);
                 startActivity(intent1);
             }
         });
@@ -63,7 +66,7 @@ public class PostActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Post post = listaPost.get(position);
-                Intent intent = new Intent(getApplicationContext(), CommentiActivity.class);
+                Intent intent = new Intent(PostActivity.this, CommentiActivity.class);
                 intent.putExtra(POST_ID, post.getId());
                 intent.putExtra(POST_TITLE, post.getTitle());
                 startActivity(intent);

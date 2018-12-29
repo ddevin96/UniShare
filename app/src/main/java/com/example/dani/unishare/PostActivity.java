@@ -58,10 +58,7 @@ public class PostActivity extends Activity {
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                Intent intent1 = new Intent(getApplicationContext(), AddPostFormActivity.class);
-                intent1.putExtra(BACHECA_ID, id);
-                startActivity(intent1);
+                String title= (EditText) editTextTitle
             }
         });
 
@@ -112,9 +109,14 @@ public class PostActivity extends Activity {
         final EditText editTextDescription;
         final Button pubblica;
 
-        editTextTitle = (dialogView) this.findViewById(R.id.titlePost);
-        editTextDescription = (EditText) this.findViewById(R.id.descrizionePost);
-        pubblica = (Button) this.findViewById(R.id.addPostButton);
+        editTextTitle = (EditText) dialogView.findViewById(R.id.titlePost);
+        editTextDescription = (EditText) dialogView.findViewById(R.id.descrizionePost);
+        pubblica = (Button) dialogView.findViewById(R.id.addPostButton);
+
+        dialogBuilder.setTitle("post");
+        AlertDialog alertDialog= dialogBuilder.create();
+        alertDialog.show();
+
     }
 }
 

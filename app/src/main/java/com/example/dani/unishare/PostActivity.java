@@ -58,7 +58,6 @@ public class PostActivity extends Activity {
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String title= (EditText) editTextTitle
             }
         });
 

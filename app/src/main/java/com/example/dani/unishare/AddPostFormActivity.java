@@ -37,8 +37,8 @@ public class AddPostFormActivity extends Activity {
 
         databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
 
-        editTextTitle = (EditText) this.findViewById(R.id.editTextTitle);
-        editTextDescription = (EditText) this.findViewById(R.id.editTextDescription);
+        editTextTitle = (EditText) this.findViewById(R.id.titlePost);
+        editTextDescription = (EditText) this.findViewById(R.id.descrizionePost);
         pubblica = (Button) this.findViewById(R.id.addPostButton);
 
 

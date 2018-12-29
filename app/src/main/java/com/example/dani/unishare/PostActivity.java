@@ -131,7 +131,7 @@ public class PostActivity extends Activity {
         });
 
     }
-
+    //ciao
     public void addPost() {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();

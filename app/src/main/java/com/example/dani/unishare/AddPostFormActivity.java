@@ -22,18 +22,21 @@ import java.util.Date;
 
 public class AddPostFormActivity extends Activity {
 
+    final static String BACHECA_ID="bachecaid";
+
     EditText editTextTitle;
     EditText editTextDescription;
     Button pubblica;
     DatabaseReference databasePost;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post_form);
 
-        Intent intent = getIntent();
-        String id = intent.getStringExtra(PostActivity.BACHECA_ID);
+        final Intent intent = getIntent();
+        final String id = intent.getStringExtra(PostActivity.BACHECA_ID);
 
         databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
 
@@ -46,6 +49,7 @@ public class AddPostFormActivity extends Activity {
             public void onClick(View v) {
                 addPost();
                 Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+                intent.putExtra(BACHECA_ID, id);
                 startActivity(intent);
             }
         });

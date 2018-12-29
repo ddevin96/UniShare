@@ -12,7 +12,7 @@ public class Post {
     private Date date;
 
 
-    public Post(String id, String title, String description, String author, Date data){
+    public Post(){
 
     }
 

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegistrazioneActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrati a Unishare"/>
+
+    <EditText
+        android:id="@+id/editTextRegNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="inserisci nome"/>
+
+    <EditText
+        android:id="@+id/editTextRegCognome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="inserisci cognome"/>
+
+    <EditText
+        android:id="@+id/editTextRegEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="inserisci email"/>
+
+    <EditText
+        android:id="@+id/editTextRegPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="inserisci password"/>
+
+    <EditText
+        android:id="@+id/editTextRegRipetiPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="ripeti password"/>
+
+    <EditText
+        android:id="@+id/editTextRegData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radioUomo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="uomo"/>
+
+        <RadioButton
+            android:id="@+id/radioDonna"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="donna"/>
+
+    </RadioGroup>
+
+    <CheckBox
+        android:id="@+id/checkboxPrivacy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Privacy"/>
+
+</LinearLayout>

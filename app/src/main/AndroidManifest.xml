@@ -16,9 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddPostFormActivity"></activity>
-        <activity android:name=".PostActivity"></activity>
-        <activity android:name=".CommentiActivity"></activity>
+        <activity android:name=".PostActivity" />
+        <activity android:name=".CommentiActivity" />
+        <activity android:name=".RegistrazioneActivity"></activity>
     </application>
 
 </manifest>

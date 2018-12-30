@@ -11,6 +11,13 @@
     >
 
     <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Registrazione"/>
+
+
+    <Button
         android:id="@+id/addBachecaButton"
         style="@style/buttonStyle"
         android:layout_width="122dp"

@@ -38,6 +38,8 @@ public class MainActivity extends Activity {
     ListView listViewBacheca;
     List<Bacheca> listaBacheca;
 
+    Button signUpButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,11 @@ public class MainActivity extends Activity {
         editTextAuthor = (EditText) this.findViewById(R.id.editTextAuthor);
         listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
         addButton = (Button) this.findViewById(R.id.addBachecaButton);
+
+
+        signUpButton = (Button) this.findViewById(R.id.signUpButton);
+
+
         listaBacheca = new ArrayList<>();
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +76,15 @@ public class MainActivity extends Activity {
 
             }
         });
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RegistrazioneActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

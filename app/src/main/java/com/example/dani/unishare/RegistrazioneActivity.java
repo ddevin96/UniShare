@@ -11,6 +11,8 @@ import android.widget.RadioGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Date;
+
 public class RegistrazioneActivity extends Activity {
 
     EditText editTextRegNome, editTextRegCognome, editTextRegEmail, editTextRegPassword;
@@ -51,5 +53,11 @@ public class RegistrazioneActivity extends Activity {
 
     private void registraUtente() {
         String nome = editTextRegNome.getText().toString().trim();
+        String cognome = editTextRegCognome.getText().toString().trim();
+        String email = editTextRegEmail.getText().toString().trim();
+        String password = editTextRegPassword.getText().toString().trim();
+        String ripPassword = editTextRegRipetiPassword.getText().toString().trim();
+        String data = editTextRegData.getText().toString().trim();
+
     }
 }

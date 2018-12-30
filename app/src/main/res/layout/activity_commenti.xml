@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CommentiActivity">
+    tools:context=".CommentiActivity"
+    android:background="@color/verde"
+    >
 
     <TextView
         android:id="@+id/textViewPostName"
@@ -16,16 +18,16 @@
         android:id="@+id/editTextCommentDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Inserisci commento"/>
+        android:hint="@string/insert_commento"/>
     <Button
         android:id="@+id/addCommentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Inserisci commento"/>
+        android:text="@string/share"/>
 
     <ListView
         android:id="@+id/listViewCommenti"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

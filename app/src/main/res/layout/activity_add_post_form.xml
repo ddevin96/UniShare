@@ -5,26 +5,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/verde"
+    >
 
     <EditText
         android:id="@+id/titlePost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="titolo" />
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="10sp"
+        android:hint="@string/title" />
 
     <EditText
         android:id="@+id/descrizionePost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="descrizione"/>
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="10sp"
+        android:hint="@string/description" />
 
 
     <Button
         android:id="@+id/addPostButton"
-        android:layout_width="wrap_content"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pubblica" />
+        android:layout_marginLeft="30sp"
+
+        android:layout_marginTop="10sp"
+        android:layout_marginRight="30sp"
+        android:layout_marginBottom="10sp"
+        android:fontFamily="@font/acme"
+        android:text="@string/share"
+        android:textSize="20sp" />
 
 
 </LinearLayout>

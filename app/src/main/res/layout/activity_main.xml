@@ -6,18 +6,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/verde"
+    >
 
     <Button
         android:id="@+id/addBachecaButton"
+        style="@style/buttonStyle"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+
+        android:fontFamily="@font/acme"
+        android:text="@string/create_bacheca"
+        android:textColorLink="@color/bianco"
+        android:textSize="17sp" />
+
+    <!-- SETTARE GRANDEZZA TESTO -->
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crea Bacheca"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/acme"
+        android:text="@string/bacheche"
+        android:textColor="@color/nero"
+        android:textSize="30sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/acme"
+        android:text="@string/subtitle_bacheca"
+        android:textColor="@color/nero"
+        android:textSize="20sp"
+        android:textStyle="italic" />
+
 
     <ListView
         android:id="@+id/listViewBacheca"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10sp"
+        >
 
     </ListView>
 

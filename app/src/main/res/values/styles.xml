@@ -5,4 +5,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- Stile in uso per pulsanti e textview cliccabili-->
+    <style name ="buttonStyle">
+        <item name="android:background">@drawable/rounded_corner</item>
+        <item name="android:textColor">@color/bianco</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
 </resources>

@@ -19,6 +19,8 @@
         <activity android:name=".PostActivity" />
         <activity android:name=".CommentiActivity" />
         <activity android:name=".RegistrazioneActivity"></activity>
+        <activity android:name=".LoginActivity" />
+
     </application>
 
 </manifest>

@@ -45,11 +45,11 @@
         android:inputType="textPassword"
         android:hint="ripeti password"/>
 
-    <EditText
-        android:id="@+id/editTextRegData"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date" />
+    <DatePicker
+        android:id="@+id/editDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </DatePicker>
 
     <RadioGroup
         android:id="@+id/radioGroupSesso"

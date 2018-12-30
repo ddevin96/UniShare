@@ -1,3 +1,7 @@
+//CIAO AMIKI SONO FEDE WEWE
+//SE SIETE CECATI STO AGGIUNGENDO UN'ALTRA RIGA.
+// -----------------------------------------------
+
 package com.example.dani.unishare;
 
 import java.util.Date;

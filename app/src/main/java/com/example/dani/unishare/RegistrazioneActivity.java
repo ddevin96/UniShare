@@ -73,7 +73,6 @@ public class RegistrazioneActivity extends Activity {
         int month = editDatePicker.getMonth();
         int day = editDatePicker.getDayOfMonth();
         Date date = new Date(year, month, day );
-
         char sesso = 'M';
         if (radioDonna.isSelected())
             sesso = 'D';

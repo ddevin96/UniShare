@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,7 +31,7 @@ public class RegistrazioneActivity extends Activity {
     RadioButton radioUomo, radioDonna;
     RadioGroup radioGroupSesso;
     Button buttonRegistrazione;
-    FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
     DatabaseReference databaseUtente;
 
     @Override
@@ -79,7 +80,7 @@ public class RegistrazioneActivity extends Activity {
         else if (radioUomo.isSelected())
             sesso = 'M';
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
@@ -90,8 +91,9 @@ public class RegistrazioneActivity extends Activity {
             }
         });
 
-        Utente utente = new Utente(firebaseAuth.getCurrentUser().getUid(), nome, cognome, sesso, date, email, password);
-        databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
+        //FirebaseUser user = firebaseAuth.getCurrentUser();
+        //Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
+        //databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
 
 
     }

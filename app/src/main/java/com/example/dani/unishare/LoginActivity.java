@@ -32,25 +32,27 @@ public class LoginActivity extends Activity {
         password= (EditText) findViewById(R.id.InserisciPassword);
         accedi= (Button) findViewById(R.id.Accedi);
 
-        String eMail= email.getText().toString();
-        String password1=password.getText().toString();
 
-        databaseLogin.signInWithEmailAndPassword(eMail, password1).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    startActivity(new Intent (getApplicationContext(),MainActivity.class));
-                    finish();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "L'E-mail o la password sono errate.",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         accedi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String eMail= email.getText().toString();
+                String password1=password.getText().toString();
+
+
+                databaseLogin.signInWithEmailAndPassword(eMail, password1).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "L'E-mail o la password sono errate.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });

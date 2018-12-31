@@ -1,6 +1,7 @@
 package com.example.dani.unishare;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -73,7 +74,7 @@ public class RegistrazioneActivity extends Activity {
         int year = editDatePicker.getYear();
         int month = editDatePicker.getMonth();
         int day = editDatePicker.getDayOfMonth();
-        Date date = new Date(year, month, day );
+        Date date = new Date(year, month, day);
         char sesso = 'M';
         if (radioDonna.isSelected())
             sesso = 'D';
@@ -83,17 +84,20 @@ public class RegistrazioneActivity extends Activity {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "Utente Aggiunto" ,Toast.LENGTH_SHORT ).show();
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Problema con registrazione" ,Toast.LENGTH_SHORT ).show();
+                    Toast.makeText(getApplicationContext(), "Problema con registrazione", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        //Utente utente = new Utente("", nome, cognome, sesso, date, email, password);
         //FirebaseUser user = firebaseAuth.getCurrentUser();
-        //Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
+        //utente.setId(user.getUid());
         //databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
 
     }
+
 }
+

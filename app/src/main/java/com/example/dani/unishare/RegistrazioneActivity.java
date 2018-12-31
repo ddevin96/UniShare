@@ -66,36 +66,36 @@ public class RegistrazioneActivity extends Activity {
 
 
     private void registraUtente() {
-        String nome = editTextRegNome.getText().toString().trim();
-        String cognome = editTextRegCognome.getText().toString().trim();
-        String email = editTextRegEmail.getText().toString().trim();
-        String password = editTextRegPassword.getText().toString().trim();
-        String ripPassword = editTextRegRipetiPassword.getText().toString().trim();
+        final String nome = editTextRegNome.getText().toString().trim();
+        final String cognome = editTextRegCognome.getText().toString().trim();
+        final String email = editTextRegEmail.getText().toString().trim();
+        final String password = editTextRegPassword.getText().toString().trim();
+        final String ripPassword = editTextRegRipetiPassword.getText().toString().trim();
         int year = editDatePicker.getYear();
         int month = editDatePicker.getMonth();
         int day = editDatePicker.getDayOfMonth();
-        Date date = new Date(year, month, day);
-        char sesso = 'M';
-        if (radioDonna.isSelected())
-            sesso = 'D';
-        else if (radioUomo.isSelected())
-            sesso = 'M';
+        final Date date = new Date(year, month, day);
+        final String sesso = "M";
+        //if (radioDonna.isSelected())
+            //sesso = 'D';
+        //else if (radioUomo.isSelected())
+            //sesso = 'M';
 
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
+                    databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(getApplicationContext(), "Problema con registrazione", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        //Utente utente = new Utente("", nome, cognome, sesso, date, email, password);
-        //FirebaseUser user = firebaseAuth.getCurrentUser();
-        //utente.setId(user.getUid());
-        //databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
 
     }
 

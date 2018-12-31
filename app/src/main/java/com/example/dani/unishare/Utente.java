@@ -7,9 +7,9 @@ public class Utente {
     private String id;
     private String nome;
     private String cognome;
-    private char sesso;
+    private String sesso;
     private Date dataDiNascita;
-    private String Email;
+    private String email;
     private String password;
 
 
@@ -17,13 +17,13 @@ public class Utente {
 
     }
 
-    public Utente(String id, String nome, String cognome, char sesso, Date dataDiNascita, String email, String password) {
+    public Utente(String id, String nome, String cognome, String sesso, Date dataDiNascita, String email, String password) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
         this.sesso = sesso;
         this.dataDiNascita = dataDiNascita;
-        Email = email;
+        this.email = email;
         this.password = password;
     }
 
@@ -39,7 +39,7 @@ public class Utente {
         return cognome;
     }
 
-    public char getSesso() {
+    public String getSesso() {
         return sesso;
     }
 
@@ -48,7 +48,7 @@ public class Utente {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public String getPassword() {
@@ -67,7 +67,7 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public void setSesso(char sesso) {
+    public void setSesso(String sesso) {
         this.sesso = sesso;
     }
 
@@ -76,7 +76,7 @@ public class Utente {
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public void setPassword(String password) {

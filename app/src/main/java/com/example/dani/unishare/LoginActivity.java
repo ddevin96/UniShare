@@ -32,7 +32,7 @@ public class LoginActivity extends Activity {
         password= (EditText) findViewById(R.id.InserisciPassword);
         accedi= (Button) findViewById(R.id.Accedi);
 
-
+        databaseLogin = FirebaseAuth.getInstance();
 
         accedi.setOnClickListener(new View.OnClickListener() {
             @Override

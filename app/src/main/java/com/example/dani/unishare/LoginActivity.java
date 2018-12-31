@@ -41,7 +41,7 @@ public class LoginActivity extends Activity {
                 String password1=password.getText().toString();
 
 
-                databaseLogin.signInWithEmailAndPassword(eMail, password1).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                databaseLogin.signInWithEmailAndPassword(eMail, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -52,8 +52,6 @@ public class LoginActivity extends Activity {
                         }
                     }
                 });
-
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 

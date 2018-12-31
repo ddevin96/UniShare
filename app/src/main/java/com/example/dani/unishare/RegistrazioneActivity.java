@@ -91,9 +91,9 @@ public class RegistrazioneActivity extends Activity {
             }
         });
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
-        databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
+        //FirebaseUser user = firebaseAuth.getCurrentUser();
+        //Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
+        //databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
 
     }
 }

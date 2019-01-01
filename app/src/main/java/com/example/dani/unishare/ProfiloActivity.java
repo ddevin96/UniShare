@@ -3,6 +3,7 @@ package com.example.dani.unishare;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,8 @@ public class ProfiloActivity extends Activity {
         TextView textViewEmail;
         TextView textViewSesso;
         TextView textViewData;
+        Button modificaProfila;
+        Button cancellaProfilo;
         DatabaseReference databesaProfilo;
 
         super.onCreate(savedInstanceState);
@@ -33,17 +36,19 @@ public class ProfiloActivity extends Activity {
         textViewEmail= (TextView) findViewById(R.id.textViewEmailUtente);
         textViewSesso= (TextView) findViewById(R.id.textViewSessoUtente);
         textViewData= (TextView) findViewById(R.id.textViewDataUtente);
+        modificaProfila= (Button) findViewById(R.id.modificaProfiloButton);
+        cancellaProfilo= (Button) findViewById(R.id.cancellaProfiloButton);
 
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
-        Utente utente= new Utente();
+        final Utente utente = new Utente();
 
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot data: dataSnapshot.getChildren()){
-                    data.getValue();
-                }
+                DataSnapshot data= (DataSnapshot) dataSnapshot.getChildren();
+                utente =data.getValue(Utente.class);
+
             }
 
             @Override

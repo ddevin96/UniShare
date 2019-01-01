@@ -50,6 +50,8 @@ public class ProfiloActivity extends Activity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataSnapshot data= (DataSnapshot) dataSnapshot.getChildren();
                 utente =data.getValue(Utente.class);
+                textViewNome.setText(utente.getNome());
+
 
             }
 

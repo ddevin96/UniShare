@@ -141,7 +141,7 @@ public class ProfiloActivity extends Activity {
     }
     public void addProfilo(Utente utente) {
 
-        if (!TextUtils.isEmpty(utente.getNome())&&!TextUtils.isEmpty(utente.getCognome())&&!TextUtils.isEmpty(utente.getSesso())&&!TextUtils.isEmpty(utente.getEmail())&&!TextUtils.isEmpty(utente.getPassword())&&!TextUtils.isEmpty((CharSequence) utente.getDataDiNascita())) {
+        if (!TextUtils.isEmpty(utente.getNome())&&!TextUtils.isEmpty(utente.getCognome())&&!TextUtils.isEmpty(utente.getSesso())&&!TextUtils.isEmpty(utente.getEmail())&&!TextUtils.isEmpty(utente.getPassword())&&!TextUtils.isEmpty(utente.getDataDiNascita().toString())) {
             databesaProfilo.setValue(utente);
             Toast.makeText(this, "Il profilo è stato modificato", Toast.LENGTH_SHORT).show();
         } else

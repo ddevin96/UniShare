@@ -13,27 +13,32 @@
         <EditText
             android:id="@+id/editTextModificaNome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="modifica nome"/>
 
         <EditText
             android:id="@+id/editTextModificaCognome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="modifica cognome"/>
 
         <EditText
             android:id="@+id/editTextModificaEmail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="modifica email"/>
 
         <EditText
             android:id="@+id/editTextModificaPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="modifica email"/>
 
         <EditText
             android:id="@+id/editTextModificaSesso"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="modifica sesso"/>
 
         <DatePicker
             android:id="@+id/modificaData"

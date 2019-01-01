@@ -25,6 +25,7 @@ public class ProfiloActivity extends Activity {
     Button modificaProfila;
     Button cancellaProfilo;
     DatabaseReference databesaProfilo;
+    FirebaseAuth databaseId;
     Utente utente;
 
     @Override
@@ -42,7 +43,7 @@ public class ProfiloActivity extends Activity {
         modificaProfila= (Button) findViewById(R.id.modificaProfiloButton);
         cancellaProfilo= (Button) findViewById(R.id.cancellaProfiloButton);
 
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user= databaseId.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
 
 

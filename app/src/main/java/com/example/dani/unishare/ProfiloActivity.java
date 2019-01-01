@@ -80,32 +80,34 @@ public class ProfiloActivity extends Activity {
             @Override
             public void onClick(View v) {
                 modificaProfiloDialog();
+
             }
         });
 
-        private void modificaProfiloDialog(){
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            LayoutInflater inflater = getLayoutInflater();
-            final View dialogView= inflater.inflate(R.layout.modifica_profilo_dialog, null);
-            dialogBuilder.setView(dialogView);
 
-            final EditText editTextNome;
-            final EditText editTextCognome;
-            final EditText editTextEmail;
-            final EditText editTextPassword;
-            final DatePicker data;
-            final Button conferma;
+    }
+    private void modificaProfiloDialog(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView= inflater.inflate(R.layout.modifica_profilo_dialog, null);
+        dialogBuilder.setView(dialogView);
 
-            editTextNome= (EditText) dialogView.findViewById(R.id.editTextModificaNome);
-            editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
-            editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
-            editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
-            data = (DatePicker) dialogView.findViewById(R.id.modificaData);
-            conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
+        final EditText editTextNome;
+        final EditText editTextCognome;
+        final EditText editTextEmail;
+        final EditText editTextPassword;
+        final DatePicker data;
+        final Button conferma;
 
-            dialogBuilder.setTitle("Modifica profilo");
-            final AlertDialog alertDialog= dialogBuilder.create();
-            alertDialog.show();
-        }
+        editTextNome= (EditText) dialogView.findViewById(R.id.editTextModificaNome);
+        editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
+        editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
+        editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
+        data = (DatePicker) dialogView.findViewById(R.id.modificaData);
+        conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
+
+        dialogBuilder.setTitle("Modifica profilo");
+        final AlertDialog alertDialog= dialogBuilder.create();
+        alertDialog.show();
     }
 }

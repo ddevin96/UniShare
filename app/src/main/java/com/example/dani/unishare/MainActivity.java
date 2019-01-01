@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 
     Button signUpButton;
     Button loginButton;
+    Button profileButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class MainActivity extends Activity {
 
         signUpButton = (Button) this.findViewById(R.id.signUpButton);
         loginButton = (Button) this.findViewById(R.id.loginButton);
+        profileButton = (Button) this.findViewById(R.id.profileButton);
 
         listaBacheca = new ArrayList<>();
 
@@ -90,6 +92,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ProfiloActivity.class);
                 startActivity(intent);
             }
         });

@@ -87,8 +87,6 @@ public class ProfiloActivity extends Activity {
 
             }
         });
-
-
     }
     private void modificaProfiloDialog(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);

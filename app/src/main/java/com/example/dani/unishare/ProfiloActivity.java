@@ -50,13 +50,12 @@ public class ProfiloActivity extends Activity {
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    // utente = data.getValue(Utente.class);
-                    // textViewNome.setText(utente.getNome());
-                    utente = data.getValue(Utente.class);
-                    textViewNome.setText(utente.getNome());
-                }
+                String nome = dataSnapshot.child("nome").getValue(String.class);
+                String email = dataSnapshot.child("email").getValue(String.class);
+                String sesso = dataSnapshot.child("sesso").getValue(String.class);
+                textViewEmail.setText(email);
+                textViewNome.setText(nome);
+                textViewSesso.setText(sesso);
 
 
             }

@@ -131,6 +131,8 @@ public class ProfiloActivity extends Activity {
 
                 Date date = new Date(year,month,day);
                 String id = user.getUid();
+                user.updateEmail(email);
+                user.updatePassword(password);
                 Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
                 addProfilo(utente);
                 alertDialog.dismiss();
@@ -140,7 +142,7 @@ public class ProfiloActivity extends Activity {
     public void addProfilo(Utente utente) {
 
         if (!TextUtils.isEmpty(utente.getNome())&&!TextUtils.isEmpty(utente.getCognome())&&!TextUtils.isEmpty(utente.getSesso())&&!TextUtils.isEmpty(utente.getEmail())&&!TextUtils.isEmpty(utente.getPassword())&&!TextUtils.isEmpty((CharSequence) utente.getDataDiNascita())) {
-            databesaProfilo.child(utente.getId()).setValue(utente);
+            databesaProfilo.setValue(utente);
             Toast.makeText(this, "Il profilo è stato modificato", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(this, "La modifica non ha avuto successo", Toast.LENGTH_SHORT).show();

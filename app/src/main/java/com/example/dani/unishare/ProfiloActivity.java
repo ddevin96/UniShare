@@ -16,17 +16,20 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfiloActivity extends Activity {
 
+
+    TextView textViewNome;
+    TextView textViewCognome;
+    TextView textViewEmail;
+    TextView textViewSesso;
+    TextView textViewData;
+    Button modificaProfila;
+    Button cancellaProfilo;
+    DatabaseReference databesaProfilo;
+    Utente utente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        TextView textViewNome;
-        TextView textViewCognome;
-        TextView textViewEmail;
-        TextView textViewSesso;
-        TextView textViewData;
-        Button modificaProfila;
-        Button cancellaProfilo;
-        DatabaseReference databesaProfilo;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilo);
@@ -41,7 +44,6 @@ public class ProfiloActivity extends Activity {
 
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
-        final Utente utente = new Utente();
 
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

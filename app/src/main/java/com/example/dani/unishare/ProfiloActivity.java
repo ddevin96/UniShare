@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -96,6 +98,7 @@ public class ProfiloActivity extends Activity {
 
         final EditText editTextNome;
         final EditText editTextCognome;
+        final EditText editTextSesso;
         final EditText editTextEmail;
         final EditText editTextPassword;
         final DatePicker data;
@@ -104,6 +107,7 @@ public class ProfiloActivity extends Activity {
         editTextNome= (EditText) dialogView.findViewById(R.id.editTextModificaNome);
         editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
         editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
+        editTextSesso=  (EditText) dialogView.findViewById(R.id.editTextModificaSesso);
         editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
         data = (DatePicker) dialogView.findViewById(R.id.modificaData);
         conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
@@ -117,6 +121,7 @@ public class ProfiloActivity extends Activity {
             public void onClick(View v) {
                 String nome = editTextNome.getText().toString();
                 String cognome = editTextCognome.getText().toString();
+                String sesso = editTextSesso.getText().toString();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 int year = data.getYear();
@@ -124,12 +129,23 @@ public class ProfiloActivity extends Activity {
                 int day = data.getDayOfMonth();
 
 
-                Date data = new Date(year,month,day);
+                Date date = new Date(year,month,day);
                 String id = databesaProfilo.;
-                Utente utente = new Utente(id, title, description, author, data);
-                addBacheca(bacheca);
+                Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
+                addProfilo(utente);
                 alertDialog.dismiss();
             }
         });
+    }
+    public void addProfilo(Utente utente) {
+
+        if (!TextUtils.isEmpty(utente.getNome())&&!TextUtils.isEmpty(utente.getCognome())&&!TextUtils.isEmpty(utente.getSesso())&&!TextUtils.isEmpty(utente.getEmail())&&!TextUtils.isEmpty(utente.getPassword())&&!TextUtils.isEmpty((CharSequence) utente.getDataDiNascita())) {
+            databesaProfilo.child(utente.getId()).setValue(utente);
+            Toast.makeText(this, "Il profilo è stato modificato", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "La modifica non ha avuto successo", Toast.LENGTH_SHORT).show();
+
+
+
     }
 }

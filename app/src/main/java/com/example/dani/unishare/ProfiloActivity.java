@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 public class ProfiloActivity extends Activity {
 
 
@@ -109,5 +111,25 @@ public class ProfiloActivity extends Activity {
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();
+
+        conferma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nome = editTextNome.getText().toString();
+                String cognome = editTextCognome.getText().toString();
+                String email = editTextEmail.getText().toString();
+                String password = editTextPassword.getText().toString();
+                int year = data.getYear();
+                int month = data.getMonth();
+                int day = data.getDayOfMonth();
+
+
+                Date data = new Date(year,month,day);
+                String id = databesaProfilo.;
+                Utente utente = new Utente(id, title, description, author, data);
+                addBacheca(bacheca);
+                alertDialog.dismiss();
+            }
+        });
     }
 }

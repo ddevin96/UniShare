@@ -48,9 +48,11 @@ public class ProfiloActivity extends Activity {
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                DataSnapshot data= (DataSnapshot) dataSnapshot.getChildren();
-                utente = dataSnapshot.getChildren().getValue(Utente.class);
-                textViewNome.setText(utente.getNome());
+
+                for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    utente = data.getValue(Utente.class);
+                    textViewNome.setText(utente.getNome());
+                }
 
 
             }

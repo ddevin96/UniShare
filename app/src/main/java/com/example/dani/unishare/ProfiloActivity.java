@@ -26,7 +26,6 @@ public class ProfiloActivity extends Activity {
     Button cancellaProfilo;
     DatabaseReference databesaProfilo;
     FirebaseAuth databaseId;
-    Utente utente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +50,19 @@ public class ProfiloActivity extends Activity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String nome = dataSnapshot.child("nome").getValue(String.class);
+                String cognome = dataSnapshot.child("cognome").getValue(String.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
                 String sesso = dataSnapshot.child("sesso").getValue(String.class);
-                textViewEmail.setText(email);
+                String year = dataSnapshot.child("dataDiNascita").child("year").getValue(String.class);
+                String month = dataSnapshot.child("dataDiNascita").child("month").getValue(String.class);
+                String day = dataSnapshot.child("dataDiNascita").child("day").getValue(String.class);
+                String data= day + "/" + month + "/" + year;
                 textViewNome.setText(nome);
+                textViewCognome.setText(cognome);
+                textViewEmail.setText(email);
                 textViewSesso.setText(sesso);
+                textViewData.setText(data);
+
 
 
             }

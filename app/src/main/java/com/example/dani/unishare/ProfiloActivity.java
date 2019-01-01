@@ -45,13 +45,21 @@ public class ProfiloActivity extends Activity {
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
 
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                   // utente = data.getValue(Utente.class);
-                   // textViewNome.setText(utente.getNome());
+                    // utente = data.getValue(Utente.class);
+                    // textViewNome.setText(utente.getNome());
                     String nome = data.child("nome").getValue().toString();
                     textViewNome.setText(nome);
                 }
@@ -64,6 +72,5 @@ public class ProfiloActivity extends Activity {
 
             }
         });
-
     }
 }

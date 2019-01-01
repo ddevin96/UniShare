@@ -35,6 +35,7 @@ public class ProfiloActivity extends Activity {
     Button cancellaProfilo;
     DatabaseReference databesaProfilo;
     FirebaseAuth databaseId;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,8 @@ public class ProfiloActivity extends Activity {
         modificaProfila= (Button) findViewById(R.id.modificaProfiloButton);
         cancellaProfilo= (Button) findViewById(R.id.cancellaProfiloButton);
 
-        FirebaseUser user= databaseId.getInstance().getCurrentUser();
+        user= databaseId.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
-        textViewNome.setText(user.getUid());
 
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -130,7 +130,7 @@ public class ProfiloActivity extends Activity {
 
 
                 Date date = new Date(year,month,day);
-                String id= databesaProfilo.child(use.getUid()).toString();
+                String id = user.getUid();
                 Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
                 addProfilo(utente);
                 alertDialog.dismiss();

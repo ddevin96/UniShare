@@ -1,9 +1,14 @@
 package com.example.dani.unishare;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,9 +68,6 @@ public class ProfiloActivity extends Activity {
                 textViewEmail.setText(email);
                 textViewSesso.setText(sesso);
                 textViewData.setText(data);
-
-
-
             }
 
             @Override
@@ -73,5 +75,37 @@ public class ProfiloActivity extends Activity {
 
             }
         });
+
+        modificaProfila.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modificaProfiloDialog();
+            }
+        });
+
+        private void modificaProfiloDialog(){
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialogView= inflater.inflate(R.layout.modifica_profilo_dialog, null);
+            dialogBuilder.setView(dialogView);
+
+            final EditText editTextNome;
+            final EditText editTextCognome;
+            final EditText editTextEmail;
+            final EditText editTextPassword;
+            final DatePicker data;
+            final Button conferma;
+
+            editTextNome= (EditText) dialogView.findViewById(R.id.editTextModificaNome);
+            editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
+            editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
+            editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
+            data = (DatePicker) dialogView.findViewById(R.id.modificaData);
+            conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
+
+            dialogBuilder.setTitle("Modifica profilo");
+            final AlertDialog alertDialog= dialogBuilder.create();
+            alertDialog.show();
+        }
     }
 }

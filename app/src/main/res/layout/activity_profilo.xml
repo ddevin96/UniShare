@@ -32,5 +32,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/modificaProfiloButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifica Profilo"/>
+
+
+    <Button
+        android:id="@+id/cancellaProfiloButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancella Profilo"/>
+
 
 </LinearLayout>

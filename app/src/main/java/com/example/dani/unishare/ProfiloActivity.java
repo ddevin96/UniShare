@@ -31,6 +31,7 @@ public class ProfiloActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilo);
 
@@ -53,9 +54,9 @@ public class ProfiloActivity extends Activity {
                 String cognome = dataSnapshot.child("cognome").getValue(String.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
                 String sesso = dataSnapshot.child("sesso").getValue(String.class);
-                String year = dataSnapshot.child("dataDiNascita").child("year").getValue(String.class);
-                String month = dataSnapshot.child("dataDiNascita").child("month").getValue(String.class);
-                String day = dataSnapshot.child("dataDiNascita").child("day").getValue(String.class);
+                Long year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
+                Long month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
+                Long day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
                 String data= day + "/" + month + "/" + year;
                 textViewNome.setText(nome);
                 textViewCognome.setText(cognome);

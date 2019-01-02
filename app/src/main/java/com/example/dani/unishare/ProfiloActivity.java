@@ -37,6 +37,7 @@ public class ProfiloActivity extends Activity {
     FirebaseAuth databaseId;
     FirebaseUser user;
     String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit;
+    Long year, month, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +64,9 @@ public class ProfiloActivity extends Activity {
                 emailEdit = dataSnapshot.child("email").getValue(String.class);
                 sessoEdit = dataSnapshot.child("sesso").getValue(String.class);
                 passwordEdit = dataSnapshot.child("password").getValue(String.class);
-                Long year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
-                Long month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
-                Long day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
+                year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
+                month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
+                day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
                 String data= day + "/" + month + "/" + year;
                 textViewNome.setText(nomeEdit);
                 textViewCognome.setText(cognomeEdit);
@@ -121,6 +122,10 @@ public class ProfiloActivity extends Activity {
         editTextEmail.setText(emailEdit);
         editTextSesso.setText(sessoEdit);
         editTextPassword.setText(passwordEdit);
+        int yearUpdate = year.intValue();
+        int monthUpdate = month.intValue();
+        int dayUpdate = day.intValue();
+        data.updateDate(yearUpdate,monthUpdate,dayUpdate);
 
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();

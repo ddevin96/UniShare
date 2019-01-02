@@ -1,11 +1,14 @@
 package com.example.dani.unishare;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -62,6 +65,15 @@ public class CommentiActivity extends Activity {
                 addCommento();
             }
         });
+
+        listViewCommenti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Commento commento= lista.get(position);
+                modificaCommentoDialog(commento);
+
+            }
+        });
     }
 
     @Override
@@ -79,6 +91,7 @@ public class CommentiActivity extends Activity {
                 CommentiList adapter = new CommentiList(CommentiActivity.this, lista);
                 listViewCommenti.setAdapter(adapter);
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -100,5 +113,60 @@ public class CommentiActivity extends Activity {
             Toast.makeText(this, "Commento Inserito", Toast.LENGTH_SHORT).show();
         } else
             Toast.makeText(this, "Inserisci descrizione", Toast.LENGTH_SHORT).show();
+    }
+
+    private  void modificaCommentoDialog(Commento commento){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView= inflater.inflate(R.layout.modifica_commento_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextDescriptionCommento;
+        final Button modificaCommentoButton;
+        final Button cancellaCommentoButton;
+
+        editTextDescriptionCommento = (EditText) dialogView.findViewById(R.id.editTextDescriptionCommento);
+        modificaCommentoButton = (Button) dialogView.findViewById(R.id.modificaCommentoButton);
+        cancellaCommentoButton = (Button) dialogView.findViewById(R.id.cancellaCommentoButton);
+        editTextDescriptionCommento.setText(commento.getDescription());
+        final String id = commento.getId();
+
+        dialogBuilder.setTitle("Modifica Commento");
+        final AlertDialog alertDialog= dialogBuilder.create();
+        alertDialog.show();
+
+        modificaCommentoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String description = editTextDescriptionCommento.getText().toString();
+                Date date = new Date();
+                Commento commentoUpdate = new Commento(id,description, cUser.getDisplayName(), cUser.getUid(), date);
+                modificaCommento(commentoUpdate);
+                alertDialog.dismiss();
+            }
+        });
+
+        cancellaCommentoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancellaCommento(id);
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+    private void modificaCommento(Commento commento) {
+        if (!TextUtils.isEmpty(commento.getDescription())) {
+            databaseCommenti.child(commento.getId()).setValue(commento);
+            Toast.makeText(this, "Commento Modificato", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Inserisci descrizione", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void cancellaCommento(String id){
+        databaseCommenti.child(id).removeValue();
+        Toast.makeText(getApplicationContext(), "Commento Eliminato", Toast.LENGTH_SHORT).show();
     }
 }

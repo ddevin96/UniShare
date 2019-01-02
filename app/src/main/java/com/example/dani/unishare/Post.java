@@ -9,6 +9,7 @@ public class Post {
     private String title;
     private String description;
     private String author;
+    private String authorId;
     private Date date;
 
 
@@ -16,11 +17,12 @@ public class Post {
 
     }
 
-    public Post(String id, String title, String description, String author, Date date) {
+    public Post(String id, String title, String description, String author,String authorId, Date date) {
         this.id = id;
         this.title=title;
         this.description = description;
         this.author = author;
+        this.author = authorId;
         this.date = date;
 
     }
@@ -41,7 +43,6 @@ public class Post {
         return date;
     }
 
-
     public void setId(String id) {
         this.id = id;
     }
@@ -58,13 +59,19 @@ public class Post {
         this.date = date;
     }
 
-
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 }

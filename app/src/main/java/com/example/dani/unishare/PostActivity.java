@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +42,8 @@ public class PostActivity extends Activity {
     List<Post> listaPost;
     EditText editTextTitle;
     EditText editTextDescription;
+    FirebaseAuth databaseId;
+    FirebaseUser mUser;
 
 
     @Override
@@ -53,6 +57,8 @@ public class PostActivity extends Activity {
         listViewPost = (ListView) this.findViewById(R.id.listViewPost);
         addPost = (Button) this.findViewById(R.id.addPost);
         listaPost = new ArrayList<>();
+
+        mUser = databaseId.getInstance().getCurrentUser();
 
         Intent intent = getIntent();
         String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
@@ -129,10 +135,11 @@ public class PostActivity extends Activity {
             public void onClick(View v) {
                 String title = editTextTitle.getText().toString();
                 String description = editTextDescription.getText().toString();
-                String author = "";
                 Date data = new Date();
+                String author = mUser.getDisplayName();
+                String idAuthor = mUser.getUid();
                 String id = databasePost.push().getKey();
-                Post post= new Post(id, title, description, author, data);
+                Post post= new Post(id, title, description, author, idAuthor, data);
                 addPost(post);
                 alertDialog.dismiss();
             }

@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -87,6 +88,8 @@ public class RegistrazioneActivity extends Activity {
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
+                    UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
+                    user.updateProfile(profileUpdate);
                     Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
                     databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));

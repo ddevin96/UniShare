@@ -36,6 +36,7 @@ public class ProfiloActivity extends Activity {
     DatabaseReference databesaProfilo;
     FirebaseAuth databaseId;
     FirebaseUser user;
+    String nomeEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class ProfiloActivity extends Activity {
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String nome = dataSnapshot.child("nome").getValue(String.class);
+                nomeEdit = dataSnapshot.child("nome").getValue(String.class);
                 String cognome = dataSnapshot.child("cognome").getValue(String.class);
                 String email = dataSnapshot.child("email").getValue(String.class);
                 String sesso = dataSnapshot.child("sesso").getValue(String.class);
@@ -65,7 +66,7 @@ public class ProfiloActivity extends Activity {
                 Long month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
                 Long day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
                 String data= day + "/" + month + "/" + year;
-                textViewNome.setText(nome);
+                textViewNome.setText(nomeEdit);
                 textViewCognome.setText(cognome);
                 textViewEmail.setText(email);
                 textViewSesso.setText(sesso);
@@ -114,6 +115,7 @@ public class ProfiloActivity extends Activity {
         editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
         data = (DatePicker) dialogView.findViewById(R.id.modificaData);
         conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
+        editTextNome.setText(nomeEdit);
 
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();

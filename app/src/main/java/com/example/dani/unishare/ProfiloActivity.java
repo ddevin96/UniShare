@@ -117,6 +117,7 @@ public class ProfiloActivity extends Activity {
         final DatePicker data;
         final Button conferma;
 
+
         editTextNome= (EditText) dialogView.findViewById(R.id.editTextModificaNome);
         editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
         editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);

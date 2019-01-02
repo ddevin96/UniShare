@@ -12,6 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,8 @@ public class CommentiActivity extends Activity {
     Button addCommentButton;
     ListView listViewCommenti;
     DatabaseReference databaseCommenti;
+    FirebaseAuth databaseId;
+    FirebaseUser cUser;
     List<Commento> lista;
 
     @Override
@@ -40,6 +44,8 @@ public class CommentiActivity extends Activity {
         editTextCommentDescription = (EditText) findViewById(R.id.editTextCommentDescription);
         addCommentButton = (Button) findViewById(R.id.addCommentButton);
         listViewCommenti = (ListView) findViewById(R.id.listViewCommenti);
+
+        cUser = databaseId.getInstance().getCurrentUser();
 
         Intent intent = getIntent();
 
@@ -83,12 +89,13 @@ public class CommentiActivity extends Activity {
 
     private void addCommento() {
         String description = editTextCommentDescription.getText().toString();
-        String author = "Daniele";
+        String author = cUser.getDisplayName();
+        String idAuthor = cUser.getUid();
         Date date = new Date();
 
         if (!TextUtils.isEmpty(description)) {
             String id = databaseCommenti.push().getKey();
-            Commento comment = new Commento(id, description, author, date);
+            Commento comment = new Commento(id, description, author, idAuthor, date);
             databaseCommenti.child(id).setValue(comment);
             Toast.makeText(this, "Commento Inserito", Toast.LENGTH_SHORT).show();
         } else

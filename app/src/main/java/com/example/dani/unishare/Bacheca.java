@@ -6,8 +6,8 @@ public class Bacheca {
     private String id;
     private String title;
     private String description;
-    private String author;
-    //private String idAuthor;
+    private String author; //tipo utente???
+    // array di post
     private Date date;
 
     public Bacheca() {
@@ -19,7 +19,6 @@ public class Bacheca {
         this.title = title;
         this.description = description;
         this.author = author;
-        //this.idAuthor = idAuthor;
         this.date = data;
     }
 
@@ -62,5 +61,4 @@ public class Bacheca {
     public void setData(Date data) {
         this.date = data;
     }
-
 }

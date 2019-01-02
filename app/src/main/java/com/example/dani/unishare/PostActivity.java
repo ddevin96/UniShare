@@ -149,6 +149,7 @@ public class PostActivity extends Activity {
                 Date date = new Date();
                 Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date);
                 modificaPost(postUpdate);
+                alertDialog.dismiss();
             }
         });
     }

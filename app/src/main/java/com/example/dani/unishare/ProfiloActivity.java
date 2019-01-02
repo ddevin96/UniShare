@@ -36,7 +36,7 @@ public class ProfiloActivity extends Activity {
     DatabaseReference databesaProfilo;
     FirebaseAuth databaseId;
     FirebaseUser user;
-    String nomeEdit;
+    String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,17 +59,18 @@ public class ProfiloActivity extends Activity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 nomeEdit = dataSnapshot.child("nome").getValue(String.class);
-                String cognome = dataSnapshot.child("cognome").getValue(String.class);
-                String email = dataSnapshot.child("email").getValue(String.class);
-                String sesso = dataSnapshot.child("sesso").getValue(String.class);
+                cognomeEdit = dataSnapshot.child("cognome").getValue(String.class);
+                emailEdit = dataSnapshot.child("email").getValue(String.class);
+                sessoEdit = dataSnapshot.child("sesso").getValue(String.class);
+                passwordEdit = dataSnapshot.child("password").getValue(String.class);
                 Long year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
                 Long month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
                 Long day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
                 String data= day + "/" + month + "/" + year;
                 textViewNome.setText(nomeEdit);
-                textViewCognome.setText(cognome);
-                textViewEmail.setText(email);
-                textViewSesso.setText(sesso);
+                textViewCognome.setText(cognomeEdit);
+                textViewEmail.setText(emailEdit);
+                textViewSesso.setText(sessoEdit);
                 textViewData.setText(data);
             }
 
@@ -116,6 +117,10 @@ public class ProfiloActivity extends Activity {
         data = (DatePicker) dialogView.findViewById(R.id.modificaData);
         conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
         editTextNome.setText(nomeEdit);
+        editTextCognome.setText(cognomeEdit);
+        editTextEmail.setText(emailEdit);
+        editTextSesso.setText(sessoEdit);
+        editTextPassword.setText(passwordEdit);
 
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();

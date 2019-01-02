@@ -157,6 +157,7 @@ public class PostActivity extends Activity {
             @Override
             public void onClick(View v) {
                 deletePost(id);
+                alertDialog.dismiss();
             }
         });
     }
@@ -219,6 +220,8 @@ public class PostActivity extends Activity {
 
     private void deletePost(String id) {
         databasePost.child(id).removeValue();
+        DatabaseReference postCommenti = FirebaseDatabase.getInstance().getReference("commento").child(id);
+        postCommenti.removeValue();
         Toast.makeText(getApplicationContext(), "Post Eliminato", Toast.LENGTH_SHORT).show();
     }
 }

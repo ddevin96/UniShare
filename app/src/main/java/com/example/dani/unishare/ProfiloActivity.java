@@ -2,6 +2,7 @@ package com.example.dani.unishare;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -25,7 +26,6 @@ import java.util.Date;
 
 public class ProfiloActivity extends Activity {
 
-
     TextView textViewNome;
     TextView textViewCognome;
     TextView textViewEmail;
@@ -40,8 +40,6 @@ public class ProfiloActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profilo);
 
@@ -53,7 +51,7 @@ public class ProfiloActivity extends Activity {
         modificaProfila= (Button) findViewById(R.id.modificaProfiloButton);
         cancellaProfilo= (Button) findViewById(R.id.cancellaProfiloButton);
 
-        user= databaseId.getInstance().getCurrentUser();
+        user = databaseId.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
 
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -85,6 +83,13 @@ public class ProfiloActivity extends Activity {
             public void onClick(View v) {
                 modificaProfiloDialog();
 
+            }
+        });
+
+        cancellaProfilo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteProfilo();
             }
         });
     }
@@ -137,6 +142,7 @@ public class ProfiloActivity extends Activity {
             }
         });
     }
+
     public void addProfilo(Utente utente) {
 
         if (!TextUtils.isEmpty(utente.getNome())&&!TextUtils.isEmpty(utente.getCognome())&&!TextUtils.isEmpty(utente.getSesso())&&!TextUtils.isEmpty(utente.getEmail())&&!TextUtils.isEmpty(utente.getPassword())&&!TextUtils.isEmpty(utente.getDataDiNascita().toString())) {
@@ -145,7 +151,13 @@ public class ProfiloActivity extends Activity {
         } else
             Toast.makeText(this, "La modifica non ha avuto successo", Toast.LENGTH_SHORT).show();
 
+    }
 
-
+    private void deleteProfilo() {
+        FirebaseAuth.getInstance().signOut();
+        user.delete();
+        databesaProfilo.removeValue();
+        Toast.makeText(this,"Il profilo è stato cancellato" , Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }

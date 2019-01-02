@@ -12,16 +12,19 @@
     <EditText
         android:id="@+id/InserisciEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="inserisci email"/>
 
     <EditText
         android:id="@+id/InserisciPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="inserisci password"/>
 
     <Button
         android:id="@+id/Accedi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Login"/>
 
 </LinearLayout>

@@ -22,7 +22,7 @@ public class Post {
         this.title=title;
         this.description = description;
         this.author = author;
-        this.author = authorId;
+        this.authorId = authorId;
         this.date = date;
 
     }

@@ -168,7 +168,7 @@ public class PostActivity extends Activity {
         editTextTitle = (EditText) dialogView.findViewById(R.id.titlePost);
         editTextDescription = (EditText) dialogView.findViewById(R.id.descrizionePost);
         pubblica = (Button) dialogView.findViewById(R.id.addPostButton);
-
+        //titolo dialog
         dialogBuilder.setTitle("post");
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();

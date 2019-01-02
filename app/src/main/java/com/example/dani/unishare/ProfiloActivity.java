@@ -56,6 +56,26 @@ public class ProfiloActivity extends Activity {
         user = databaseId.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
 
+
+        modificaProfila.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modificaProfiloDialog();
+
+            }
+        });
+
+        cancellaProfilo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteProfilo();
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -80,22 +100,8 @@ public class ProfiloActivity extends Activity {
 
             }
         });
-
-        modificaProfila.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modificaProfiloDialog();
-
-            }
-        });
-
-        cancellaProfilo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteProfilo();
-            }
-        });
     }
+
     private void modificaProfiloDialog(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -151,6 +157,9 @@ public class ProfiloActivity extends Activity {
                 Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
                 addProfilo(utente);
                 alertDialog.dismiss();
+
+                finish();
+                startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
             }
         });
     }

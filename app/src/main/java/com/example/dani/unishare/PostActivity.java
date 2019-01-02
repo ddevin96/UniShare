@@ -152,6 +152,13 @@ public class PostActivity extends Activity {
                 alertDialog.dismiss();
             }
         });
+
+        cancellaPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePost(id);
+            }
+        });
     }
 
     @SuppressLint("WrongViewCast")
@@ -208,6 +215,11 @@ public class PostActivity extends Activity {
         else {
             Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void deletePost(String id) {
+        databasePost.child(id).removeValue();
+        Toast.makeText(getApplicationContext(), "Post Eliminato", Toast.LENGTH_SHORT).show();
     }
 }
 

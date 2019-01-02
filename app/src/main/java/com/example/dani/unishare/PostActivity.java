@@ -185,6 +185,7 @@ public class PostActivity extends Activity {
                 Post post= new Post(id, title, description, author, idAuthor, data);
                 addPost(post);
                 alertDialog.dismiss();
+
             }
         });
     }

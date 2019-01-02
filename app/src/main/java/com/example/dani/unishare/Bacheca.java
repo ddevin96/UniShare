@@ -7,19 +7,19 @@ public class Bacheca {
     private String title;
     private String description;
     private String author;
-    private String idAuthor;
+    //private String idAuthor;
     private Date date;
 
     public Bacheca() {
 
     }
 
-    public Bacheca(String id, String title, String description, String author,String idAuthor, Date data) {
+    public Bacheca(String id, String title, String description, String author, Date data) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.author = author;
-        this.idAuthor = idAuthor;
+        //this.idAuthor = idAuthor;
         this.date = data;
     }
 
@@ -63,11 +63,4 @@ public class Bacheca {
         this.date = data;
     }
 
-    public String getIdAuthor() {
-        return idAuthor;
-    }
-
-    public void setIdAuthor(String idAuthor) {
-        this.idAuthor = idAuthor;
-    }
 }

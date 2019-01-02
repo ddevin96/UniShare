@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,7 +56,6 @@ public class MainActivity extends Activity {
         editTextAuthor = (EditText) this.findViewById(R.id.editTextAuthor);
         listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
         addButton = (Button) this.findViewById(R.id.addBachecaButton);
-
 
         signUpButton = (Button) this.findViewById(R.id.signUpButton);
         loginButton = (Button) this.findViewById(R.id.loginButton);

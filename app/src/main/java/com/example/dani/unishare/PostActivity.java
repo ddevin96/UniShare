@@ -85,6 +85,15 @@ public class PostActivity extends Activity {
             }
         });
 
+        listViewPost.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Post post = listaPost.get(position);
+                modificaPostDialog(post);
+                return true;
+            }
+        });
+
     }
 
     protected void onStart() {
@@ -109,6 +118,41 @@ public class PostActivity extends Activity {
         });
     }
 
+    private void modificaPostDialog(Post post) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View dialogView= inflater.inflate(R.layout.modifica_post_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextTitlePost;
+        final EditText editTextDescriptionPost;
+        final Button modificaPostButton;
+        final Button cancellaPostButton;
+
+        editTextTitlePost = (EditText) dialogView.findViewById(R.id.editTextTitlePost);
+        editTextDescriptionPost = (EditText) dialogView.findViewById(R.id.editTextDescriptionPost);
+        modificaPostButton = (Button) dialogView.findViewById(R.id.modificaPostButton);
+        cancellaPostButton = (Button) dialogView.findViewById(R.id.cancellaPostButton);
+        editTextTitlePost.setText(post.getTitle());
+        editTextDescriptionPost.setText(post.getDescription());
+        final String id = post.getId();
+
+        dialogBuilder.setTitle("Modifica Post");
+        final AlertDialog alertDialog= dialogBuilder.create();
+        alertDialog.show();
+
+        modificaPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = editTextTitlePost.getText().toString();
+                String description = editTextDescriptionPost.getText().toString();
+                Date date = new Date();
+                Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date);
+                modificaPost(postUpdate);
+            }
+        });
+    }
+
     @SuppressLint("WrongViewCast")
     private void showCreateDialog(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -128,8 +172,6 @@ public class PostActivity extends Activity {
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();
 
-
-
         pubblica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +186,6 @@ public class PostActivity extends Activity {
                 alertDialog.dismiss();
             }
         });
-
     }
 
     public void addPost(Post post) {
@@ -155,8 +196,16 @@ public class PostActivity extends Activity {
         else {
             Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
         }
+    }
 
-
+    private void modificaPost(Post post) {
+        if (!TextUtils.isEmpty(post.getTitle())&&!TextUtils.isEmpty(post.getDescription())) {
+            databasePost.child(post.getId()).setValue(post);
+            Toast.makeText(this, "Post Modificato", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

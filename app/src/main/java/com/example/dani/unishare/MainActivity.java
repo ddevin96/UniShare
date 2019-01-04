@@ -189,14 +189,8 @@ public class MainActivity extends Activity {
 
     public void addBacheca(Bacheca bacheca) {
 
-        if (!TextUtils.isEmpty(bacheca.getTitle())&&!TextUtils.isEmpty(bacheca.getDescription())) {
-            databaseBacheca.child(bacheca.getId()).setValue(bacheca);
-            Toast.makeText(this, "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
-        } else
-            Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
-
-
-
+        databaseBacheca.child(bacheca.getId()).setValue(bacheca);
+        Toast.makeText(this, "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
     }
 
     private boolean confrontaBacheche(String titolo) {

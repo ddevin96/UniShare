@@ -157,6 +157,17 @@ public class MainActivity extends Activity {
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
+        if(TextUtils.isEmpty(editTextTitle.getText())||editTextTitle.getText().length()>20 || confrontaBacheche(editTextTitle.getText().toString())){
+            editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 20 caratteri.\n Non possono esistere due Bacheche di uno stesso paese.");
+            editTextTitle.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(editTextDescription.getText()) || editTextDescription.getText().length()>200){
+            editTextDescription.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 200 caratteri.");
+            editTextDescription.requestFocus();
+            return;
+        }
+
         addBachecaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,5 +194,19 @@ public class MainActivity extends Activity {
 
 
 
+    }
+
+    private boolean confrontaBacheche(String titolo) {
+            boolean value= true;
+        for (Bacheca bacheca : listaBacheca) {
+            if (bacheca.getTitle().equals(titolo)) {
+                value=true;
+            }
+            else {
+                value=false;
+            }
+        }
+
+        return value;
     }
 }

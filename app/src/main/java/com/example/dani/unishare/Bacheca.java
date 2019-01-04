@@ -6,19 +6,20 @@ public class Bacheca {
     private String id;
     private String title;
     private String description;
-    private String author; //tipo utente???
-    // array di post
+    private String author;
+    private String authorId;
     private Date date;
 
     public Bacheca() {
 
     }
 
-    public Bacheca(String id, String title, String description, String author, Date data) {
+    public Bacheca(String id, String title, String description, String author, String authorId, Date data) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.author = author;
+        this.authorId= authorId;
         this.date = data;
     }
 
@@ -60,5 +61,21 @@ public class Bacheca {
 
     public void setData(Date data) {
         this.date = data;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -2,8 +2,6 @@ package com.example.dani.unishare;
 
 import java.util.Date;
 
-//classe bacheca
-
 public class Bacheca {
     private String id;
     private String title;

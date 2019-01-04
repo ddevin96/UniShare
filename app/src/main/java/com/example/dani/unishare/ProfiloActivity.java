@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProfiloActivity extends Activity {
 
@@ -149,6 +151,9 @@ public class ProfiloActivity extends Activity {
                 int year = data.getYear();
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+
                 String sesso;
                 //radiobutton
                 if (radioButtonUomo.isSelected())
@@ -163,11 +168,11 @@ public class ProfiloActivity extends Activity {
                 else if(TextUtils.isEmpty(cognome)&& cognome.length()>20){
                     editTextCognome.setError("il campo Cognome non può essere vuoto./n Deve avere al massimo 20 caratteri.");
                 }
-                else if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20){
-                    editTextPassword.setError("il campo password non può essere vuoto./n Deve essere composto di almeno 8 caratteri e massimo 20./n");
+                else if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20 && !isValidPassword(password)){
+                    editTextPassword.setError("il campo password non può essere vuoto./n Deve essere composto di almeno 8 caratteri e massimo 20./nLa password deve rispettare il formato.");
                 }
-                else if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63){
-                    editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri.");
+                else if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63 && !email.matches(emailPattern)){
+                    editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri./n L'e-mail deve rispettare il formato.");
                 }
                 else {
                     Date date = new Date(year, month, day);
@@ -196,5 +201,17 @@ public class ProfiloActivity extends Activity {
         databesaProfilo.removeValue();
         Toast.makeText(this,"Il profilo è stato cancellato" , Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
+    public static boolean isValidPassword(String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
     }
 }

@@ -83,17 +83,24 @@ public class RegistrazioneActivity extends Activity {
         else
             sesso = "M";
 
-        if (TextUtils.isEmpty(nome)&&nome.length()>20)
+        boolean valida = true;
+
+        if (TextUtils.isEmpty(nome)&&nome.length()>20) {
             editTextRegNome.setError("Il nome non può essere vuoto\nMax 20 caratteri");
-        else if (TextUtils.isEmpty(cognome)&&cognome.length()>20)
+            valida = false;
+        } else if (TextUtils.isEmpty(cognome)&&cognome.length()>20) {
             editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
-        else if (TextUtils.isEmpty(email)&&email.length()>63)
+            valida = false;
+        } else if (TextUtils.isEmpty(email)&&email.length()>63) {
             editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
-        else if (TextUtils.isEmpty(password)&&password.length()<8&&password.length()>23)
+            valida = false;
+        } else if (TextUtils.isEmpty(password)&&password.length()<8&&password.length()>23) {
             editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
-        else if (TextUtils.isEmpty(ripPassword)&&ripPassword.equals(password))
+            valida = false;
+        } else if (TextUtils.isEmpty(ripPassword)&&ripPassword.equals(password)) {
             editTextRegRipetiPassword.setError("Le password non coincidono");
-        else {
+            valida = false;
+        }else if (valida){
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

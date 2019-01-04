@@ -150,6 +150,7 @@ public class ProfiloActivity extends Activity {
                 int year = data.getYear();
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
                 if(TextUtils.isEmpty(nome) && nome.length()>20){
                     editTextNome.setError("Il campo Nome non può essere vuoto./n Deve avere al massimo 20 caratteri");
@@ -160,8 +161,8 @@ public class ProfiloActivity extends Activity {
                 else if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20){
                     editTextPassword.setError("il campo password non può essere vuoto./n Deve essere composto di almeno 8 caratteri e massimo 20./n");
                 }
-                else if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63){
-                    editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri.");
+                else if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63 &&!email.matches(emailPattern)){
+                    editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri./n l' e-mail deve rispettare il formato.");
                 }
                 else {
                     Date date = new Date(year, month, day);

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -83,26 +85,39 @@ public class RegistrazioneActivity extends Activity {
         else
             sesso = "M";
 
-        boolean valida = true;
-
-        if (TextUtils.isEmpty(nome)&&nome.length()>20) {
-            editTextRegNome.setError("Il nome non può essere vuoto\nMax 20 caratteri");
-            valida = false;
-        } else if (TextUtils.isEmpty(cognome)&&cognome.length()>20) {
-            editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
-            valida = false;
-        } else if (TextUtils.isEmpty(email)&&email.length()>63) {
-            editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
-            valida = false;
-        } else if (TextUtils.isEmpty(password)&&password.length()<8&&password.length()>23) {
-            editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
-            valida = false;
-        } else if (TextUtils.isEmpty(ripPassword)&&ripPassword.equals(password)) {
-            editTextRegRipetiPassword.setError("Le password non coincidono");
-            valida = false;
+        if(nome.isEmpty()||nome.length()>20) {
+            editTextRegNome.setError("Il nome non può essere vuoto\nMax20Caratteri");
+            editTextRegNome.requestFocus();
+            return;
         }
 
-        if (valida){
+        if(TextUtils.isEmpty(cognome)||cognome.length()>20) {
+            editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
+            editTextRegCognome.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(email)||email.length()>63) {
+            editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
+            editTextRegEmail.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)||password.length()<8||password.length()>23) {
+            editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
+            editTextRegPassword.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(ripPassword)||!ripPassword.equals(password)) {
+            editTextRegRipetiPassword.setError("Le password non coincidono");
+            editTextRegRipetiPassword.requestFocus();
+            return;
+        }
+
+
+
+
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -119,9 +134,6 @@ public class RegistrazioneActivity extends Activity {
                     }
                 }
             });
-        } else {
-            Toast.makeText(getApplicationContext(), "Inserisci tutti i campi", Toast.LENGTH_SHORT).show();
-        }
     }
 }
 

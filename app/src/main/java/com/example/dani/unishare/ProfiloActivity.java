@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +44,11 @@ public class ProfiloActivity extends Activity {
     FirebaseUser user;
     String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit;
     Long year, month, day;
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    EditText editTextNome;
+    EditText editTextCognome;
+    EditText editTextEmail;
+    EditText editTextPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,17 +112,14 @@ public class ProfiloActivity extends Activity {
             }
         });
     }
-    //ciao
+
     private void modificaProfiloDialog(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView= inflater.inflate(R.layout.modifica_profilo_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText editTextNome;
-        final EditText editTextCognome;
-        final EditText editTextEmail;
-        final EditText editTextPassword;
+
         final DatePicker data;
         final Button conferma;
         final RadioButton radioButtonUomo;
@@ -141,6 +145,7 @@ public class ProfiloActivity extends Activity {
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();
 
+
         conferma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,9 +156,6 @@ public class ProfiloActivity extends Activity {
                 int year = data.getYear();
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                boolean valid=true;
-
 
                 String sesso;
                 //radiobutton
@@ -162,57 +164,40 @@ public class ProfiloActivity extends Activity {
                 else
                     sesso = "F";
 
-
-                if(TextUtils.isEmpty(nome) && nome.length()>20){
-                    editTextNome.setError("Il campo Nome non può essere vuoto./n Deve avere al massimo 20 caratteri");
-                    valid=false;
+                if(TextUtils.isEmpty(editTextNome.getText()) || editTextNome.getText().length()>20){
+                    editTextNome.setError("Il campo Nome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
+                    editTextNome.requestFocus();
+                    return;
                 }
-                else{
-                    valid=true;
+                if(TextUtils.isEmpty(editTextCognome.getText()) || editTextCognome.getText().length()>20){
+                    editTextCognome.setError("Il campo Cognome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
+                    editTextCognome.requestFocus();
+                    return;
                 }
-                if(TextUtils.isEmpty(cognome)&& cognome.length()>20){
-                    editTextCognome.setError("il campo Cognome non può essere vuoto./n Deve avere al massimo 20 caratteri.");
-                    valid=false;
+                if(TextUtils.isEmpty(editTextEmail.getText()) || editTextEmail.getText().length()<3 || editTextEmail.getText().length()>63 || !editTextEmail.getText().toString().matches(emailPattern)){
+                    editTextEmail.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
+                    editTextEmail.requestFocus();
+                    return;
                 }
-                else{
-                    valid=true;
+                if(TextUtils.isEmpty(editTextPassword.getText()) || editTextPassword.getText().length()<8 || editTextPassword.getText().length()>20 || !isValidPassword(editTextPassword.getText().toString())){
+                    editTextPassword.setError("Il campo password non può essere vuoto. \n Deve essere compposto dal almeno 8 caratteri e massimo 20. \n La password deve rispettare il formato.");
+                    editTextPassword.requestFocus();
+                    return;
                 }
-                if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20 && !isValidPassword(password)){
-                    editTextPassword.setError("il campo password non può essere vuoto./n Deve essere composto di almeno 8 caratteri e massimo 20./nLa password deve rispettare il formato.");
-                    valid=false;
-                }
-                else{
-                    valid=true;
-                }
-                if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63 && !email.matches(emailPattern)){
-                    editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri./n L'e-mail deve rispettare il formato.");
-                    valid= false;
-                }
-                else{
-                    valid=true;
-                }
-                if(valid){
                     Date date = new Date(year, month, day);
                     String id = user.getUid();
                     user.updateEmail(email);
                     user.updatePassword(password);
                     Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
-                    addProfilo(utente);
+                    databesaProfilo.setValue(utente);
+                    Toast.makeText(getApplicationContext(), "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
 
                     finish();
                     startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "I campi sono tutti obbligatori, inserire i dati richiesti.", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
-    }
-
-    public void addProfilo(Utente utente) {
-        Toast.makeText(this, "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
-
     }
 
     private void deleteProfilo() {
@@ -223,15 +208,16 @@ public class ProfiloActivity extends Activity {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
-    public static boolean isValidPassword(String password) {
+    private static boolean isValidPassword(String password) {
 
         Pattern pattern;
         Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
 
         return matcher.matches();
 
     }
+
 }

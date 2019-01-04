@@ -207,13 +207,12 @@ public class MainActivity extends Activity {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.add_bacheca_dialog,null);
+        final View dialogView = inflater.inflate(R.layout.modifica_bacheca_dialog,null);
             dialogBuilder.setView(dialogView);
 
-        final EditText editTextTitleModifica = (EditText) dialogView.findViewById(R.id.editTextTitle);
-        final EditText editTextDescriptionModifica = (EditText) dialogView.findViewById(R.id.editTextDescription);
-        final EditText editTextAuthorModifica = (EditText) dialogView.findViewById(R.id.editTextAuthor);
-        final Button modificaBachecaButton = (Button) dialogView.findViewById(R.id.addButton);
+        final EditText editTextTitleModifica = (EditText) dialogView.findViewById(R.id.editTextTitoloBacheca);
+        final EditText editTextDescriptionModifica = (EditText) dialogView.findViewById(R.id.editTextDescriptionBacheca);
+        final Button modificaBachecaButton = (Button) dialogView.findViewById(R.id.modificaBachecaButton);
 
         editTextTitleModifica.setText(bacheca.getTitle());
         editTextDescriptionModifica.setText(bacheca.getDescription());
@@ -229,7 +228,6 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 String title = editTextTitleModifica.getText().toString();
                 String description = editTextDescriptionModifica.getText().toString();
-                String author = editTextAuthorModifica.getText().toString();
 
 
                 if(TextUtils.isEmpty(editTextTitleModifica.getText())||editTextTitleModifica.getText().length()>20 || confrontaBacheche(editTextTitleModifica.getText().toString())){

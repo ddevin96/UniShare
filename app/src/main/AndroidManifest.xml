@@ -22,7 +22,8 @@
         <activity android:name=".CommentiActivity" />
         <activity android:name=".RegistrazioneActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ProfiloActivity"></activity>
+        <activity android:name=".ProfiloActivity" />
+        <activity android:name=".modifica_bacheca_activity"></activity>
     </application>
 
 </manifest>

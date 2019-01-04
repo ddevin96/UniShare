@@ -44,11 +44,7 @@ public class ProfiloActivity extends Activity {
     FirebaseUser user;
     String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit;
     Long year, month, day;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    EditText editTextNome;
-    EditText editTextCognome;
-    EditText editTextEmail;
-    EditText editTextPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +115,10 @@ public class ProfiloActivity extends Activity {
         final View dialogView= inflater.inflate(R.layout.modifica_profilo_dialog, null);
         dialogBuilder.setView(dialogView);
 
-
+        final EditText editTextNome;
+        final EditText editTextCognome;
+        final EditText editTextEmail;
+        final EditText editTextPassword;
         final DatePicker data;
         final Button conferma;
         final RadioButton radioButtonUomo;
@@ -174,7 +173,7 @@ public class ProfiloActivity extends Activity {
                     editTextCognome.requestFocus();
                     return;
                 }
-                if(TextUtils.isEmpty(editTextEmail.getText()) || editTextEmail.getText().length()<3 || editTextEmail.getText().length()>63 || !editTextEmail.getText().toString().matches(emailPattern)){
+                if(TextUtils.isEmpty(editTextEmail.getText()) || editTextEmail.getText().length()<3 || editTextEmail.getText().length()>63 || !isValidEmail(email)){
                     editTextEmail.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
                     editTextEmail.requestFocus();
                     return;
@@ -218,6 +217,16 @@ public class ProfiloActivity extends Activity {
 
         return matcher.matches();
 
+    }
+
+    private static boolean isValidEmail(String email){
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+
+        return matcher.matches();
     }
 
 }

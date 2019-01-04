@@ -103,7 +103,7 @@ public class ProfiloActivity extends Activity {
             }
         });
     }
-
+    //ciao
     private void modificaProfiloDialog(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();

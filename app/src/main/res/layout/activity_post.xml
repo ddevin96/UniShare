@@ -30,7 +30,7 @@
         android:id="@+id/textViewDescrizione"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="@string/description" />
@@ -39,7 +39,7 @@
         android:id="@+id/textViewAuthor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="@string/author" />
@@ -52,17 +52,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
         android:fontFamily="@font/acme"
         android:text="@string/share"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <ListView
         android:id="@+id/listViewPost"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp">
 
     </ListView>
 

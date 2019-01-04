@@ -157,16 +157,6 @@ public class MainActivity extends Activity {
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
-        if(TextUtils.isEmpty(editTextTitle.getText())||editTextTitle.getText().length()>20 || confrontaBacheche(editTextTitle.getText().toString())){
-            editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 20 caratteri.\n Non possono esistere due Bacheche di uno stesso paese.");
-            editTextTitle.requestFocus();
-            return;
-        }
-        if(TextUtils.isEmpty(editTextDescription.getText()) || editTextDescription.getText().length()>200){
-            editTextDescription.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 200 caratteri.");
-            editTextDescription.requestFocus();
-            return;
-        }
 
         addBachecaButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,6 +164,19 @@ public class MainActivity extends Activity {
                 String title = editTextTitle.getText().toString();
                 String description = editTextDescription.getText().toString();
                 String author = editTextAuthor.getText().toString();
+
+
+                if(TextUtils.isEmpty(editTextTitle.getText())||editTextTitle.getText().length()>20 || confrontaBacheche(editTextTitle.getText().toString())){
+                    editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 20 caratteri.\n Non possono esistere due Bacheche di uno stesso paese.");
+                    editTextTitle.requestFocus();
+                    return;
+                }
+                if(TextUtils.isEmpty(editTextDescription.getText()) || editTextDescription.getText().length()>200){
+                    editTextDescription.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 200 caratteri.");
+                    editTextDescription.requestFocus();
+                    return;
+                }
+
                 Date data = new Date();
                 String id = databaseBacheca.push().getKey();
                 Bacheca bacheca = new Bacheca(id, title, description, author, data);
@@ -197,7 +200,7 @@ public class MainActivity extends Activity {
     }
 
     private boolean confrontaBacheche(String titolo) {
-            boolean value= true;
+        boolean value= true;
         for (Bacheca bacheca : listaBacheca) {
             if (bacheca.getTitle().equals(titolo)) {
                 value=true;

@@ -180,18 +180,14 @@ public class MainActivity extends Activity {
                 Date data = new Date();
                 String id = databaseBacheca.push().getKey();
                 Bacheca bacheca = new Bacheca(id, title, description, author, data);
-                addBacheca(bacheca);
+                databaseBacheca.child(bacheca.getId()).setValue(bacheca);
+                Toast.makeText(getApplicationContext(), "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
         });
 
     }
 
-    public void addBacheca(Bacheca bacheca) {
-
-        databaseBacheca.child(bacheca.getId()).setValue(bacheca);
-        Toast.makeText(this, "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
-    }
 
     private boolean confrontaBacheche(String titolo) {
         boolean value= true;

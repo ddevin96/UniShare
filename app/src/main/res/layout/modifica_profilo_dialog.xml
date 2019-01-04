@@ -54,7 +54,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20sp"
-            android:hint="   Modifica email"/>
+            android:inputType="textPassword"
+            android:hint=" Modifica password"/>
 
         <TextView
             android:layout_width="wrap_content"

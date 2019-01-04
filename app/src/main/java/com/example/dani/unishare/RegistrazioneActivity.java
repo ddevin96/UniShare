@@ -100,7 +100,9 @@ public class RegistrazioneActivity extends Activity {
         } else if (TextUtils.isEmpty(ripPassword)&&ripPassword.equals(password)) {
             editTextRegRipetiPassword.setError("Le password non coincidono");
             valida = false;
-        }else if (valida){
+        }
+
+        if (valida){
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -117,6 +119,8 @@ public class RegistrazioneActivity extends Activity {
                     }
                 }
             });
+        } else {
+            Toast.makeText(getApplicationContext(), "Inserisci tutti i campi", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -76,31 +77,40 @@ public class RegistrazioneActivity extends Activity {
         int month = editDatePicker.getMonth();
         int day = editDatePicker.getDayOfMonth();
         final Date date = new Date(year, month, day);
-        final String sesso = "M";
-        //if (radioDonna.isSelected())
-            //sesso = 'D';
-        //else if (radioUomo.isSelected())
-            //sesso = 'M';
+        final String sesso;
+        if(radioDonna.isSelected())
+            sesso = "D";
+        else
+            sesso = "M";
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
-                    UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
-                    user.updateProfile(profileUpdate);
-                    Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
-                    databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                } else {
-                    Toast.makeText(getApplicationContext(), "Problema con registrazione", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(nome)&&nome.length()>20)
+            editTextRegNome.setError("Il nome non può essere vuoto\nMax 20 caratteri");
+        else if (TextUtils.isEmpty(cognome)&&cognome.length()>20)
+            editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
+        else if (TextUtils.isEmpty(email)&&email.length()>63)
+            editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
+        else if (TextUtils.isEmpty(password)&&password.length()<8&&password.length()>23)
+            editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
+        else if (TextUtils.isEmpty(ripPassword)&&ripPassword.equals(password))
+            editTextRegRipetiPassword.setError("Le password non coincidono");
+        else {
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
+                        user.updateProfile(profileUpdate);
+                        Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
+                        databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Problema con registrazione", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
-
-
+            });
+        }
     }
-
 }
 

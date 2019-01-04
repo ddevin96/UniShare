@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -111,25 +112,24 @@ public class ProfiloActivity extends Activity {
 
         final EditText editTextNome;
         final EditText editTextCognome;
-        final EditText editTextSesso;
         final EditText editTextEmail;
         final EditText editTextPassword;
         final DatePicker data;
         final Button conferma;
-
+        final RadioButton radioButtonUomo;
 
         editTextNome= (EditText) dialogView.findViewById(R.id.editTextModificaNome);
         editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
         editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
-        editTextSesso=  (EditText) dialogView.findViewById(R.id.editTextModificaSesso);
         editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
         data = (DatePicker) dialogView.findViewById(R.id.modificaData);
+        radioButtonUomo = (RadioButton) dialogView.findViewById(R.id.radioModificaUomo);
         conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
         editTextNome.setText(nomeEdit);
         editTextCognome.setText(cognomeEdit);
         editTextEmail.setText(emailEdit);
-        editTextSesso.setText(sessoEdit);
         editTextPassword.setText(passwordEdit);
+
         int yearUpdate = year.intValue();
         int monthUpdate = month.intValue();
         int dayUpdate = day.intValue();
@@ -144,12 +144,17 @@ public class ProfiloActivity extends Activity {
             public void onClick(View v) {
                 String nome = editTextNome.getText().toString();
                 String cognome = editTextCognome.getText().toString();
-                String sesso = editTextSesso.getText().toString();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 int year = data.getYear();
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
+                String sesso;
+                if (radioButtonUomo.isSelected())
+                    sesso = "M";
+                else
+                    sesso = "F";
+
 
                 if(TextUtils.isEmpty(nome) && nome.length()>20){
                     editTextNome.setError("Il campo Nome non può essere vuoto./n Deve avere al massimo 20 caratteri");

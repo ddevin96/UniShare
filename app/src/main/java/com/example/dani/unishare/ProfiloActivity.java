@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProfiloActivity extends Activity {
 
@@ -102,7 +105,7 @@ public class ProfiloActivity extends Activity {
             }
         });
     }
-
+    //ciao
     private void modificaProfiloDialog(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -111,25 +114,24 @@ public class ProfiloActivity extends Activity {
 
         final EditText editTextNome;
         final EditText editTextCognome;
-        final EditText editTextSesso;
         final EditText editTextEmail;
         final EditText editTextPassword;
         final DatePicker data;
         final Button conferma;
-
+        final RadioButton radioButtonUomo;
 
         editTextNome= (EditText) dialogView.findViewById(R.id.editTextModificaNome);
         editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
         editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
-        editTextSesso=  (EditText) dialogView.findViewById(R.id.editTextModificaSesso);
         editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
         data = (DatePicker) dialogView.findViewById(R.id.modificaData);
+        radioButtonUomo = (RadioButton) dialogView.findViewById(R.id.radioModificaUomo1);
         conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
         editTextNome.setText(nomeEdit);
         editTextCognome.setText(cognomeEdit);
         editTextEmail.setText(emailEdit);
-        editTextSesso.setText(sessoEdit);
         editTextPassword.setText(passwordEdit);
+
         int yearUpdate = year.intValue();
         int monthUpdate = month.intValue();
         int dayUpdate = day.intValue();
@@ -144,35 +146,69 @@ public class ProfiloActivity extends Activity {
             public void onClick(View v) {
                 String nome = editTextNome.getText().toString();
                 String cognome = editTextCognome.getText().toString();
-                String sesso = editTextSesso.getText().toString();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 int year = data.getYear();
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                boolean valid=true;
 
 
-                Date date = new Date(year,month,day);
-                String id = user.getUid();
-                user.updateEmail(email);
-                user.updatePassword(password);
-                Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
-                addProfilo(utente);
-                alertDialog.dismiss();
+                String sesso;
+                //radiobutton
+                if (radioButtonUomo.isSelected())
+                    sesso = "M";
+                else
+                    sesso = "F";
 
-                finish();
-                startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
+
+                if(TextUtils.isEmpty(nome) && nome.length()>20){
+                    editTextNome.setError("Il campo Nome non può essere vuoto./n Deve avere al massimo 20 caratteri");
+                    valid=false;
+                }
+                else{
+                    valid=true;
+                }
+                if(TextUtils.isEmpty(cognome)&& cognome.length()>20){
+                    editTextCognome.setError("il campo Cognome non può essere vuoto./n Deve avere al massimo 20 caratteri.");
+                    valid=false;
+                }
+                else{
+                    valid=true;
+                }
+                if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20 && !isValidPassword(password)){
+                    editTextPassword.setError("il campo password non può essere vuoto./n Deve essere composto di almeno 8 caratteri e massimo 20./nLa password deve rispettare il formato.");
+                    valid=false;
+                }
+                else{
+                    valid=true;
+                }
+                if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63 && !email.matches(emailPattern)){
+                    editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri./n L'e-mail deve rispettare il formato.");
+                    valid= false;
+                }
+                else{
+                    valid=true;
+                }
+                if(valid){
+                    Date date = new Date(year, month, day);
+                    String id = user.getUid();
+                    user.updateEmail(email);
+                    user.updatePassword(password);
+                    Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
+                    addProfilo(utente);
+                    alertDialog.dismiss();
+
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
+                }
             }
         });
     }
 
     public void addProfilo(Utente utente) {
-
-        if (!TextUtils.isEmpty(utente.getNome())&&!TextUtils.isEmpty(utente.getCognome())&&!TextUtils.isEmpty(utente.getSesso())&&!TextUtils.isEmpty(utente.getEmail())&&!TextUtils.isEmpty(utente.getPassword())&&!TextUtils.isEmpty(utente.getDataDiNascita().toString())) {
-            databesaProfilo.setValue(utente);
-            Toast.makeText(this, "Il profilo è stato modificato", Toast.LENGTH_SHORT).show();
-        } else
-            Toast.makeText(this, "La modifica non ha avuto successo", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -182,5 +218,17 @@ public class ProfiloActivity extends Activity {
         databesaProfilo.removeValue();
         Toast.makeText(this,"Il profilo è stato cancellato" , Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
+    public static boolean isValidPassword(String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
     }
 }

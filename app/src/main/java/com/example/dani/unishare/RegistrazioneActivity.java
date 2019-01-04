@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegistrazioneActivity extends Activity {
 
@@ -97,13 +99,13 @@ public class RegistrazioneActivity extends Activity {
             return;
         }
 
-        if (TextUtils.isEmpty(email)||email.length()>63) {
+        if (TextUtils.isEmpty(email)||email.length()<3||email.length()>63||!isValidEmail(email)) {
             editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
             editTextRegEmail.requestFocus();
             return;
         }
 
-        if (TextUtils.isEmpty(password)||password.length()<8||password.length()>23) {
+        if (TextUtils.isEmpty(password)||password.length()<8||password.length()>23||!isValidPassword(password)) {
             editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
             editTextRegPassword.requestFocus();
             return;
@@ -134,6 +136,28 @@ public class RegistrazioneActivity extends Activity {
                     }
                 }
             });
+    }
+
+    private static boolean isValidPassword(String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
+    }
+
+    private static boolean isValidEmail(String email){
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+
+        return matcher.matches();
     }
 }
 

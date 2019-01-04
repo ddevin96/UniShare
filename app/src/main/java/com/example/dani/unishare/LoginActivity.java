@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class LoginActivity extends Activity {
@@ -40,6 +43,18 @@ public class LoginActivity extends Activity {
                 String eMail= email.getText().toString();
                 String password1=password.getText().toString();
 
+                if (TextUtils.isEmpty(eMail)||eMail.length()<3||eMail.length()>63||!isValidEmail(eMail)) {
+                    email.setError("L'email non può essere vuota\nDeve rispettare il formato");
+                    email.requestFocus();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password1)||password1.length()<8||password1.length()>23||!isValidPassword(password1)) {
+                    password.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
+                    password.requestFocus();
+                    return;
+                }
+
 
                 databaseLogin.signInWithEmailAndPassword(eMail, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -59,5 +74,27 @@ public class LoginActivity extends Activity {
         if(databaseLogin.getCurrentUser()!=null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
+    }
+
+    private static boolean isValidPassword(String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
+    }
+
+    private static boolean isValidEmail(String email){
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+
+        return matcher.matches();
     }
 }

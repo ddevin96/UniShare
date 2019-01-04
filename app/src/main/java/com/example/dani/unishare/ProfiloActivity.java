@@ -151,28 +151,36 @@ public class ProfiloActivity extends Activity {
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
 
+                if(TextUtils.isEmpty(nome) && nome.length()>20){
+                    editTextNome.setError("Il campo Nome non può essere vuoto./n Deve avere al massimo 20 caratteri");
+                }
+                else if(TextUtils.isEmpty(cognome)&& cognome.length()>20){
+                    editTextCognome.setError("il campo Cognome non può essere vuoto./n Deve avere al massimo 20 caratteri.");
+                }
+                else if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20){
+                    editTextPassword.setError("il campo password non può essere vuoto./n Deve essere composto di almeno 8 caratteri e massimo 20./n");
+                }
+                else if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63){
+                    editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri.");
+                }
+                else {
+                    Date date = new Date(year, month, day);
+                    String id = user.getUid();
+                    user.updateEmail(email);
+                    user.updatePassword(password);
+                    Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
+                    addProfilo(utente);
+                    alertDialog.dismiss();
 
-                Date date = new Date(year,month,day);
-                String id = user.getUid();
-                user.updateEmail(email);
-                user.updatePassword(password);
-                Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
-                addProfilo(utente);
-                alertDialog.dismiss();
-
-                finish();
-                startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
+                }
             }
         });
     }
 
     public void addProfilo(Utente utente) {
-
-        if (!TextUtils.isEmpty(utente.getNome())&&!TextUtils.isEmpty(utente.getCognome())&&!TextUtils.isEmpty(utente.getSesso())&&!TextUtils.isEmpty(utente.getEmail())&&!TextUtils.isEmpty(utente.getPassword())&&!TextUtils.isEmpty(utente.getDataDiNascita().toString())) {
-            databesaProfilo.setValue(utente);
-            Toast.makeText(this, "Il profilo è stato modificato", Toast.LENGTH_SHORT).show();
-        } else
-            Toast.makeText(this, "La modifica non ha avuto successo", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "La modifica non ha avuto successo", Toast.LENGTH_SHORT).show();
 
     }
 

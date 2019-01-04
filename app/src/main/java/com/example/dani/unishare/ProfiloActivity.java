@@ -203,6 +203,9 @@ public class ProfiloActivity extends Activity {
                     finish();
                     startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
                 }
+                else{
+                    Toast.makeText(getApplicationContext(), "I campi sono tutti obbligatori, inserire i dati richiesti.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

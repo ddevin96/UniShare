@@ -5,44 +5,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfiloActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#1ed760">
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profilo"
+        android:textSize="35dp"
+        android:fontFamily="@font/acme"
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/textViewNomeUser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20sp"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/textViewCognomeUtente"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20sp"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/textViewEmailUtente"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20sp"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/textViewSessoUtente"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20sp"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/textViewDataUtente"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20sp"
+        android:textSize="20dp"/>
 
     <Button
         android:id="@+id/modificaProfiloButton"
+        style="@style/buttonStyle"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Modifica Profilo"/>
 
 
     <Button
         android:id="@+id/cancellaProfiloButton"
+        style="@style/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:text="Cancella Profilo"/>
 
 

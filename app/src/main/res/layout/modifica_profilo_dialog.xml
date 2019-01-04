@@ -2,7 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#1ed760">
 
 
     <LinearLayout
@@ -10,38 +11,91 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Modifica profilo"
+            android:fontFamily="@font/acme"
+            android:textSize="35dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"/>
+
         <EditText
             android:id="@+id/editTextModificaNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="modifica nome"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20sp"
+            android:hint="   Modifica nome"/>
 
         <EditText
             android:id="@+id/editTextModificaCognome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="modifica cognome"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20sp"
+            android:hint="   Modifica cognome"/>
 
         <EditText
             android:id="@+id/editTextModificaEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="modifica email"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20sp"
+            android:hint="   Modifica email"/>
 
         <EditText
             android:id="@+id/editTextModificaPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="modifica email"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20sp"
+            android:hint="   Modifica email"/>
 
-        <EditText
-            android:id="@+id/editTextModificaSesso"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="modifica sesso"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Isrisci il sesso"
+            android:layout_marginLeft="30dp"
+            android:textSize="20dp"
+            android:layout_marginTop="20sp"/>
+
+        <RadioGroup
+            android:id="@+id/radioModificaSesso"
+            android:layout_marginTop="-10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioModificaUomo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:text="Uomo"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radioModificaDonna"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Donna"/>
+
+        </RadioGroup>
 
         <DatePicker
             android:id="@+id/modificaData"
+            android:background="#f0ffff"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></DatePicker>
 
@@ -49,7 +103,12 @@
             android:id="@+id/ButtonModifica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Conferma"/>
+            style="@style/buttonStyle"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:text="Conferma"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"/>
 
     </LinearLayout>
 

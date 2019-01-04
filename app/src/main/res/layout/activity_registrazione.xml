@@ -86,7 +86,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Isrisci il sesso"
+            android:text="Inserisci il sesso"
             android:layout_marginLeft="30dp"
             android:textSize="16dp"/>
 
@@ -143,15 +143,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/buttonStyle"
-                android:text="Registrati" />
+                android:text="Registrati"
+                android:textSize="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"/>
             <Button
 
                 android:id="@+id/buttonGiaRegistrato"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/buttonStyle"
-                android:text="Registrati"
-                android:layout_marginLeft="20dp"/>
+                android:text="Già registrato ?"
+                android:layout_marginLeft="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="20dp"/>
 
         </LinearLayout>
     </LinearLayout>

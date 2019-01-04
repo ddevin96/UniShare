@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -105,7 +107,7 @@ public class ProfiloActivity extends Activity {
             }
         });
     }
-    //ciao
+
     private void modificaProfiloDialog(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -151,7 +153,7 @@ public class ProfiloActivity extends Activity {
                 int year = data.getYear();
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 boolean valid=true;
 
 
@@ -162,36 +164,85 @@ public class ProfiloActivity extends Activity {
                 else
                     sesso = "F";
 
+                editTextNome.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                if(TextUtils.isEmpty(nome) && nome.length()>20){
-                    editTextNome.setError("Il campo Nome non può essere vuoto./n Deve avere al massimo 20 caratteri");
-                    valid=false;
-                }
-                else{
-                    valid=true;
-                }
-                if(TextUtils.isEmpty(cognome)&& cognome.length()>20){
-                    editTextCognome.setError("il campo Cognome non può essere vuoto./n Deve avere al massimo 20 caratteri.");
-                    valid=false;
-                }
-                else{
-                    valid=true;
-                }
-                if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20 && !isValidPassword(password)){
-                    editTextPassword.setError("il campo password non può essere vuoto./n Deve essere composto di almeno 8 caratteri e massimo 20./nLa password deve rispettare il formato.");
-                    valid=false;
-                }
-                else{
-                    valid=true;
-                }
-                if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63 && !email.matches(emailPattern)){
-                    editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri./n L'e-mail deve rispettare il formato.");
-                    valid= false;
-                }
-                else{
-                    valid=true;
-                }
-                if(valid){
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if (TextUtils.isEmpty(editTextNome.getText()) && editTextNome.getText().length()>20){
+                            editTextNome.setError("Il campo Nome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
+                        }
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                editTextCognome.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(TextUtils.isEmpty(editTextCognome.getText())&& editTextCognome.getText().length()>20){
+                            editTextCognome.setError("il campo Cognome non può essere vuoto.\n Deve avere al massimo 20 caratteri.");
+
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+
+                editTextEmail.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(TextUtils.isEmpty(editTextEmail.getText())&& editTextEmail.getText().length()<3 && editTextEmail.getText().length()>20 && !editTextEmail.getText().toString().matches(emailPattern)){
+                            editTextEmail.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                editTextPassword.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(TextUtils.isEmpty(editTextPassword.getText())&& editTextPassword.getText().length()<8 && editTextPassword.getText().length()>20 && !isValidPassword(editTextPassword.getText().toString())){
+                            editTextPassword.setError("Il campo password non può essere vuoto. \n Deve essere compposto dal almeno 8 caratteri e massimo 20. \n La password deve rispettare il formato.");
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
                     Date date = new Date(year, month, day);
                     String id = user.getUid();
                     user.updateEmail(email);
@@ -202,10 +253,7 @@ public class ProfiloActivity extends Activity {
 
                     finish();
                     startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "I campi sono tutti obbligatori, inserire i dati richiesti.", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
     }

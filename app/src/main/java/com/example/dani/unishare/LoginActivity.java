@@ -14,7 +14,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,6 +32,8 @@ public class LoginActivity extends Activity {
     EditText password;
     Button accedi;
     FirebaseAuth databaseLogin;
+    DatabaseReference databaseUtente;
+    List<Utente> listaUtente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +44,26 @@ public class LoginActivity extends Activity {
         password= (EditText) findViewById(R.id.InserisciPassword);
         accedi= (Button) findViewById(R.id.Accedi);
 
+        listaUtente = new ArrayList<>();
+
         databaseLogin = FirebaseAuth.getInstance();
+        databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+
+        databaseUtente.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listaUtente.clear();
+                for(DataSnapshot utenteSnapshot: dataSnapshot.getChildren()) {
+                    Utente utente = utenteSnapshot.getValue(Utente.class);
+                    listaUtente.add(utente);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         accedi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,8 +71,14 @@ public class LoginActivity extends Activity {
                 String eMail= email.getText().toString();
                 String password1=password.getText().toString();
 
+                if (!confrontaMail(eMail)) {
+                    email.setError("La mail non è presente nel sistema");
+                    email.requestFocus();
+                    return;
+                }
+
                 if (TextUtils.isEmpty(eMail)||eMail.length()<3||eMail.length()>63||!isValidEmail(eMail)) {
-                    email.setError("L'email non può essere vuota\nDeve rispettare il formato");
+                    email.setError("L'email non può essere vuota");
                     email.requestFocus();
                     return;
                 }
@@ -96,5 +130,20 @@ public class LoginActivity extends Activity {
         matcher = pattern.matcher(email);
 
         return matcher.matches();
+    }
+
+    private boolean confrontaMail(String mail) {
+        boolean value= true;
+        for (Utente utente : listaUtente) {
+            if (utente.getEmail().equals(mail)) {
+                value=true;
+                break;
+            }
+            else {
+                value=false;
+            }
+        }
+
+        return value;
     }
 }

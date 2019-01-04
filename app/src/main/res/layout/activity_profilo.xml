@@ -23,6 +23,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:text="Nome: "/>
 
     <TextView
@@ -39,6 +40,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:text="Cognome: "/>
 
     <TextView
@@ -54,6 +56,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:text="Email: "/>
 
     <TextView
@@ -70,6 +73,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
+        android:textStyle="bold"
         android:text="Sesso: "/>
 
     <TextView
@@ -86,7 +90,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
-        android:text="Data di nascita:: "/>
+        android:textStyle="bold"
+        android:text="Data di nascita:"/>
 
     <TextView
         android:id="@+id/textViewDataUtente"

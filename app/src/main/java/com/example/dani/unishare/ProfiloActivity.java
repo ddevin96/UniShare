@@ -208,7 +208,7 @@ public class ProfiloActivity extends Activity {
     }
 
     public void addProfilo(Utente utente) {
-        Toast.makeText(this, "La modifica non ha avuto successo", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -224,7 +224,7 @@ public class ProfiloActivity extends Activity {
 
         Pattern pattern;
         Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
 

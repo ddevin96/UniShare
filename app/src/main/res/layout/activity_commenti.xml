@@ -10,22 +10,39 @@
     >
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Commenti"
+        android:textSize="35dp"
+        android:fontFamily="@font/acme"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/textViewPostName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/editTextCommentDescription"
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/insert_commento"/>
     <Button
+        android:layout_marginTop="20dp"
         android:id="@+id/addCommentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/buttonStyle"
+        android:layout_marginLeft="20dp"
         android:text="@string/share"/>
 
     <ListView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/listViewCommenti"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -36,7 +36,9 @@ public class CommentiActivity extends Activity {
     DatabaseReference databaseCommenti;
     FirebaseAuth databaseId;
     FirebaseUser cUser;
+    DatabaseReference databaseAuthor;
     List<Commento> lista;
+    String author;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class CommentiActivity extends Activity {
         listViewCommenti = (ListView) findViewById(R.id.listViewCommenti);
 
         cUser = databaseId.getInstance().getCurrentUser();
+        databaseAuthor= FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
 
         Intent intent = getIntent();
 
@@ -98,11 +101,22 @@ public class CommentiActivity extends Activity {
 
             }
         });
+
+        databaseAuthor.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                author= dataSnapshot.child("nome").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void addCommento() {
         String description = editTextCommentDescription.getText().toString();
-        String author = cUser.getDisplayName();
         String idAuthor = cUser.getUid();
         Date date = new Date();
 

@@ -201,6 +201,7 @@ public class MainActivity extends Activity {
         for (Bacheca bacheca : listaBacheca) {
             if (bacheca.getTitle().equals(titolo)) {
                 value=true;
+                break;
             }
             else {
                 value=false;

@@ -207,22 +207,22 @@ public class ProfiloActivity extends Activity {
 
     private void Validation(){
 
-        if(TextUtils.isEmpty(editTextNome.getText())&& editTextNome.getText().length()>20){
+        if(TextUtils.isEmpty(editTextNome.getText()) || editTextNome.getText().length()>20){
             editTextNome.setError("Il campo Nome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
             editTextNome.requestFocus();
             return;
         }
-        if(TextUtils.isEmpty(editTextCognome.getText())&& editTextCognome.getText().length()>20){
+        if(TextUtils.isEmpty(editTextCognome.getText()) || editTextCognome.getText().length()>20){
             editTextCognome.setError("Il campo Cognome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
             editTextCognome.requestFocus();
             return;
         }
-        if(TextUtils.isEmpty(editTextEmail.getText())&& editTextEmail.getText().length()<3 &&editTextEmail.getText().length()>63 && !editTextEmail.getText().toString().matches(emailPattern)){
+        if(TextUtils.isEmpty(editTextEmail.getText()) || editTextEmail.getText().length()<3 || editTextEmail.getText().length()>63 || !editTextEmail.getText().toString().matches(emailPattern)){
             editTextNome.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
             editTextNome.requestFocus();
             return;
         }
-        if(TextUtils.isEmpty(editTextPassword.getText())&& editTextPassword.getText().length()<8 &&editTextPassword.getText().length()>20 && !isValidPassword(editTextPassword.getText().toString())){
+        if(TextUtils.isEmpty(editTextPassword.getText()) || editTextPassword.getText().length()<8 || editTextPassword.getText().length()>20 || !isValidPassword(editTextPassword.getText().toString())){
             editTextNome.setError("Il campo password non può essere vuoto. \n Deve essere compposto dal almeno 8 caratteri e massimo 20. \n La password deve rispettare il formato.");
             editTextNome.requestFocus();
             return;

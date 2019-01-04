@@ -39,12 +39,15 @@
         <Button
 
                 android:id="@+id/Accedi"
+                style="@style/buttonStyle"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
-                android:background="@color/nero"
-                android:textColor="@color/bianco"
+            android:layout_marginLeft="130dp"
+            android:layout_marginRight="130dp"
+
+                android:fontFamily="@font/acme"
                 android:text="            Login            "/>
 
     </LinearLayout>

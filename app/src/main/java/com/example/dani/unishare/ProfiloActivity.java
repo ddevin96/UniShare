@@ -44,6 +44,7 @@ public class ProfiloActivity extends Activity {
     FirebaseUser user;
     String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit;
     Long year, month, day;
+    final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,9 +233,6 @@ public class ProfiloActivity extends Activity {
                 int year = data.getYear();
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
-                final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                boolean valid=true;
-
 
                 String sesso;
                 //radiobutton
@@ -242,8 +240,6 @@ public class ProfiloActivity extends Activity {
                     sesso = "M";
                 else
                     sesso = "F";
-
-
 
                     Date date = new Date(year, month, day);
                     String id = user.getUid();

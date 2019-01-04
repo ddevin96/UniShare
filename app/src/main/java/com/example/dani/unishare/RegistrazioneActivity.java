@@ -85,95 +85,36 @@ public class RegistrazioneActivity extends Activity {
         else
             sesso = "M";
 
-        editTextRegNome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if(nome.isEmpty()||nome.length()>20) {
+            editTextRegNome.setError("Il nome non può essere vuoto\nMax20Caratteri");
+            editTextRegNome.requestFocus();
+            return;
+        }
 
-            }
+        if(TextUtils.isEmpty(cognome)||cognome.length()>20) {
+            editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
+            editTextRegCognome.requestFocus();
+            return;
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (TextUtils.isEmpty(email)||email.length()>63) {
+            editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
+            editTextRegEmail.requestFocus();
+            return;
+        }
 
-            }
+        if (TextUtils.isEmpty(password)||password.length()<8||password.length()>23) {
+            editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
+            editTextRegPassword.requestFocus();
+            return;
+        }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(nome)&&nome.length()>20)
-                    editTextRegNome.setError("Il nome non può essere vuoto\nMax20Caratteri");
-            }
-        });
+        if (TextUtils.isEmpty(ripPassword)||!ripPassword.equals(password)) {
+            editTextRegRipetiPassword.setError("Le password non coincidono");
+            editTextRegRipetiPassword.requestFocus();
+            return;
+        }
 
-        editTextRegCognome.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(cognome)&&cognome.length()>20)
-                    editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
-            }
-        });
-
-        editTextRegEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(email)&&email.length()>63)
-                    editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
-            }
-        });
-
-        editTextRegPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(password)&&password.length()<8&&password.length()>23)
-                    editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
-            }
-        });
-
-        editTextRegRipetiPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(ripPassword)&&ripPassword.equals(password))
-                    editTextRegRipetiPassword.setError("Le password non coincidono");
-            }
-        });
 
 
 

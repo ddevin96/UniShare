@@ -156,8 +156,6 @@ public class ProfiloActivity extends Activity {
                 String id = user.getUid();
                 user.updateEmail(email);
                 user.updatePassword(password);
-                UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
-                user.updateProfile(profileUpdate);
                 Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
                 addProfilo(utente);
                 alertDialog.dismiss();

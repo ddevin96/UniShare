@@ -152,6 +152,7 @@ public class ProfiloActivity extends Activity {
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                boolean valid=true;
 
 
                 String sesso;
@@ -164,17 +165,33 @@ public class ProfiloActivity extends Activity {
 
                 if(TextUtils.isEmpty(nome) && nome.length()>20){
                     editTextNome.setError("Il campo Nome non può essere vuoto./n Deve avere al massimo 20 caratteri");
+                    valid=false;
                 }
-                else if(TextUtils.isEmpty(cognome)&& cognome.length()>20){
+                else{
+                    valid=true;
+                }
+                if(TextUtils.isEmpty(cognome)&& cognome.length()>20){
                     editTextCognome.setError("il campo Cognome non può essere vuoto./n Deve avere al massimo 20 caratteri.");
+                    valid=false;
                 }
-                else if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20 && !isValidPassword(password)){
+                else{
+                    valid=true;
+                }
+                if(TextUtils.isEmpty(password)&& password.length()<8 && password.length()>20 && !isValidPassword(password)){
                     editTextPassword.setError("il campo password non può essere vuoto./n Deve essere composto di almeno 8 caratteri e massimo 20./nLa password deve rispettare il formato.");
+                    valid=false;
                 }
-                else if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63 && !email.matches(emailPattern)){
+                else{
+                    valid=true;
+                }
+                if (TextUtils.isEmpty(email)&& email.length()<3 && email.length()>63 && !email.matches(emailPattern)){
                     editTextEmail.setError("il campo E-mail non può essere vuoto./n min:3 max:63 caratteri./n L'e-mail deve rispettare il formato.");
+                    valid= false;
                 }
-                else {
+                else{
+                    valid=true;
+                }
+                if(valid){
                     Date date = new Date(year, month, day);
                     String id = user.getUid();
                     user.updateEmail(email);

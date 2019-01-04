@@ -150,6 +150,7 @@ public class ProfiloActivity extends Activity {
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
                 String sesso;
+                //radiobutton
                 if (radioButtonUomo.isSelected())
                     sesso = "M";
                 else

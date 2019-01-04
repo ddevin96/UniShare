@@ -189,7 +189,8 @@ public class ProfiloActivity extends Activity {
                     user.updateEmail(email);
                     user.updatePassword(password);
                     Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
-                    addProfilo(utente);
+                    databesaProfilo.setValue(utente);
+                    Toast.makeText(getApplicationContext(), "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
 
                     finish();
@@ -197,11 +198,6 @@ public class ProfiloActivity extends Activity {
 
             }
         });
-    }
-
-    private void addProfilo(Utente utente) {
-        Toast.makeText(this, "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
-
     }
 
     private void deleteProfilo() {

@@ -175,13 +175,13 @@ public class ProfiloActivity extends Activity {
                     return;
                 }
                 if(TextUtils.isEmpty(editTextEmail.getText()) || editTextEmail.getText().length()<3 || editTextEmail.getText().length()>63 || !editTextEmail.getText().toString().matches(emailPattern)){
-                    editTextNome.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
-                    editTextNome.requestFocus();
+                    editTextEmail.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
+                    editTextEmail.requestFocus();
                     return;
                 }
                 if(TextUtils.isEmpty(editTextPassword.getText()) || editTextPassword.getText().length()<8 || editTextPassword.getText().length()>20 || !isValidPassword(editTextPassword.getText().toString())){
-                    editTextNome.setError("Il campo password non può essere vuoto. \n Deve essere compposto dal almeno 8 caratteri e massimo 20. \n La password deve rispettare il formato.");
-                    editTextNome.requestFocus();
+                    editTextPassword.setError("Il campo password non può essere vuoto. \n Deve essere compposto dal almeno 8 caratteri e massimo 20. \n La password deve rispettare il formato.");
+                    editTextPassword.requestFocus();
                     return;
                 }
                     Date date = new Date(year, month, day);

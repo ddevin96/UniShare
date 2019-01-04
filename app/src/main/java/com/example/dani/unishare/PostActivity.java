@@ -146,6 +146,16 @@ public class PostActivity extends Activity {
             public void onClick(View v) {
                 String title = editTextTitlePost.getText().toString();
                 String description = editTextDescriptionPost.getText().toString();
+                if(TextUtils.isEmpty(title) || title.length()> 65534 || confrontaPost(title)){
+                    editTextTitlePost.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 65534 caratteri.");
+                    editTextTitlePost.requestFocus();
+                    return;
+                }
+                if(TextUtils.isEmpty(description) || description.length()>65534){
+                    editTextDescriptionPost.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 65534 caratteri.");
+                    editTextDescriptionPost.requestFocus();
+                    return;
+                }
                 Date date = new Date();
                 Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date);
                 modificaPost(postUpdate);
@@ -186,6 +196,17 @@ public class PostActivity extends Activity {
             public void onClick(View v) {
                 String title = editTextTitle.getText().toString();
                 String description = editTextDescription.getText().toString();
+
+                if(TextUtils.isEmpty(title) || title.length()> 65534 || confrontaPost(title)){
+                    editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 65534 caratteri.");
+                    editTextTitle.requestFocus();
+                    return;
+                }
+                if(TextUtils.isEmpty(description) || description.length()>65534){
+                    editTextDescription.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 65534 caratteri.");
+                    editTextDescription.requestFocus();
+                    return;
+                }
                 Date data = new Date();
                 String author = mUser.getDisplayName();
                 String idAuthor = mUser.getUid();
@@ -223,6 +244,20 @@ public class PostActivity extends Activity {
         DatabaseReference postCommenti = FirebaseDatabase.getInstance().getReference("commento").child(id);
         postCommenti.removeValue();
         Toast.makeText(getApplicationContext(), "Post Eliminato", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean confrontaPost(String titolo){
+        boolean value=true;
+        for (Post post : listaPost){
+            if(post.getTitle().equals(titolo)){
+                value=true;
+                break;
+            }
+            else {
+                value=false;
+            }
+        }
+        return value;
     }
 }
 

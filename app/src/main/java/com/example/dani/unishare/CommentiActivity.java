@@ -120,13 +120,16 @@ public class CommentiActivity extends Activity {
         String idAuthor = cUser.getUid();
         Date date = new Date();
 
-        if (!TextUtils.isEmpty(description)) {
-            String id = databaseCommenti.push().getKey();
-            Commento comment = new Commento(id, description, author, idAuthor, date);
-            databaseCommenti.child(id).setValue(comment);
-            Toast.makeText(this, "Commento Inserito", Toast.LENGTH_SHORT).show();
-        } else
-            Toast.makeText(this, "Inserisci descrizione", Toast.LENGTH_SHORT).show();
+        if(description.isEmpty() || description.length()>=65535) {
+            editTextCommentDescription.setError("Il commento non può essere vuoto\nMax 65535 caratteri");
+            editTextCommentDescription.requestFocus();
+            return;
+        }
+
+        String id = databaseCommenti.push().getKey();
+        Commento comment = new Commento(id, description, author, idAuthor, date);
+        databaseCommenti.child(id).setValue(comment);
+        Toast.makeText(this, "Commento Inserito", Toast.LENGTH_SHORT).show();
     }
 
     private  void modificaCommentoDialog(Commento commento){
@@ -153,9 +156,17 @@ public class CommentiActivity extends Activity {
             @Override
             public void onClick(View v) {
                 String description = editTextDescriptionCommento.getText().toString();
+
+                if(description.isEmpty() || description.length()>=65535) {
+                    editTextCommentDescription.setError("Il commento non può essere vuoto\nMax 65535 caratteri");
+                    editTextCommentDescription.requestFocus();
+                    return;
+                }
+
                 Date date = new Date();
-                Commento commentoUpdate = new Commento(id,description, cUser.getDisplayName(), cUser.getUid(), date);
-                modificaCommento(commentoUpdate);
+                Commento commento = new Commento(id,description, cUser.getDisplayName(), cUser.getUid(), date);
+                databaseCommenti.child(commento.getId()).setValue(commento);
+                Toast.makeText(getApplicationContext(), "Commento modificato", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
         });
@@ -167,16 +178,6 @@ public class CommentiActivity extends Activity {
                 alertDialog.dismiss();
             }
         });
-    }
-
-    private void modificaCommento(Commento commento) {
-        if (!TextUtils.isEmpty(commento.getDescription())) {
-            databaseCommenti.child(commento.getId()).setValue(commento);
-            Toast.makeText(this, "Commento Modificato", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(this, "Inserisci descrizione", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void cancellaCommento(String id){

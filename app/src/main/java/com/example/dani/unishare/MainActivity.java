@@ -36,6 +36,7 @@ public class MainActivity extends Activity {
     EditText editTextDescription;
     EditText editTextAuthor;
     Button addButton;
+    Button signOutButton;
     DatabaseReference databaseBacheca;
     ListView listViewBacheca;
     List<Bacheca> listaBacheca;
@@ -60,6 +61,7 @@ public class MainActivity extends Activity {
         signUpButton = (Button) this.findViewById(R.id.signUpButton);
         loginButton = (Button) this.findViewById(R.id.loginButton);
         profileButton = (Button) this.findViewById(R.id.profileButton);
+        signOutButton = (Button) this.findViewById(R.id.signOutButton);
 
         listaBacheca = new ArrayList<>();
 
@@ -102,6 +104,16 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProfiloActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

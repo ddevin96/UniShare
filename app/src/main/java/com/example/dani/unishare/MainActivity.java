@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
     Button addButton;
     Button signOutButton;
     DatabaseReference databaseBacheca;
+    DatabaseReference databaseUtente;
     FirebaseUser bUser;
     FirebaseAuth DatabaseId;
     ListView listViewBacheca;
@@ -60,16 +61,21 @@ public class MainActivity extends Activity {
         editTextAuthor = (EditText) this.findViewById(R.id.editTextAuthor);
         listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
         addButton = (Button) this.findViewById(R.id.addBachecaButton);
+        addButton.setVisibility(View.GONE);
 
         signUpButton = (Button) this.findViewById(R.id.signUpButton);
         loginButton = (Button) this.findViewById(R.id.loginButton);
         profileButton = (Button) this.findViewById(R.id.profileButton);
         signOutButton = (Button) this.findViewById(R.id.signOutButton);
-        managerButton = (Button) this.findViewById(R.id.managerButton);
+        managerButton = (Button) this.findViewById(R.id.creaManagerButton);
 
         listaBacheca = new ArrayList<>();
 
         bUser= DatabaseId.getInstance().getCurrentUser();
+
+        if(isManager()){
+            addButton.setVisibility(View.VISIBLE);
+        }
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -93,7 +99,12 @@ public class MainActivity extends Activity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Bacheca bacheca = listaBacheca.get(position);
-                showModificaBachecaDialog(bacheca);
+                if(isManager()) {
+                    showModificaBachecaDialog(bacheca);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Solo un manager può modificare le bacheche.", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
@@ -188,7 +199,6 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 String title = editTextTitle.getText().toString();
                 String description = editTextDescription.getText().toString();
-                String author = editTextAuthor.getText().toString();
 
 
                 if(TextUtils.isEmpty(editTextTitle.getText())||editTextTitle.getText().length()>20 || confrontaBacheche(editTextTitle.getText().toString())){
@@ -223,6 +233,7 @@ public class MainActivity extends Activity {
         final EditText editTextTitleModifica = (EditText) dialogView.findViewById(R.id.editTextTitoloBacheca);
         final EditText editTextDescriptionModifica = (EditText) dialogView.findViewById(R.id.editTextDescriptionBacheca);
         final Button modificaBachecaButton = (Button) dialogView.findViewById(R.id.modificaBachecaButton);
+        final Button cancellaBachecaButton = (Button) dialogView.findViewById(R.id.cancellaBachecaButton);
 
         editTextTitleModifica.setText(bacheca.getTitle());
         editTextDescriptionModifica.setText(bacheca.getDescription());
@@ -260,6 +271,25 @@ public class MainActivity extends Activity {
             }
         });
 
+        cancellaBachecaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancellaBacheca(id);
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+
+    //si devono eliminare pure i commenti o lo fa automativamente?
+    private void cancellaBacheca(String id){
+        databaseBacheca.child(id).removeValue();
+        DatabaseReference post= FirebaseDatabase.getInstance().getReference("post").child(id);
+        String idPost= post.push().getKey();
+        DatabaseReference commenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
+        post.removeValue();
+        commenti.removeValue();
+        Toast.makeText(this,"Bacheca eliminata", Toast.LENGTH_SHORT).show();
     }
 
     private boolean confrontaBacheche(String titolo) {
@@ -277,5 +307,16 @@ public class MainActivity extends Activity {
             return false;
 
         return value;
+    }
+
+    private boolean isManager() {
+        boolean manager= true;
+        if (databaseUtente.child("ruolo").equals("manager")) {
+            manager=true;
+        }
+        else{
+            manager=false;
+        }
+        return manager;
     }
 }

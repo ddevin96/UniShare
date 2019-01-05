@@ -45,6 +45,7 @@ public class PostActivity extends Activity {
     EditText editTextDescription;
     FirebaseAuth databaseId;
     FirebaseUser mUser;
+    String ruoloUser;
 
 
     @Override
@@ -67,10 +68,23 @@ public class PostActivity extends Activity {
         textViewTitolo.setText(title);
 
         databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
-        databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(mUser.getUid());
 
-        if (mUser != null)
+        if (mUser != null) {
             addPost.setVisibility(View.VISIBLE);
+            databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(mUser.getUid());
+            databaseUtente.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ruoloUser = dataSnapshot.child("ruolo").getValue(String.class);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
 
 
 
@@ -96,10 +110,11 @@ public class PostActivity extends Activity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Post post = listaPost.get(position);
-                if (isCreator(post.getAuthorId()) || isManager())
+
+                if (isCreator(post.getAuthorId())||isManager())
                     modificaPostDialog(post);
                 else
-                    Toast.makeText(getApplicationContext(), "Solo l'autore può modificare", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Non sei il manager", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -256,14 +271,14 @@ public class PostActivity extends Activity {
     }
 
     private boolean isManager() {
-        if (databaseUtente.child("ruolo").equals("manager"))
+        if (ruoloUser.equals("manager"))
             return true;
         else
             return false;
     }
 
     private boolean isCreator(String id) {
-        if (databaseUtente.child("authorId").equals(id))
+        if (mUser.getUid().equals(id))
             return true;
         else
             return false;

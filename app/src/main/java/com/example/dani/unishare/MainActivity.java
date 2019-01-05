@@ -74,20 +74,22 @@ public class MainActivity extends Activity {
 
         bUser= DatabaseId.getInstance().getCurrentUser();
 
-        if(bUser!=null && isManager()){
-            addButton.setVisibility(View.VISIBLE);
-            databaseUtente= FirebaseDatabase.getInstance().getReference("utente").child(bUser.getUid());
-            databaseUtente.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    ruolo = dataSnapshot.child("ruolo").getValue(String.class);
-                }
+        if(bUser!=null) {
+            if (isManager()) {
+                addButton.setVisibility(View.VISIBLE);
+                databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(bUser.getUid());
+                databaseUtente.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        ruolo = dataSnapshot.child("ruolo").getValue(String.class);
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+                    }
+                });
+            }
         }
 
         addButton.setOnClickListener(new View.OnClickListener() {

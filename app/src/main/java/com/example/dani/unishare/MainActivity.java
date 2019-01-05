@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
     Button signUpButton;
     Button loginButton;
     Button profileButton;
+    Button managerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class MainActivity extends Activity {
         loginButton = (Button) this.findViewById(R.id.loginButton);
         profileButton = (Button) this.findViewById(R.id.profileButton);
         signOutButton = (Button) this.findViewById(R.id.signOutButton);
+        managerButton = (Button) this.findViewById(R.id.managerButton);
 
         listaBacheca = new ArrayList<>();
 
@@ -116,6 +118,14 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProfiloActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        managerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
                 startActivity(intent);
             }
         });

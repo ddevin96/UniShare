@@ -208,10 +208,12 @@ public class CommentiActivity extends Activity {
     }
 
     private boolean isManager() {
+        boolean manager= true;
         if (ruolo.equals("manager"))
-            return true;
+            manager = true;
         else
-            return false;
+            manager = false;
+        return manager;
     }
 
     private boolean isCreator(String id) {

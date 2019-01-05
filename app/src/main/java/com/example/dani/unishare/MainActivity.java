@@ -74,7 +74,7 @@ public class MainActivity extends Activity {
 
         bUser= DatabaseId.getInstance().getCurrentUser();
 
-        if(isManager()){
+        if(bUser!=null && isManager()){
             addButton.setVisibility(View.VISIBLE);
             databaseUtente= FirebaseDatabase.getInstance().getReference("utente").child(bUser.getUid());
             databaseUtente.addValueEventListener(new ValueEventListener() {

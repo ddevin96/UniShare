@@ -38,6 +38,7 @@ public class PostActivity extends Activity {
     TextView textViewAutore;
     Button addPost;
     DatabaseReference databasePost;
+    DatabaseReference databaseUtente;
     ListView listViewPost;
     List<Post> listaPost;
     EditText editTextTitle;
@@ -51,14 +52,14 @@ public class PostActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        mUser = databaseId.getInstance().getCurrentUser();
         textViewTitolo = (TextView) this.findViewById(R.id.textViewTitolo);
         textViewDescrizione = (TextView) this.findViewById(R.id.textViewDescrizione);
         textViewAutore= (TextView) this.findViewById(R.id.textViewAuthor);
         listViewPost = (ListView) this.findViewById(R.id.listViewPost);
         addPost = (Button) this.findViewById(R.id.addPost);
+        addPost.setVisibility(View.GONE);
         listaPost = new ArrayList<>();
-
-        mUser = databaseId.getInstance().getCurrentUser();
 
         Intent intent = getIntent();
         String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
@@ -66,6 +67,12 @@ public class PostActivity extends Activity {
         textViewTitolo.setText(title);
 
         databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
+        databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(mUser.getUid());
+
+        if (mUser != null)
+            addPost.setVisibility(View.VISIBLE);
+
+
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -89,7 +96,10 @@ public class PostActivity extends Activity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Post post = listaPost.get(position);
-                modificaPostDialog(post);
+                if (isCreator(post.getAuthorId()) || isManager())
+                    modificaPostDialog(post);
+                else
+                    Toast.makeText(getApplicationContext(), "Solo l'autore può modificare", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -243,6 +253,20 @@ public class PostActivity extends Activity {
         } else
             return false;
         return value;
+    }
+
+    private boolean isManager() {
+        if (databaseUtente.child("ruolo").equals("manager"))
+            return true;
+        else
+            return false;
+    }
+
+    private boolean isCreator(String id) {
+        if (databaseUtente.child("authorId").equals(id))
+            return true;
+        else
+            return false;
     }
 }
 

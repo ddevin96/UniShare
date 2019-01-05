@@ -87,10 +87,7 @@ public class MainActivity extends Activity {
 
                 }
             });
-            if (isManager()) {
-                addButton.setVisibility(View.VISIBLE);
 
-            }
         }
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -166,6 +163,11 @@ public class MainActivity extends Activity {
                 finish();
             }
         });
+
+        if (isManager()) {
+            addButton.setVisibility(View.VISIBLE);
+
+        }
 
     }
 

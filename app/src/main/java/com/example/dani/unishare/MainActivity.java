@@ -325,13 +325,13 @@ public class MainActivity extends Activity {
     }
 
     private boolean isManager() {
-        boolean manager= true;
+
         if (ruolo.equals("manager")) {
-            manager=true;
+            return true;
         }
         else{
-            manager=false;
+            return false;
         }
-        return manager;
+
     }
 }

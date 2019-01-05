@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
         loginButton = (Button) this.findViewById(R.id.loginButton);
         profileButton = (Button) this.findViewById(R.id.profileButton);
         signOutButton = (Button) this.findViewById(R.id.signOutButton);
-        managerButton = (Button) this.findViewById(R.id.creaManagerButton);
+        managerButton = (Button) this.findViewById(R.id.ManagerButton);
 
         listaBacheca = new ArrayList<>();
 

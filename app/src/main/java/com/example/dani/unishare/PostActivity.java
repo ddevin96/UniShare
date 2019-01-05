@@ -158,7 +158,8 @@ public class PostActivity extends Activity {
                 }
                 Date date = new Date();
                 Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date);
-                modificaPost(postUpdate);
+                databasePost.child(postUpdate.getId()).setValue(postUpdate);
+                Toast.makeText(getApplicationContext(), "Post Modificato", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
         });
@@ -212,32 +213,14 @@ public class PostActivity extends Activity {
                 String idAuthor = mUser.getUid();
                 String id = databasePost.push().getKey();
                 Post post= new Post(id, title, description, author, idAuthor, data);
-                addPost(post);
+                databasePost.child(post.getId()).setValue(post);
+                Toast.makeText(getApplicationContext(), "Post aggiunto", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
 
             }
         });
     }
 
-    public void addPost(Post post) {
-        if (!TextUtils.isEmpty(post.getTitle())&&!TextUtils.isEmpty(post.getDescription())) {
-            databasePost.child(post.getId()).setValue(post);
-            Toast.makeText(this, "Post aggiunto", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void modificaPost(Post post) {
-        if (!TextUtils.isEmpty(post.getTitle())&&!TextUtils.isEmpty(post.getDescription())) {
-            databasePost.child(post.getId()).setValue(post);
-            Toast.makeText(this, "Post Modificato", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(this, "Inserisci titolo e descrizione", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void deletePost(String id) {
         databasePost.child(id).removeValue();

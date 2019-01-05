@@ -49,8 +49,12 @@ public class ManagerActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Utente utente = listaUtenti.get(position);
-                utente.setRuolo("manager");
-                Toast.makeText(getApplicationContext(),"Manager aggiunto" ,Toast.LENGTH_SHORT ).show();
+                if (!utente.getRuolo().equals("manager")) {
+                    utente.setRuolo("manager");
+                    databaseUtente.child(utente.getId()).setValue(utente);
+                    Toast.makeText(getApplicationContext(),"Manager aggiunto" ,Toast.LENGTH_SHORT ).show();
+                } else
+                    Toast.makeText(getApplicationContext(), "E' già manager!" ,Toast.LENGTH_SHORT).show();
             }
         });
 

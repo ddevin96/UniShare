@@ -34,11 +34,13 @@ public class CommentiActivity extends Activity {
     Button addCommentButton;
     ListView listViewCommenti;
     DatabaseReference databaseCommenti;
+    DatabaseReference databaseUtente;
     FirebaseAuth databaseId;
     FirebaseUser cUser;
     DatabaseReference databaseAuthor;
     List<Commento> lista;
     String author;
+    String ruolo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class CommentiActivity extends Activity {
         textViewPostName = (TextView) findViewById(R.id.textViewPostName);
         editTextCommentDescription = (EditText) findViewById(R.id.editTextCommentDescription);
         addCommentButton = (Button) findViewById(R.id.addCommentButton);
+        addCommentButton.setVisibility(View.GONE);
         listViewCommenti = (ListView) findViewById(R.id.listViewCommenti);
 
         cUser = databaseId.getInstance().getCurrentUser();
@@ -62,6 +65,21 @@ public class CommentiActivity extends Activity {
         textViewPostName.setText(title);
 
         databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(id);
+        if(cUser!=null){
+            addCommentButton.setVisibility(View.VISIBLE);
+            databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
+            databaseUtente.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ruolo = dataSnapshot.child("ruolo").getValue(String.class);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +91,12 @@ public class CommentiActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Commento commento= lista.get(position);
-                modificaCommentoDialog(commento);
-
+                if(isManager() || isCreator(cUser.getUid())) {
+                    modificaCommentoDialog(commento);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Il commento può essere modificato solo dall'autore o da un manager.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -183,5 +205,19 @@ public class CommentiActivity extends Activity {
     private void cancellaCommento(String id){
         databaseCommenti.child(id).removeValue();
         Toast.makeText(getApplicationContext(), "Commento Eliminato", Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isManager() {
+        if (ruolo.equals("manager"))
+            return true;
+        else
+            return false;
+    }
+
+    private boolean isCreator(String id) {
+        if (cUser.getUid().equals(id))
+            return true;
+        else
+            return false;
     }
 }

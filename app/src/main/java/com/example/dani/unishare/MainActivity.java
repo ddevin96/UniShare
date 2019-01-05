@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
     FirebaseAuth DatabaseId;
     ListView listViewBacheca;
     List<Bacheca> listaBacheca;
+    String ruolo;
 
     Button signUpButton;
     Button loginButton;
@@ -75,6 +76,18 @@ public class MainActivity extends Activity {
 
         if(isManager()){
             addButton.setVisibility(View.VISIBLE);
+            databaseUtente= FirebaseDatabase.getInstance().getReference("utente").child(bUser.getUid());
+            databaseUtente.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ruolo = dataSnapshot.child("ruolo").getValue(String.class);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +199,6 @@ public class MainActivity extends Activity {
 
         final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
         final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
-        final EditText editTextAuthor = (EditText) dialogView.findViewById(R.id.editTextAuthor);
         final Button addBachecaButton = (Button) dialogView.findViewById(R.id.addButton);
 
         dialogBuilder.setTitle("Crea bacheca");
@@ -311,7 +323,7 @@ public class MainActivity extends Activity {
 
     private boolean isManager() {
         boolean manager= true;
-        if (databaseUtente.child("ruolo").equals("manager")) {
+        if (ruolo.equals("manager")) {
             manager=true;
         }
         else{

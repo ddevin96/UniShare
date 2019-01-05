@@ -264,15 +264,17 @@ public class MainActivity extends Activity {
 
     private boolean confrontaBacheche(String titolo) {
         boolean value= true;
-        for (Bacheca bacheca : listaBacheca) {
-            if (bacheca.getTitle().equals(titolo)) {
-                value=true;
-                break;
+        if(!listaBacheca.isEmpty()) {
+            for (Bacheca bacheca : listaBacheca) {
+                if (bacheca.getTitle().equals(titolo)) {
+                    value = true;
+                    break;
+                } else {
+                    value = false;
+                }
             }
-            else {
-                value=false;
-            }
-        }
+        } else
+            return false;
 
         return value;
     }

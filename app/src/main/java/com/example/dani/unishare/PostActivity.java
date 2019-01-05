@@ -231,15 +231,17 @@ public class PostActivity extends Activity {
 
     private boolean confrontaPost(String titolo){
         boolean value=true;
-        for (Post post : listaPost){
-            if(post.getTitle().equals(titolo)){
-                value=true;
-                break;
+        if (!listaPost.isEmpty()) {
+            for (Post post : listaPost) {
+                if (post.getTitle().equals(titolo)) {
+                    value = true;
+                    break;
+                } else {
+                    value = false;
+                }
             }
-            else {
-                value=false;
-            }
-        }
+        } else
+            return false;
         return value;
     }
 }

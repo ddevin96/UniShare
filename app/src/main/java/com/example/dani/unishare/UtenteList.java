@@ -12,18 +12,18 @@ import android.widget.TextView;
 import java.util.List;
 
 public class UtenteList extends ArrayAdapter<Utente> {
-private Activity context;
-private List<Utente> listaUtente;
+    private Activity context;
+    private List<Utente> listaUtente;
 
-public UtenteList(Activity context, List<Utente> listaUtente) {
+    public UtenteList(Activity context, List<Utente> listaUtente) {
         super(context, R.layout.list_view_utente, listaUtente);
         this.context = context;
         this.listaUtente = listaUtente;
-        }
+    }
 
-@NonNull
-@Override
-public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_view_utente, null, true);
         TextView nomeUtente = (TextView) listViewItem.findViewById((R.id.textViewNome));
@@ -33,5 +33,5 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
         cognomeUtente.setText(utente.getCognome());
 
         return listViewItem;
-        }
-        }
+    }
+}

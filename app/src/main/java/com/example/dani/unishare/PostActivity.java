@@ -102,7 +102,7 @@ public class PostActivity extends Activity {
                         if(post.getTitle().contains(elem)){
                             if(!listaPostTrovati.isEmpty()){
                                 for(Post post1 : listaPostTrovati){
-                                    if(post.getId().equals(post1.getId())) {
+                                    if(!post.getId().equals(post1.getId())) {
                                         listaPostTrovati.add(post);
                                     }
                                 }

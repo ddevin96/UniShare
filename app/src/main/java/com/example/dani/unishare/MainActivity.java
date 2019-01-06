@@ -61,7 +61,6 @@ public class MainActivity extends Activity {
 
         editTextTitle = (EditText) this.findViewById(R.id.editTextTitle);
         editTextDescription = (EditText) this.findViewById(R.id.editTextDescription);
-        editTextAuthor = (EditText) this.findViewById(R.id.editTextAuthor);
         listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
         addButton = (Button) this.findViewById(R.id.addBachecaButton);
         addButton.setVisibility(View.GONE);

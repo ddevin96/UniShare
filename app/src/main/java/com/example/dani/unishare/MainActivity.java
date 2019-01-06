@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
         editTextAuthor = (EditText) this.findViewById(R.id.editTextAuthor);
         listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
         addButton = (Button) this.findViewById(R.id.addBachecaButton);
+        addButton.setVisibility(View.GONE);
 
         signUpButton = (Button) this.findViewById(R.id.signUpButton);
         loginButton = (Button) this.findViewById(R.id.loginButton);
@@ -74,6 +75,7 @@ public class MainActivity extends Activity {
         bUser= DatabaseId.getInstance().getCurrentUser();
 
         if(bUser!=null) {
+            addButton.setVisibility(View.VISIBLE);
             databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(bUser.getUid());
             databaseUtente.addValueEventListener(new ValueEventListener() {
                 @Override

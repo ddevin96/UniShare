@@ -99,7 +99,7 @@ public class PostActivity extends Activity {
                 List<String> listaParole = trovaParole(searchbarPost.getText().toString());
                 for(String elem : listaParole){
                     for(Post post : listaPost){
-                        if(post.getTitle().indexOf(elem)!=-1){
+                        if(post.getTitle().contains(elem)){
                             if(!listaPostTrovati.isEmpty()){
                                 for(Post post1 : listaPostTrovati){
                                     if(post.getId().equals(post1.getId())) {

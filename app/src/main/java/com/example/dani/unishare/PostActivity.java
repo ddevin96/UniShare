@@ -97,11 +97,18 @@ public class PostActivity extends Activity {
             public void onClick(View v) {
                 List<Post> listaPostTrovati = new ArrayList<>();
                 List<String> listaParole = trovaParole(searchbarPost.getText().toString());
+
                 for(String elem : listaParole){
                     for(Post post : listaPost){
                         if(post.getTitle().contains(elem)){
                             if(!listaPostTrovati.isEmpty()){
-                                for(Post post1 : listaPostTrovati){
+                                /*for(Post post1 : listaPostTrovati){
+                                    if(!post.getId().equals(post1.getId())) {
+                                        listaPostTrovati.add(post);
+                                    }
+                                }*/
+                                for (int i=0; i<listaPostTrovati.size();i++) {
+                                    Post post1 = listaPostTrovati.get(i);
                                     if(!post.getId().equals(post1.getId())) {
                                         listaPostTrovati.add(post);
                                     }

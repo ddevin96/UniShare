@@ -98,7 +98,18 @@ public class PostActivity extends Activity {
                 List<Post> listaPostTrovati = new ArrayList<>();
                 List<String> listaParole = trovaParole(searchbarPost.getText().toString());
 
-                for(int j=0; j<listaParole.size(); j++){
+                for(int k=0; k<listaPost.size();k++){
+                    Post post = listaPost.get(k);
+                    for(int j=0; j<listaParole.size(); j++) {
+                        String elem = listaParole.get(j);
+                        if(post.getTitle().contains(elem)) {
+                            listaPostTrovati.add(post);
+                            break;
+                        }
+                    }
+
+                }
+                /*for(int j=0; j<listaParole.size(); j++){
                     String elem = listaParole.get(j);
                     for(int k=0; k<listaPost.size();k++){
                         Post post = listaPost.get(k);
@@ -116,7 +127,7 @@ public class PostActivity extends Activity {
                                 listaPostTrovati.add(post);
                         }
                     }
-                }
+                }*/
                 PostList adapter1 = new PostList(PostActivity.this, listaPostTrovati);
                 listViewPost.setAdapter(adapter1);
             }

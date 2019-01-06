@@ -194,6 +194,22 @@ public class MainActivity extends Activity {
             }
         });
 
+
+        databasePost.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Post post = postSnapshot.getValue(Post.class);
+                    listaPost.add(post);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void showCreaBachecaDialog() {
@@ -302,20 +318,6 @@ public class MainActivity extends Activity {
     private void cancellaBacheca(String id){
         databaseBacheca.child(id).removeValue();
         databasePost= FirebaseDatabase.getInstance().getReference("post").child(id);
-        databasePost.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    Post post = postSnapshot.getValue(Post.class);
-                    listaPost.add(post);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         for (Post elemento : listaPost){
             String idPost = elemento.getId();
             DatabaseReference commenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);

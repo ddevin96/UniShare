@@ -54,7 +54,7 @@ public class CommentiActivity extends Activity {
         listViewCommenti = (ListView) findViewById(R.id.listViewCommenti);
 
         cUser = databaseId.getInstance().getCurrentUser();
-        databaseAuthor= FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
+
 
         Intent intent = getIntent();
 
@@ -66,6 +66,7 @@ public class CommentiActivity extends Activity {
 
         databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(id);
         if(cUser!=null){
+            databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
             addCommentButton.setVisibility(View.VISIBLE);
             databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
             databaseUtente.addValueEventListener(new ValueEventListener() {

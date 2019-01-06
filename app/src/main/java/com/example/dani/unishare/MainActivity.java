@@ -117,11 +117,11 @@ public class MainActivity extends Activity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Bacheca bacheca = listaBacheca.get(position);
-                if(isManager()) {
-                    showModificaBachecaDialog(bacheca);
+                if(bUser==null || !isManager()) {
+                    Toast.makeText(getApplicationContext(),"Solo un manager può modificare le bacheche.", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(),"Solo un manager può modificare le bacheche.", Toast.LENGTH_SHORT).show();
+                    showModificaBachecaDialog(bacheca);
                 }
                 return true;
             }

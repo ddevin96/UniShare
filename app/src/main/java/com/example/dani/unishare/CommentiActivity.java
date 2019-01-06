@@ -29,6 +29,8 @@ import java.util.List;
 
 public class CommentiActivity extends Activity {
 
+    EditText searchbar;
+    Button searcButton;
     TextView textViewPostName;
     TextView textViewPostDescription;
     TextView textViewPostAuthor;
@@ -49,6 +51,8 @@ public class CommentiActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commenti);
 
+        searchbar = (EditText) findViewById(R.id.searchbarCommento);
+        searcButton= (Button) findViewById(R.id.searchButtonCommento);
         textViewPostName = (TextView) findViewById(R.id.textViewPostName);
         textViewPostDescription = (TextView) findViewById(R.id.textViewPostDescription);
         textViewPostAuthor = (TextView) findViewById(R.id.textViewPostAuthor);
@@ -85,6 +89,30 @@ public class CommentiActivity extends Activity {
 
                 }
             });
+
+            searcButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    List<Commento> listaCommentiTrovati = new ArrayList<>();
+                    List<String> listaParole = trovaParole(searchbar.getText().toString());
+
+                    for(int k=0; k<lista.size();k++){
+                        Commento commento = lista.get(k);
+                        for(int j=0; j<listaParole.size(); j++) {
+                            String elem = listaParole.get(j);
+                            if(commento.getDescription().contains(elem)) {
+                                listaCommentiTrovati.add(commento);
+                                break;
+                            }
+                        }
+
+                    }
+                    CommentiList adapter1 = new CommentiList(CommentiActivity.this, listaCommentiTrovati);
+                    listViewCommenti.setAdapter(adapter1);
+
+                }
+            });
+
             addCommentButton.setVisibility(View.VISIBLE);
             editTextCommentDescription.setVisibility(View.VISIBLE);
             databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
@@ -232,4 +260,21 @@ public class CommentiActivity extends Activity {
         else
             return false;
     }
+
+    private List<String> trovaParole(String stringa){
+        String parola= "";
+        List<String> listaParole= new ArrayList<>();
+        for(int i=0; i<stringa.length(); i++){
+            if(stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z' || stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z' || stringa.charAt(i) > '0' && stringa.charAt(i) < '9')
+                parola += stringa.charAt(i);
+            else{
+                listaParole.add(parola);
+                parola ="";
+            }
+        }
+        listaParole.add(parola);
+        return listaParole;
+    }
+
+
 }

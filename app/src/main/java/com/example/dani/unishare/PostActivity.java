@@ -98,19 +98,17 @@ public class PostActivity extends Activity {
                 List<Post> listaPostTrovati = new ArrayList<>();
                 List<String> listaParole = trovaParole(searchbarPost.getText().toString());
 
-                for(String elem : listaParole){
-                    for(Post post : listaPost){
+                for(int j=0; j<listaParole.size(); j++){
+                    String elem = listaParole.get(j);
+                    for(int k=0; k<listaPost.size();k++){
+                        Post post = listaPost.get(k);
                         if(post.getTitle().contains(elem)){
                             if(!listaPostTrovati.isEmpty()){
-                                /*for(Post post1 : listaPostTrovati){
-                                    if(!post.getId().equals(post1.getId())) {
-                                        listaPostTrovati.add(post);
-                                    }
-                                }*/
                                 for (int i=0; i<listaPostTrovati.size();i++) {
                                     Post post1 = listaPostTrovati.get(i);
                                     if(!post.getId().equals(post1.getId())) {
                                         listaPostTrovati.add(post);
+                                        break;
                                     }
                                 }
                             }

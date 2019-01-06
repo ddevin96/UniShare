@@ -118,12 +118,12 @@ public class CommentiActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Commento commento= lista.get(position);
-                if(cUser==null || !isManager() || !isCreator(cUser.getUid())) {
-                    Toast.makeText(getApplicationContext(), "Il commento può essere modificato solo dall'autore o da un manager.", Toast.LENGTH_SHORT).show();
-                }
-                else{
+
+                if(cUser == null || !isCreator(commento.getAuthorId()))
+                    Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare", Toast.LENGTH_SHORT).show();
+                else if (isCreator(commento.getAuthorId()) || isManager())
                     modificaCommentoDialog(commento);
-                }
+
             }
         });
 

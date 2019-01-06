@@ -195,20 +195,7 @@ public class MainActivity extends Activity {
         });
 
 
-        databasePost.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    Post post = postSnapshot.getValue(Post.class);
-                    listaPost.add(post);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
@@ -304,6 +291,22 @@ public class MainActivity extends Activity {
             }
         });
 
+        databasePost= FirebaseDatabase.getInstance().getReference("post").child(id);
+        databasePost.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Post post = postSnapshot.getValue(Post.class);
+                    listaPost.add(post);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         cancellaBachecaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -317,7 +320,6 @@ public class MainActivity extends Activity {
     //si devono eliminare pure i commenti o lo fa automativamente?
     private void cancellaBacheca(String id){
         databaseBacheca.child(id).removeValue();
-        databasePost= FirebaseDatabase.getInstance().getReference("post").child(id);
         for (Post elemento : listaPost){
             String idPost = elemento.getId();
             DatabaseReference commenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);

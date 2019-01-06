@@ -55,14 +55,6 @@ public class Bacheca {
         this.author = author;
     }
 
-    public Date getData() {
-        return date;
-    }
-
-    public void setData(Date data) {
-        this.date = data;
-    }
-
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }

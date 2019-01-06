@@ -5,18 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ManagerActivity">
+    tools:context=".ManagerActivity"
+    android:background="@color/verde">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/acme"
+            android:text="Manager"
+            android:textColor="@color/nero"
+            android:textSize="30dp"
+            android:textStyle="normal"
+            android:layout_marginLeft="20dp"/>
 
         <Button
             android:id="@+id/creaManagerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:fontFamily="@font/acme"
+            style="@style/buttonStyle"
+            android:textSize="20dp"
             android:text="Nomina manager"/>
 
         <ListView
             android:id="@+id/listViewUtenti"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp">
 
         </ListView>
 

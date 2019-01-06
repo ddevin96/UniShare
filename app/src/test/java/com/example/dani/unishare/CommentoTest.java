@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 public class CommentoTest {
 
+    CommentoTest com = new CommentoTest();
     @Test
     public void getId() {
     }

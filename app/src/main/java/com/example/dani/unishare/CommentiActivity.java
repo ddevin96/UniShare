@@ -151,6 +151,7 @@ public class CommentiActivity extends Activity {
         String id = databaseCommenti.push().getKey();
         Commento comment = new Commento(id, description, author, idAuthor, date);
         databaseCommenti.child(id).setValue(comment);
+        editTextCommentDescription.setText("");
         Toast.makeText(this, "Commento Inserito", Toast.LENGTH_SHORT).show();
     }
 

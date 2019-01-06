@@ -53,6 +53,7 @@ public class CommentiActivity extends Activity {
         textViewPostDescription = (TextView) findViewById(R.id.textViewPostDescription);
         textViewPostAuthor = (TextView) findViewById(R.id.textViewPostAuthor);
         editTextCommentDescription = (EditText) findViewById(R.id.editTextCommentDescription);
+        editTextCommentDescription.setVisibility(View.GONE);
         addCommentButton = (Button) findViewById(R.id.addCommentButton);
         addCommentButton.setVisibility(View.GONE);
         listViewCommenti = (ListView) findViewById(R.id.listViewCommenti);
@@ -85,6 +86,7 @@ public class CommentiActivity extends Activity {
                 }
             });
             addCommentButton.setVisibility(View.VISIBLE);
+            editTextCommentDescription.setVisibility(View.VISIBLE);
             databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
             databaseUtente.addValueEventListener(new ValueEventListener() {
                 @Override

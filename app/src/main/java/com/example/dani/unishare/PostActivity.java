@@ -35,6 +35,8 @@ public class PostActivity extends Activity {
     public static final String POST_DESCRIZIONE="postdescrizione";
     public static final String POST_AUTORE="postautore";
 
+    EditText searchbarPost;
+    Button searchButton;
     TextView textViewTitolo;
     TextView textViewDescrizione;
     Button addPost;
@@ -55,6 +57,8 @@ public class PostActivity extends Activity {
         setContentView(R.layout.activity_post);
 
         mUser = databaseId.getInstance().getCurrentUser();
+        searchbarPost= (EditText) this.findViewById(R.id.searchbarPost);
+        searchButton= (Button) this.findViewById(R.id.searchButton);
         textViewTitolo = (TextView) this.findViewById(R.id.textViewTitolo);
         textViewDescrizione = (TextView) this.findViewById(R.id.textViewDescrizione);
         listViewPost = (ListView) this.findViewById(R.id.listViewPost);
@@ -88,7 +92,30 @@ public class PostActivity extends Activity {
         }
 
 
-
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Post> listaPostTrovati = new ArrayList<>();
+                List<String> listaParole = trovaParole(searchbarPost.getText().toString());
+                for(String elem : listaParole){
+                    for(Post post : listaPost){
+                        if(post.getTitle().indexOf(elem)!=-1){
+                            if(!listaPostTrovati.isEmpty()){
+                                for(Post post1 : listaPostTrovati){
+                                    if(post.getId().equals(post1.getId())) {
+                                        listaPostTrovati.add(post);
+                                    }
+                                }
+                            }
+                            else
+                                listaPostTrovati.add(post);
+                        }
+                    }
+                }
+                PostList adapter1 = new PostList(PostActivity.this, listaPostTrovati);
+                listViewPost.setAdapter(adapter1);
+            }
+        });
 
         addPost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -287,5 +314,20 @@ public class PostActivity extends Activity {
         else
             return false;
     }
+
+    private List<String> trovaParole(String stringa){
+        String parola= "";
+        List<String> listaParole= new ArrayList<>();
+        for(int i=0; i<stringa.length(); i++){
+            if(stringa.charAt(i)!= ' ')
+                parola += stringa.charAt(i);
+            else{
+                listaParole.add(parola);
+                parola ="";
+            }
+        }
+        return listaParole;
+    }
+
 }
 

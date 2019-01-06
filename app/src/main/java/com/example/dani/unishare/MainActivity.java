@@ -39,10 +39,12 @@ public class MainActivity extends Activity {
     Button signOutButton;
     DatabaseReference databaseBacheca;
     DatabaseReference databaseUtente;
+    DatabaseReference databasePost;
     FirebaseUser bUser;
     FirebaseAuth DatabaseId;
     ListView listViewBacheca;
     List<Bacheca> listaBacheca;
+    List<Post> listaPost;
     String ruoloManager;
 
     Button signUpButton;
@@ -71,6 +73,7 @@ public class MainActivity extends Activity {
         managerButton = (Button) this.findViewById(R.id.ManagerButton);
 
         listaBacheca = new ArrayList<>();
+        listaPost = new ArrayList<>();
 
         bUser= DatabaseId.getInstance().getCurrentUser();
 
@@ -299,11 +302,28 @@ public class MainActivity extends Activity {
     //si devono eliminare pure i commenti o lo fa automativamente?
     private void cancellaBacheca(String id){
         databaseBacheca.child(id).removeValue();
-        DatabaseReference post= FirebaseDatabase.getInstance().getReference("post").child(id);
-        String idPost= post.push().getKey();
-        DatabaseReference commenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
-        post.removeValue();
-        commenti.removeValue();
+        databasePost= FirebaseDatabase.getInstance().getReference("post").child(id);
+        databasePost.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Post post = postSnapshot.getValue(Post.class);
+                    listaPost.add(post);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        for (Post elemento : listaPost){
+            String idPost = elemento.getId();
+            DatabaseReference commenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
+            elemento.removeValue();
+            commenti.removeValue();
+        }
+
         Toast.makeText(this,"Bacheca eliminata", Toast.LENGTH_SHORT).show();
     }
 

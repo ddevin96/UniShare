@@ -320,7 +320,8 @@ public class MainActivity extends Activity {
         for (Post elemento : listaPost){
             String idPost = elemento.getId();
             DatabaseReference commenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
-            elemento.removeValue();
+            DatabaseReference postDaEliminare = FirebaseDatabase.getInstance().getReference("post").child(id).child(idPost);
+            postDaEliminare.removeValue();
             commenti.removeValue();
         }
 

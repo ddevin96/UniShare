@@ -67,6 +67,17 @@ public class CommentiActivity extends Activity {
         databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(id);
         if(cUser!=null){
             databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
+            databaseAuthor.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    author= dataSnapshot.child("nome").getValue().toString();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             addCommentButton.setVisibility(View.VISIBLE);
             databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
             databaseUtente.addValueEventListener(new ValueEventListener() {
@@ -125,17 +136,7 @@ public class CommentiActivity extends Activity {
             }
         });
 
-        databaseAuthor.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                author= dataSnapshot.child("nome").getValue().toString();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private void addCommento() {

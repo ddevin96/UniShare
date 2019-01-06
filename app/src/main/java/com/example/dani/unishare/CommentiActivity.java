@@ -90,28 +90,7 @@ public class CommentiActivity extends Activity {
                 }
             });
 
-            searcButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    List<Commento> listaCommentiTrovati = new ArrayList<>();
-                    List<String> listaParole = trovaParole(searchbar.getText().toString());
 
-                    for(int k=0; k<lista.size();k++){
-                        Commento commento = lista.get(k);
-                        for(int j=0; j<listaParole.size(); j++) {
-                            String elem = listaParole.get(j);
-                            if(commento.getDescription().contains(elem)) {
-                                listaCommentiTrovati.add(commento);
-                                break;
-                            }
-                        }
-
-                    }
-                    CommentiList adapter1 = new CommentiList(CommentiActivity.this, listaCommentiTrovati);
-                    listViewCommenti.setAdapter(adapter1);
-
-                }
-            });
 
             addCommentButton.setVisibility(View.VISIBLE);
             editTextCommentDescription.setVisibility(View.VISIBLE);
@@ -145,6 +124,29 @@ public class CommentiActivity extends Activity {
                 else{
                     modificaCommentoDialog(commento);
                 }
+            }
+        });
+
+        searcButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Commento> listaCommentiTrovati = new ArrayList<>();
+                List<String> listaParole = trovaParole(searchbar.getText().toString());
+
+                for(int k=0; k<lista.size();k++){
+                    Commento commento = lista.get(k);
+                    for(int j=0; j<listaParole.size(); j++) {
+                        String elem = listaParole.get(j);
+                        if(commento.getDescription().contains(elem)) {
+                            listaCommentiTrovati.add(commento);
+                            break;
+                        }
+                    }
+
+                }
+                CommentiList adapter1 = new CommentiList(CommentiActivity.this, listaCommentiTrovati);
+                listViewCommenti.setAdapter(adapter1);
+
             }
         });
     }

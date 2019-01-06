@@ -326,6 +326,7 @@ public class PostActivity extends Activity {
                 parola ="";
             }
         }
+        listaParole.add(parola);
         return listaParole;
     }
 

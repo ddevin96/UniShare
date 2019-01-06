@@ -30,6 +30,8 @@ import java.util.List;
 public class CommentiActivity extends Activity {
 
     TextView textViewPostName;
+    TextView textViewPostDescription;
+    TextView textViewPostAuthor;
     EditText editTextCommentDescription;
     Button addCommentButton;
     ListView listViewCommenti;
@@ -48,6 +50,8 @@ public class CommentiActivity extends Activity {
         setContentView(R.layout.activity_commenti);
 
         textViewPostName = (TextView) findViewById(R.id.textViewPostName);
+        textViewPostDescription = (TextView) findViewById(R.id.textViewPostDescription);
+        textViewPostAuthor = (TextView) findViewById(R.id.textViewPostAuthor);
         editTextCommentDescription = (EditText) findViewById(R.id.editTextCommentDescription);
         addCommentButton = (Button) findViewById(R.id.addCommentButton);
         addCommentButton.setVisibility(View.GONE);
@@ -55,14 +59,16 @@ public class CommentiActivity extends Activity {
 
         cUser = databaseId.getInstance().getCurrentUser();
 
-
-        Intent intent = getIntent();
-
         lista = new ArrayList<>();
 
+        Intent intent = getIntent();
         String id = intent.getStringExtra(PostActivity.POST_ID);
         String title = intent.getStringExtra(PostActivity.POST_TITLE);
+        String description = intent.getStringExtra(PostActivity.POST_DESCRIZIONE);
+        String autore = intent.getStringExtra(PostActivity.POST_AUTORE);
         textViewPostName.setText(title);
+        textViewPostDescription.setText(description);
+        textViewPostAuthor.setText(autore);
 
         databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(id);
         if(cUser!=null){

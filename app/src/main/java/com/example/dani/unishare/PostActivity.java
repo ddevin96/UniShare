@@ -32,10 +32,11 @@ public class PostActivity extends Activity {
 
     public static final String POST_ID="postid";
     public static final String POST_TITLE="posttitle";
+    public static final String POST_DESCRIZIONE="postdescrizione";
+    public static final String POST_AUTORE="postautore";
 
     TextView textViewTitolo;
     TextView textViewDescrizione;
-    TextView textViewAutore;
     Button addPost;
     DatabaseReference databasePost;
     DatabaseReference databaseUtente;
@@ -56,16 +57,17 @@ public class PostActivity extends Activity {
         mUser = databaseId.getInstance().getCurrentUser();
         textViewTitolo = (TextView) this.findViewById(R.id.textViewTitolo);
         textViewDescrizione = (TextView) this.findViewById(R.id.textViewDescrizione);
-        textViewAutore= (TextView) this.findViewById(R.id.textViewAuthor);
         listViewPost = (ListView) this.findViewById(R.id.listViewPost);
         addPost = (Button) this.findViewById(R.id.addPost);
         addPost.setVisibility(View.GONE);
         listaPost = new ArrayList<>();
 
         Intent intent = getIntent();
-        String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
         String id=intent.getStringExtra(MainActivity.BACHECA_ID);
+        String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
+        String description=intent.getStringExtra(MainActivity.BACHECA_DESCRIPTION);
         textViewTitolo.setText(title);
+        textViewDescrizione.setText(description);
 
         databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
 
@@ -101,6 +103,8 @@ public class PostActivity extends Activity {
                 Intent intent = new Intent(PostActivity.this, CommentiActivity.class);
                 intent.putExtra(POST_ID, post.getId());
                 intent.putExtra(POST_TITLE, post.getTitle());
+                intent.putExtra(POST_DESCRIZIONE, post.getDescription());
+                intent.putExtra(POST_AUTORE, post.getAuthor());
                 startActivity(intent);
 
             }

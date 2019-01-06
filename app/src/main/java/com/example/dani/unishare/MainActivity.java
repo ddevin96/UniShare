@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
 
     public static final String BACHECA_ID = "bachecaid";
     public static final String BACHECA_TITLE = "bachecatitle";
+    public static final String BACHECA_DESCRIPTION = "bachecadescription";
 
 
     EditText editTextTitle;
@@ -108,6 +109,7 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(getApplicationContext(), PostActivity.class);
                 intent.putExtra(BACHECA_ID, bacheca.getId());
                 intent.putExtra(BACHECA_TITLE, bacheca.getTitle());
+                intent.putExtra(BACHECA_DESCRIPTION, bacheca.getDescription());
                 startActivity(intent);
 
             }

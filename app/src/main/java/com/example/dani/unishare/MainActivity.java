@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
     FirebaseAuth DatabaseId;
     ListView listViewBacheca;
     List<Bacheca> listaBacheca;
-    String ruolo;
+    String ruoloManager;
 
     Button signUpButton;
     Button loginButton;
@@ -62,7 +62,6 @@ public class MainActivity extends Activity {
         editTextAuthor = (EditText) this.findViewById(R.id.editTextAuthor);
         listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
         addButton = (Button) this.findViewById(R.id.addBachecaButton);
-        addButton.setVisibility(View.GONE);
 
         signUpButton = (Button) this.findViewById(R.id.signUpButton);
         loginButton = (Button) this.findViewById(R.id.loginButton);
@@ -79,7 +78,7 @@ public class MainActivity extends Activity {
             databaseUtente.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    ruolo = dataSnapshot.child("ruolo").getValue(String.class);
+                    ruoloManager = dataSnapshot.child("ruolo").getValue(String.class);
                 }
 
                 @Override
@@ -87,12 +86,14 @@ public class MainActivity extends Activity {
 
                 }
             });
-
         }
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                showCreaBachecaDialog();
+                if (bUser==null || !isManager())
+                    Toast.makeText(getApplicationContext(), "Solo il manager può creare una bacheca", Toast.LENGTH_SHORT).show();
+                else
+                    showCreaBachecaDialog();
             }
         });
 
@@ -163,11 +164,6 @@ public class MainActivity extends Activity {
                 finish();
             }
         });
-
-        if (isManager()) {
-            addButton.setVisibility(View.VISIBLE);
-
-        }
 
     }
 
@@ -327,13 +323,9 @@ public class MainActivity extends Activity {
     }
 
     private boolean isManager() {
-
-        if (ruolo.equals("manager")) {
+        if (ruoloManager.equals("manager"))
             return true;
-        }
-        else{
+        else
             return false;
-        }
-
     }
 }

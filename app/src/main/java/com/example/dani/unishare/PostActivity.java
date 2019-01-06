@@ -111,10 +111,10 @@ public class PostActivity extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Post post = listaPost.get(position);
 
-                if (isCreator(post.getAuthorId())||isManager())
-                    modificaPostDialog(post);
-                else
+                if(mUser == null || !isCreator(post.getAuthorId())|| !isManager())
                     Toast.makeText(getApplicationContext(), "Non sei il manager", Toast.LENGTH_SHORT).show();
+                else
+                    modificaPostDialog(post);
                 return true;
             }
         });

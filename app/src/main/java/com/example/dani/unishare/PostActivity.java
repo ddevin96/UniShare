@@ -98,19 +98,28 @@ public class PostActivity extends Activity {
                 List<Post> listaPostTrovati = new ArrayList<>();
                 List<String> listaParole = trovaParole(searchbarPost.getText().toString());
 
-                for(String elem : listaParole){
-                    for(Post post : listaPost){
+                for(int k=0; k<listaPost.size();k++){
+                    Post post = listaPost.get(k);
+                    for(int j=0; j<listaParole.size(); j++) {
+                        String elem = listaParole.get(j);
+                        if(post.getTitle().contains(elem)) {
+                            listaPostTrovati.add(post);
+                            break;
+                        }
+                    }
+
+                }
+                /*for(int j=0; j<listaParole.size(); j++){
+                    String elem = listaParole.get(j);
+                    for(int k=0; k<listaPost.size();k++){
+                        Post post = listaPost.get(k);
                         if(post.getTitle().contains(elem)){
                             if(!listaPostTrovati.isEmpty()){
-                                /*for(Post post1 : listaPostTrovati){
-                                    if(!post.getId().equals(post1.getId())) {
-                                        listaPostTrovati.add(post);
-                                    }
-                                }*/
                                 for (int i=0; i<listaPostTrovati.size();i++) {
                                     Post post1 = listaPostTrovati.get(i);
                                     if(!post.getId().equals(post1.getId())) {
                                         listaPostTrovati.add(post);
+                                        break;
                                     }
                                 }
                             }
@@ -118,7 +127,7 @@ public class PostActivity extends Activity {
                                 listaPostTrovati.add(post);
                         }
                     }
-                }
+                }*/
                 PostList adapter1 = new PostList(PostActivity.this, listaPostTrovati);
                 listViewPost.setAdapter(adapter1);
             }
@@ -149,9 +158,28 @@ public class PostActivity extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Post post = listaPost.get(position);
 
-                if(mUser == null || !isCreator(post.getAuthorId())|| !isManager())
+                /*if (mUser == null) {
+                    Toast.makeText(getApplicationContext(), "Non sei loggato", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                *//*if (!isCreator(post.getAuthorId())) {
+                    Toast.makeText(getApplicationContext(), "Non sei l'autore", Toast.LENGTH_SHORT).show();
+                    return true;
+                }*//*
+
+                if(!isManager()) {
                     Toast.makeText(getApplicationContext(), "Non sei il manager", Toast.LENGTH_SHORT).show();
-                else
+                    return true;
+
+                    modificaPostDialog(post);
+                    return true;
+                }*/
+
+
+                if(mUser == null || !isCreator(post.getAuthorId()))
+                    Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare", Toast.LENGTH_SHORT).show();
+                else if (isCreator(post.getAuthorId()) || isManager())
                     modificaPostDialog(post);
                 return true;
             }

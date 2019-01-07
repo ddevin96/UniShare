@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#1ed760"
     tools:context=".RicercaProfiloActivity">
 
     <LinearLayout
@@ -46,6 +47,7 @@
     </ListView>
 
     <TextView
+        android:id="@+id/labelNomeCercato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -63,6 +65,7 @@
         android:textSize="20dp"/>
 
     <TextView
+        android:id="@+id/labelCognomeCercato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -80,6 +83,7 @@
         android:textSize="20dp"/>
 
     <TextView
+        android:id="@+id/labelEmailCercato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -97,6 +101,7 @@
         android:textSize="20dp"/>
 
     <TextView
+        android:id="@+id/labelSessoCercato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -114,6 +119,7 @@
         android:textSize="20dp"/>
 
     <TextView
+        android:id="@+id/labelDataCercato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"

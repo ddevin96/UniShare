@@ -31,7 +31,7 @@ public class RicercaProfiloActivity extends Activity {
     FirebaseAuth databaseId;
     FirebaseUser mUser;
     TextView textViewNomeUtenteCercato, textViewCognomeUtenteCercato, textViewEmailUtenteCercato, textViewSessoUtenteCercato, textViewDataUtenteCercato;
-
+    TextView labelNomeCercato, labelCognomeCercato, labelEmailCercato, labelSessoCercato, labelDataCercato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +48,25 @@ public class RicercaProfiloActivity extends Activity {
         textViewSessoUtenteCercato = (TextView) findViewById(R.id.textViewSessoUtenteCercato);
         textViewDataUtenteCercato = (TextView) findViewById(R.id.textViewDataUtenteCercato);
 
+        labelNomeCercato = (TextView) findViewById(R.id.labelNomeCercato);
+        labelCognomeCercato = (TextView) findViewById(R.id.labelCognomeCercato);
+        labelEmailCercato = (TextView) findViewById(R.id.labelEmailCercato);
+        labelSessoCercato = (TextView) findViewById(R.id.labelSessoCercato);
+        labelDataCercato = (TextView) findViewById(R.id.labelDataCercato);
+
         textViewNomeUtenteCercato.setVisibility(View.GONE);
         textViewCognomeUtenteCercato.setVisibility(View.GONE);
         textViewEmailUtenteCercato.setVisibility(View.GONE);
         textViewSessoUtenteCercato.setVisibility(View.GONE);
         textViewDataUtenteCercato.setVisibility(View.GONE);
+
+        labelNomeCercato.setVisibility(View.GONE);
+        labelCognomeCercato.setVisibility(View.GONE);
+        labelEmailCercato.setVisibility(View.GONE);
+        labelSessoCercato.setVisibility(View.GONE);
+        labelDataCercato.setVisibility(View.GONE);
+
+
 
         listaUtenti = new ArrayList<>();
 
@@ -65,10 +79,51 @@ public class RicercaProfiloActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Utente utente = listaUtenti.get(position);
                 listViewUtenti.setVisibility(View.GONE);
+                textViewNomeUtenteCercato.setVisibility(View.VISIBLE);
+                textViewCognomeUtenteCercato.setVisibility(View.VISIBLE);
+                textViewEmailUtenteCercato.setVisibility(View.VISIBLE);
+                textViewSessoUtenteCercato.setVisibility(View.VISIBLE);
+                textViewDataUtenteCercato.setVisibility(View.VISIBLE);
 
+                labelNomeCercato.setVisibility(View.VISIBLE);
+                labelCognomeCercato.setVisibility(View.VISIBLE);
+                labelEmailCercato.setVisibility(View.VISIBLE);
+                labelSessoCercato.setVisibility(View.VISIBLE);
+                labelDataCercato.setVisibility(View.VISIBLE);
+
+                textViewNomeUtenteCercato.setText(utente.getNome());
+                textViewCognomeUtenteCercato.setText(utente.getCognome());
+                textViewEmailUtenteCercato.setText(utente.getEmail());
+                textViewSessoUtenteCercato.setText(utente.getSesso());
+                int year = utente.getDataDiNascita().getYear();
+                int month = utente.getDataDiNascita().getMonth();
+                int day = utente.getDataDiNascita().getDay();
+                String data = day + "/" + month + "/" + year;
+                textViewDataUtenteCercato.setText(data);
             }
         });
 
+        searchUtenteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<Utente> listaUtentiTrovati = new ArrayList<>();
+                List<String> listaParole = trovaParole(searchbarUtente.getText().toString());
+
+                for(int k=0; k<listaUtenti.size();k++){
+                    Utente utente = listaUtenti.get(k);
+                    for(int j=0; j<listaParole.size(); j++) {
+                        String elem = listaParole.get(j);
+                        if(utente.getNome().contains(elem) || utente.getCognome().contains(elem)) {
+                            listaUtentiTrovati.add(utente);
+                            break;
+                        }
+                    }
+                }
+
+                UtenteList adapter2 = new UtenteList(RicercaProfiloActivity.this, listaUtenti);
+                listViewUtenti.setAdapter(adapter2);
+            }
+        });
     }
 
     @Override
@@ -94,5 +149,20 @@ public class RicercaProfiloActivity extends Activity {
             }
         });
 
+    }
+
+    private List<String> trovaParole(String stringa){
+        String parola= "";
+        List<String> listaParole= new ArrayList<>();
+        for(int i=0; i<stringa.length(); i++){
+            if(stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z' || stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z' || stringa.charAt(i) > '0' && stringa.charAt(i) < '9' || stringa.charAt(i) != ' ')
+                parola += stringa.charAt(i);
+            else{
+                listaParole.add(parola);
+                parola ="";
+            }
+        }
+        listaParole.add(parola);
+        return listaParole;
     }
 }

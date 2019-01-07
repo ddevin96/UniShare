@@ -42,12 +42,14 @@ public class ProfiloActivity extends Activity {
     Button modificaProfila;
     Button cancellaProfilo;
     DatabaseReference databesaProfilo;
+    DatabaseReference databaseBacheche;
     DatabaseReference databasePost;
     DatabaseReference databaseCommento;
     FirebaseAuth databaseId;
     FirebaseUser user;
     String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit;
     Long year, month, day;
+    List<Bacheca> listaBacheche;
     List<Post> listaPost;
     List<Commento> listaCommenti;
 
@@ -68,9 +70,11 @@ public class ProfiloActivity extends Activity {
 
         user = databaseId.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
+        databaseBacheche= FirebaseDatabase.getInstance().getReference("bacheca");
         databasePost= FirebaseDatabase.getInstance().getReference("post");
         databaseCommento= FirebaseDatabase.getInstance().getReference("commento");
 
+        listaBacheche = new ArrayList<>();
         listaPost= new ArrayList<>();
         listaCommenti= new ArrayList<>();
 
@@ -111,6 +115,20 @@ public class ProfiloActivity extends Activity {
                 textViewEmail.setText(emailEdit);
                 textViewSesso.setText(sessoEdit);
                 textViewData.setText(data);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        databaseBacheche.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot bachecaSnapshot : dataSnapshot.getChildren()){
+                    Bacheca bacheca = bachecaSnapshot.getValue(Bacheca.class);
+                    listaBacheche.add(bacheca);
+                }
             }
 
             @Override
@@ -242,13 +260,38 @@ public class ProfiloActivity extends Activity {
     }
 
     private void updateAllName(String id, String nomeNuovo){
-        for(int i=0; i<listaPost.size(); i++){
+        for(int i=0; i<listaBacheche.size(); i++){
+            Bacheca bacheca= listaBacheche.get(i);
+            String idBacheca = bacheca.getId();
+            for(int j=0; j<listaPost.size(); j++){
+                Post post = listaPost.get(j);
+                DatabaseReference postBacheca=  FirebaseDatabase.getInstance().getReference("post").child(idBacheca).child(post.getId());
+                String idAuthorPost = postBacheca.child(post.getAuthorId()).toString();
+                if(idAuthorPost.equals(id)){
+                    post.setAuthor(nomeNuovo);
+                    postBacheca.setValue(post);
+                }
+                String idPost= post.getId();
+                for(int k=0; k<listaCommenti.size(); k++){
+                    Commento commento= listaCommenti.get(k);
+                    DatabaseReference commentiPost= FirebaseDatabase.getInstance().getReference("commento").child(idPost).child(commento.getId());
+                    String idAuthorCommento = commentiPost.child(commento.getAuthorId()).toString();
+                    if(idAuthorCommento.equals(id)){
+                        commento.setAuthor(nomeNuovo);
+                        commentiPost.setValue(commento);
+                    }
+                }
+
+            }
+        }
+
+       /* for(int i=0; i<listaPost.size(); i++){
             Post postConfronto= listaPost.get(i);
             if(postConfronto.getAuthorId().equals(id)){
                 postConfronto.setAuthor(nomeNuovo);
                 databasePost.child(postConfronto.getId()).setValue(postConfronto);
-                // DatabaseReference updatePost = FirebaseDatabase.getInstance().getReference("post").child(postConfronto.getId());
-               // updatePost.setValue(postConfronto);
+                 DatabaseReference updatePost = FirebaseDatabase.getInstance().getReference("post").child(postConfronto.getId());
+                 updatePost.setValue(postConfronto);
             }
         }
 
@@ -256,11 +299,11 @@ public class ProfiloActivity extends Activity {
             Commento commentoConfronto = listaCommenti.get(j);
             if(commentoConfronto.getAuthorId().equals(id)){
                 commentoConfronto.setAuthor(nomeNuovo);
-               // DatabaseReference updateCommento = FirebaseDatabase.getInstance().getReference("commento").child(commentoConfronto.getId());
-               // updateCommento.setValue(commentoConfronto);
+                DatabaseReference updateCommento = FirebaseDatabase.getInstance().getReference("commento").child(commentoConfronto.getId());
+                updateCommento.setValue(commentoConfronto);
                 databaseCommento.child(commentoConfronto.getId()).setValue(commentoConfronto);
             }
-        }
+        }*/
     }
 
     private void deleteProfilo() {

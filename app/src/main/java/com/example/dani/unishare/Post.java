@@ -11,19 +11,21 @@ public class Post {
     private String author;
     private String authorId;
     private Date date;
+    private String idBacheca;
 
 
     public Post(){
 
     }
 
-    public Post(String id, String title, String description, String author,String authorId, Date date) {
+    public Post(String id, String title, String description, String author,String authorId, Date date, String idBacheca) {
         this.id = id;
         this.title=title;
         this.description = description;
         this.author = author;
         this.authorId = authorId;
         this.date = date;
+        this.idBacheca= idBacheca;
 
     }
 
@@ -73,5 +75,14 @@ public class Post {
 
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
+    }
+
+
+    public String getIdBacheca() {
+        return idBacheca;
+    }
+
+    public void setIdBacheca(String idBacheca) {
+        this.idBacheca = idBacheca;
     }
 }

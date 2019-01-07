@@ -49,6 +49,7 @@ public class PostActivity extends Activity {
     FirebaseAuth databaseId;
     FirebaseUser mUser;
     String ruoloUser;
+    String idBacheca;
 
 
     @Override
@@ -67,13 +68,13 @@ public class PostActivity extends Activity {
         listaPost = new ArrayList<>();
 
         Intent intent = getIntent();
-        String id=intent.getStringExtra(MainActivity.BACHECA_ID);
+        idBacheca=intent.getStringExtra(MainActivity.BACHECA_ID);
         String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
         String description=intent.getStringExtra(MainActivity.BACHECA_DESCRIPTION);
         textViewTitolo.setText(title);
         textViewDescrizione.setText(description);
 
-        databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
+        databasePost = FirebaseDatabase.getInstance().getReference("post").child(idBacheca);
 
         if (mUser != null) {
             addPost.setVisibility(View.VISIBLE);
@@ -109,25 +110,6 @@ public class PostActivity extends Activity {
                     }
 
                 }
-                /*for(int j=0; j<listaParole.size(); j++){
-                    String elem = listaParole.get(j);
-                    for(int k=0; k<listaPost.size();k++){
-                        Post post = listaPost.get(k);
-                        if(post.getTitle().contains(elem)){
-                            if(!listaPostTrovati.isEmpty()){
-                                for (int i=0; i<listaPostTrovati.size();i++) {
-                                    Post post1 = listaPostTrovati.get(i);
-                                    if(!post.getId().equals(post1.getId())) {
-                                        listaPostTrovati.add(post);
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                                listaPostTrovati.add(post);
-                        }
-                    }
-                }*/
                 PostList adapter1 = new PostList(PostActivity.this, listaPostTrovati);
                 listViewPost.setAdapter(adapter1);
             }
@@ -229,7 +211,7 @@ public class PostActivity extends Activity {
                     return;
                 }
                 Date date = new Date();
-                Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date);
+                Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date, idBacheca);
                 databasePost.child(postUpdate.getId()).setValue(postUpdate);
                 Toast.makeText(getApplicationContext(), "Post Modificato", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
@@ -284,7 +266,7 @@ public class PostActivity extends Activity {
                 String author = mUser.getDisplayName();
                 String idAuthor = mUser.getUid();
                 String id = databasePost.push().getKey();
-                Post post= new Post(id, title, description, author, idAuthor, data);
+                Post post= new Post(id, title, description, author, idAuthor, data, idBacheca);
                 databasePost.child(post.getId()).setValue(post);
                 Toast.makeText(getApplicationContext(), "Post aggiunto", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();

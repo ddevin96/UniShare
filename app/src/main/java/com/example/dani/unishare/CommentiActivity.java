@@ -45,6 +45,7 @@ public class CommentiActivity extends Activity {
     List<Commento> lista;
     String author;
     String ruolo;
+    String idPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class CommentiActivity extends Activity {
         lista = new ArrayList<>();
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra(PostActivity.POST_ID);
+        idPost = intent.getStringExtra(PostActivity.POST_ID);
         String title = intent.getStringExtra(PostActivity.POST_TITLE);
         String description = intent.getStringExtra(PostActivity.POST_DESCRIZIONE);
         String autore = intent.getStringExtra(PostActivity.POST_AUTORE);
@@ -75,7 +76,7 @@ public class CommentiActivity extends Activity {
         textViewPostDescription.setText(description);
         textViewPostAuthor.setText(autore);
 
-        databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(id);
+        databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
         if(cUser!=null){
             databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
             databaseAuthor.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -191,7 +192,7 @@ public class CommentiActivity extends Activity {
         }
 
         String id = databaseCommenti.push().getKey();
-        Commento comment = new Commento(id, description, author, idAuthor, date);
+        Commento comment = new Commento(id, description, author, idAuthor, date, idPost);
         databaseCommenti.child(id).setValue(comment);
         editTextCommentDescription.setText("");
         Toast.makeText(this, "Commento Inserito", Toast.LENGTH_SHORT).show();
@@ -229,7 +230,7 @@ public class CommentiActivity extends Activity {
                 }
 
                 Date date = new Date();
-                Commento commento = new Commento(id,description, cUser.getDisplayName(), cUser.getUid(), date);
+                Commento commento = new Commento(id,description, cUser.getDisplayName(), cUser.getUid(), date, idPost);
                 databaseCommenti.child(commento.getId()).setValue(commento);
                 Toast.makeText(getApplicationContext(), "Commento modificato", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();

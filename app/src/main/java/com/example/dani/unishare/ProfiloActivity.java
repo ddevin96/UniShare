@@ -250,7 +250,7 @@ public class ProfiloActivity extends Activity {
                     databesaProfilo.setValue(utente);
 
                     databaseBacheche = FirebaseDatabase.getInstance().getReference("bacheca");
-                    databaseBacheche.addValueEventListener(new ValueEventListener() {
+                    databaseBacheche.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for(DataSnapshot bachecaSnapshot : dataSnapshot.getChildren()){
@@ -267,7 +267,7 @@ public class ProfiloActivity extends Activity {
                     for(int i=0; i<listaBacheche.size(); i++){
                         Bacheca bacheca= listaBacheche.get(i);
                         databasePost= FirebaseDatabase.getInstance().getReference("post").child(bacheca.getId());
-                        databasePost.addValueEventListener(new ValueEventListener() {
+                        databasePost.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
@@ -287,8 +287,8 @@ public class ProfiloActivity extends Activity {
                                 post.setAuthor(nome);
                                 databasePost.child(post.getId()).setValue(post);
                             }
-                            databaseCommento = FirebaseDatabase.getInstance().getReference("commnto").child(post.getId());
-                            databaseCommento.addValueEventListener(new ValueEventListener() {
+                            databaseCommento = FirebaseDatabase.getInstance().getReference("commento").child(post.getId());
+                            databaseCommento.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     for(DataSnapshot commentiSnapshot : dataSnapshot.getChildren()){

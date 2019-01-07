@@ -246,8 +246,9 @@ public class ProfiloActivity extends Activity {
             Post postConfronto= listaPost.get(i);
             if(postConfronto.getAuthorId().equals(id)){
                 postConfronto.setAuthor(nomeNuovo);
-                DatabaseReference updatePost = FirebaseDatabase.getInstance().getReference("post").child(postConfronto.getId());
-                updatePost.setValue(postConfronto);
+                databasePost.child(postConfronto.getId()).setValue(postConfronto);
+                // DatabaseReference updatePost = FirebaseDatabase.getInstance().getReference("post").child(postConfronto.getId());
+               // updatePost.setValue(postConfronto);
             }
         }
 
@@ -255,8 +256,9 @@ public class ProfiloActivity extends Activity {
             Commento commentoConfronto = listaCommenti.get(j);
             if(commentoConfronto.getAuthorId().equals(id)){
                 commentoConfronto.setAuthor(nomeNuovo);
-                DatabaseReference updateCommento = FirebaseDatabase.getInstance().getReference("commento").child(commentoConfronto.getId());
-                updateCommento.setValue(commentoConfronto);
+               // DatabaseReference updateCommento = FirebaseDatabase.getInstance().getReference("commento").child(commentoConfronto.getId());
+               // updateCommento.setValue(commentoConfronto);
+                databaseCommento.child(commentoConfronto.getId()).setValue(commentoConfronto);
             }
         }
     }

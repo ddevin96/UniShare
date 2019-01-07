@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/verde"
+    android:layout_marginBottom="15sp"
     >
 
     <TextView
@@ -12,6 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/nero"
+        android:textSize="22sp"
+        android:fontFamily="@font/acme"
+        android:layout_marginTop="15sp"
+        android:layout_marginBottom="15sp"
+
         />
 
 </LinearLayout>

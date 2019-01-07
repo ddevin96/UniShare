@@ -10,11 +10,22 @@
     <TextView
         android:id="@+id/textViewNome"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        />
 
     <TextView
         android:id="@+id/textViewCognome"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
+        android:textSize="20sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="10sp"/>
 
 </LinearLayout>

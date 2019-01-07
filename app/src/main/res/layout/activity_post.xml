@@ -24,29 +24,22 @@
             android:layout_marginTop="5dp"
             android:background="#f8f8ff"
             android:paddingLeft="10dp"
-            android:paddingBottom="3.5dp" />
+            android:paddingBottom="3.5dp"
+            android:hint="@string/search_post"
+            />
 
         <Button
             android:id="@+id/searchButton"
             style="@style/buttonStyle"
-
             android:layout_width="55dp"
             android:layout_height="23dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
-            android:text="cerca" />
+            android:text="cerca"
+            android:fontFamily="@font/acme"
+            />
 
     </LinearLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Post"
-        android:textSize="35dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/acme"
-        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/textViewTitolo"
@@ -55,7 +48,12 @@
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/title" />
+        android:hint="@string/title"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:fontFamily="@font/pacifico"
+        android:textColor="@color/nero"
+        />
 
     <TextView
         android:id="@+id/textViewDescrizione"
@@ -64,27 +62,46 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/description" />
+        android:hint="@string/description"
+        android:gravity="center"
+        android:fontFamily="@font/alef"
+        android:textSize="22sp"
+        android:textColor="@color/nero"
+        />
 
     <Button
         android:id="@+id/addPost"
         style="@style/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25sp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginLeft="20sp"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:fontFamily="@font/acme"
         android:text="@string/share"
+        android:gravity="center"
         android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/post"
+        android:textSize="25sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="5sp"
+        android:layout_marginLeft="10sp"
+        android:fontFamily="@font/acme"
+        android:textStyle="bold"
+        android:textColor="@color/nero"/>
 
     <ListView
         android:id="@+id/listViewPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="20dp">
 
     </ListView>

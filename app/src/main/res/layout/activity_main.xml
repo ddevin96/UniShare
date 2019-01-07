@@ -46,10 +46,6 @@
         android:layout_height="wrap_content"
         android:text="Cerca profilo"/>
 
-
-
-
-    <!-- SETTARE GRANDEZZA TESTO -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,19 +53,18 @@
         android:fontFamily="@font/acme"
         android:text="@string/bacheche"
         android:textColor="@color/nero"
-        android:textSize="30sp"
-        android:textStyle="normal"
-        />
+        android:textSize="35sp"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:fontFamily="@font/acme"
+        android:fontFamily="@font/alef"
         android:text="@string/subtitle_bacheca"
         android:textColor="@color/nero"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="italic" />
 
     <Button

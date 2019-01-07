@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistrazioneActivity"
-    android:background="#1ed760">
+    android:background="@color/verde">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,80 +17,92 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="35dp"
-            android:fontFamily="@font/acme"
-            android:text="Registrati a Unishare"
             android:layout_marginTop="20dp"
-            android:gravity="center"/>
+            android:fontFamily="@font/pacifico"
+            android:gravity="center"
+            android:text="@string/register_to_unishare"
+            android:textColor="@color/nero"
+            android:textSize="35dp" />
 
         <EditText
             android:id="@+id/editTextRegNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20sp"
             android:layout_marginTop="20sp"
-            android:hint="   Inserisci nome"/>
+            android:layout_marginRight="20sp"
+            android:fontFamily="@font/alef"
+            android:hint="@string/insert_name" />
 
         <EditText
             android:id="@+id/editTextRegCognome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="10sp"
-            android:hint="   Inserisci cognome"/>
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/alef"
+            android:hint="@string/insert_surname" />
 
         <EditText
             android:id="@+id/editTextRegEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="10sp"
-            android:hint="   Inserisci email"/>
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/alef"
+            android:hint="@string/insert_email"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/editTextRegPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="10sp"
-            android:hint=" Inserisci password"/>
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/alef"
+            android:hint="@string/insert_pass"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/editTextRegRipetiPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="10sp"
-            android:hint=" Reinserisci password"/>
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/alef"
+            android:hint="@string/confirm_pass"
+            android:inputType="textPassword" />
 
         <DatePicker
-            android:background="#f0ffff"
             android:id="@+id/editDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </DatePicker>
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginBottom="20sp"
+            android:background="#1b1b1c"
+            android:calendarTextColor="@color/bianco"
+            android:calendarViewShown="false"
+
+            android:datePickerMode="spinner"
+            android:spinnersShown="true"></DatePicker>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Inserisci il sesso"
             android:layout_marginLeft="30dp"
-            android:textSize="16dp"/>
+            android:text="@string/insert_sex"
+            android:fontFamily="@font/alef"
+            android:textSize="18dp"
+            android:textColor="@color/nero"/>
 
-               <RadioGroup
+        <RadioGroup
             android:id="@+id/radioGroupSesso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -99,65 +111,71 @@
                 android:id="@+id/radioUomo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
-                android:text="Uomo"
-                android:checked="true"/>
+                android:layout_marginTop="10dp"
+                android:checked="true"
+                android:text="@string/male"
+                android:fontFamily="@font/alef"/>
 
             <RadioButton
                 android:id="@+id/radioDonna"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="Donna"/>
+                android:text="@string/female"
+                android:fontFamily="@font/alef"
+                />
 
         </RadioGroup>
 
         <TextView
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Condizioni sulla privacy"
-            android:layout_marginLeft="30dp"
-            android:textSize="16dp"/>
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="10sp"
+            android:text="@string/privacy"
+            android:textSize="18sp"
+            android:textColor="@color/nero"
+            android:fontFamily="@font/alef"/>
 
         <CheckBox
             android:id="@+id/checkboxPrivacy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="30dp"
-            android:text="Accetto termini e condizioni"/>
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="5sp"
+            android:text="@string/accept_privacy"
+            android:fontFamily="@font/alef"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
-            android:gravity="center"
             android:layout_marginBottom="30dp"
-            >
+            android:gravity="center">
 
             <Button
-
-                 android:id="@+id/buttonRegistrazione"
+                android:id="@+id/buttonRegistrazione"
+                style="@style/buttonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/buttonStyle"
-                android:text="Registrati"
-                android:textSize="20dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"/>
-            <Button
-
-                android:id="@+id/buttonGiaRegistrato"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/buttonStyle"
-                android:text="Già registrato ?"
-                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/acme"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:textSize="20dp"/>
+                android:text="@string/register"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/buttonGiaRegistrato"
+                style="@style/buttonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:fontFamily="@font/acme"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp"
+                android:text="@string/already_signed"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </LinearLayout>

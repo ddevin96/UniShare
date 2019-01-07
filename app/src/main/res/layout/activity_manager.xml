@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/acme"
+            android:fontFamily="@font/pacifico"
             android:text="Manager"
             android:textColor="@color/nero"
             android:textSize="30dp"

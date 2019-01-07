@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1ed760">
+    android:background="@color/verde">
 
 
     <LinearLayout
@@ -14,11 +14,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Modifica profilo"
-            android:fontFamily="@font/acme"
+            android:text="@string/modify_profile"
+            android:fontFamily="@font/pacifico"
             android:textSize="35dp"
+            android:textColor="@color/nero"
             android:layout_marginTop="20dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            />
 
         <EditText
             android:id="@+id/editTextModificaNome"
@@ -27,7 +29,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20sp"
-            android:hint="   Modifica nome"/>
+            android:hint="@string/modify_name"
+            android:fontFamily="@font/alef"
+            />
 
         <EditText
             android:id="@+id/editTextModificaCognome"
@@ -36,7 +40,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20sp"
-            android:hint="   Modifica cognome"/>
+            android:hint="@string/modify_surname"
+            android:fontFamily="@font/alef"
+            />
 
         <EditText
             android:id="@+id/editTextModificaEmail"
@@ -45,7 +51,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20sp"
-            android:hint="   Modifica email"/>
+            android:hint="@string/modify_email"
+            android:fontFamily="@font/alef"/>
 
         <EditText
             android:id="@+id/editTextModificaPassword"
@@ -55,15 +62,18 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="20sp"
             android:inputType="textPassword"
-            android:hint=" Modifica password"/>
+            android:hint="@string/modify_pass"
+            android:fontFamily="@font/alef"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Iserisci il sesso"
+            android:text="@string/insert_sex"
             android:layout_marginLeft="30dp"
             android:textSize="18dp"
-            android:layout_marginTop="20sp"/>
+            android:layout_marginTop="20sp"
+            android:textColor="@color/nero"
+            android:fontFamily="@font/alef"/>
 
         <RadioGroup
             android:id="@+id/radioModificaSesso"
@@ -77,28 +87,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
-                android:text="Uomo"
-                android:checked="true"/>
+                android:text="@string/male"
+                android:checked="true"
+                android:fontFamily="@font/alef"/>
 
             <RadioButton
                 android:id="@+id/radioModificaDonna"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="Donna"/>
+                android:text="@string/female"
+                android:fontFamily="@font/alef"/>
 
         </RadioGroup>
 
         <DatePicker
-            android:id="@+id/modificaData"
-            android:background="#f0ffff"
+            android:id="@+id/editDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></DatePicker>
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginRight="15sp"
+            android:layout_marginBottom="20sp"
+            android:background="#1b1b1c"
+            android:calendarTextColor="@color/bianco"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:spinnersShown="true"></DatePicker>
 
         <Button
             android:id="@+id/ButtonModifica"
@@ -107,9 +123,10 @@
             style="@style/buttonStyle"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
-            android:text="Conferma"
+            android:text="@string/confirm"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"/>
+            android:paddingRight="20dp"
+            android:fontFamily="@font/acme"/>
 
     </LinearLayout>
 

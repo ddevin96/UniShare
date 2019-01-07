@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Aggiungi post"
+        android:text="@string/share_post"
         android:textSize="35dp"
         android:fontFamily="@font/acme"
+        android:textColor="@color/nero"
         android:layout_gravity="center"/>
 
     <EditText
@@ -24,7 +25,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
-        android:hint="@string/title" />
+        android:hint="@string/title"
+        android:fontFamily="@font/alef"
+        />
 
     <EditText
         android:id="@+id/descrizionePost"
@@ -33,7 +36,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10sp"
-        android:hint="@string/description" />
+        android:hint="@string/description"
+        android:fontFamily="@font/alef"
+        />
 
 
     <Button
@@ -43,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-
+        android:layout_marginBottom="15sp"
         android:fontFamily="@font/acme"
         android:text="@string/share"
         android:paddingRight="20dp"

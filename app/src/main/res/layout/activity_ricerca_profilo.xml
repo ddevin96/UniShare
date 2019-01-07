@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1ed760"
+    android:background="@color/verde"
     tools:context=".RicercaProfiloActivity">
 
     <LinearLayout
@@ -23,7 +23,9 @@
             android:layout_marginTop="5dp"
             android:background="#f8f8ff"
             android:paddingLeft="10dp"
-            android:paddingBottom="3.5dp" />
+            android:paddingBottom="3.5dp"
+            android:hint="@string/search_user"
+            />
 
         <Button
             android:id="@+id/searchUtenteButton"
@@ -52,9 +54,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
         android:textStyle="bold"
-        android:text="Nome: "/>
+        android:text="@string/name"/>
 
     <TextView
         android:id="@+id/textViewNomeUtenteCercato"
@@ -62,7 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:textSize="18sp"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/alef"/>
 
     <TextView
         android:id="@+id/labelCognomeCercato"
@@ -70,9 +76,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Cognome: "/>
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
+        android:text="@string/surname"/>
 
     <TextView
         android:id="@+id/textViewCognomeUtenteCercato"
@@ -80,7 +88,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:textSize="18sp"
+        android:fontFamily="@font/alef"
+        android:textColor="@color/nero"/>
 
     <TextView
         android:id="@+id/labelEmailCercato"
@@ -90,7 +100,9 @@
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="Email: "/>
+        android:text="@string/email"
+        android:fontFamily="@font/acme"
+        android:textColor="@color/nero"/>
 
     <TextView
         android:id="@+id/textViewEmailUtenteCercato"
@@ -98,7 +110,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:textSize="18sp"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/alef" />
 
     <TextView
         android:id="@+id/labelSessoCercato"
@@ -106,9 +120,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Sesso: "/>
+        android:text="@string/sex"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"/>
 
     <TextView
         android:id="@+id/textViewSessoUtenteCercato"
@@ -116,7 +132,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:fontFamily="@font/alef"
+        android:textColor="@color/nero"
+        android:textSize="18sp"/>
 
     <TextView
         android:id="@+id/labelDataCercato"
@@ -124,9 +142,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Data di nascita:"/>
+        android:text="@string/birth"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
+        />
 
     <TextView
         android:id="@+id/textViewDataUtenteCercato"
@@ -134,7 +155,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:textColor="@color/nero"
+        android:textSize="18sp"
+        android:fontFamily="@font/alef"/>
 
 
 </LinearLayout>

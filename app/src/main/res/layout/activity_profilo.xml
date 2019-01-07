@@ -6,25 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ProfiloActivity"
     android:orientation="vertical"
-    android:background="#1ed760">
+    android:background="@color/verde">
 
     <TextView
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profilo"
-        android:textSize="35dp"
-        android:fontFamily="@font/acme"
-        android:layout_gravity="center"/>
+        android:text="@string/profile"
+        android:textSize="35sp"
+        android:fontFamily="@font/pacifico"
+        android:layout_gravity="center"
+        android:textColor="@color/nero"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Nome: "/>
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
+        android:text="@string/name"/>
 
     <TextView
         android:id="@+id/textViewNomeUser"
@@ -32,16 +36,20 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:textColor="@color/nero"
+        android:textSize="18sp"
+        android:fontFamily="@font/alef"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Cognome: "/>
+        android:fontFamily="@font/acme"
+        android:textColor="@color/nero"
+        android:text="@string/surname"/>
 
     <TextView
         android:id="@+id/textViewCognomeUtente"
@@ -49,15 +57,19 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:fontFamily="@font/alef"
+        android:textColor="@color/nero"
+        android:textSize="18sp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Email: "/>
+        android:text="@string/email"
+        android:textColor="@color/nero"
+        />
 
     <TextView
         android:id="@+id/textViewEmailUtente"
@@ -65,16 +77,19 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:textColor="@color/nero"
+        android:fontFamily="@font/alef"
+        android:textSize="18sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Sesso: "/>
+        android:textColor="@color/nero"
+        android:text="@string/sex"/>
 
     <TextView
         android:id="@+id/textViewSessoUtente"
@@ -82,16 +97,21 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:fontFamily="@font/alef"
+        android:textColor="@color/nero"
+        android:textSize="18sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginTop="20sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:text="Data di nascita:"/>
+        android:text="@string/birth"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
+        />
 
     <TextView
         android:id="@+id/textViewDataUtente"
@@ -99,7 +119,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"/>
+        android:textColor="@color/nero"
+        android:fontFamily="@font/alef"
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -113,15 +135,14 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:fontFamily="@font/acme"
-             android:textSize="20dp"
-             android:paddingLeft="20dp"
-             android:paddingRight="20dp"
-             android:layout_marginRight="10dp"
-             android:text="Modifica Profilo" />
+             android:textSize="20sp"
+             android:paddingLeft="20sp"
+             android:paddingRight="20sp"
+             android:layout_marginRight="10sp"
+             android:text="@string/modify_profile" />
 
 
         <Button
-
             android:id="@+id/cancellaProfiloButton"
             style="@style/buttonStyle"
             android:layout_width="wrap_content"
@@ -131,7 +152,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:layout_marginLeft="10dp"
-            android:text="Cancella Profilo"/>
+            android:text="@string/delete_profile"/>
 
     </LinearLayout>
 </LinearLayout>

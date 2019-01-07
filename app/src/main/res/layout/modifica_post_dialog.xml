@@ -51,7 +51,8 @@
         android:paddingLeft="20dp"
         android:layout_marginRight="10dp"
         android:text="Modifica"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:fontFamily="@font/acme"/>
 
     <Button
         android:id="@+id/cancellaPostButton"
@@ -62,7 +63,8 @@
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:layout_marginLeft="10dp"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:fontFamily="@font/acme"/>
     </LinearLayout>
 
 </LinearLayout>

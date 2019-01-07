@@ -9,8 +9,6 @@
     android:background="#1ed760">
 
 
-
-
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,12 +30,13 @@
             android:layout_marginTop="5dp"
             android:background="#f8f8ff"
             android:paddingLeft="10dp"
-            android:paddingBottom="3.5dp" />
+            android:paddingBottom="3.5dp"
+            android:hint="@string/search_comment"
+            />
 
         <Button
             android:id="@+id/searchButtonCommento"
             style="@style/buttonStyle"
-
             android:layout_width="55dp"
             android:layout_height="23dp"
             android:layout_marginLeft="5dp"
@@ -47,19 +46,14 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Commenti"
-        android:textSize="35dp"
-        android:fontFamily="@font/acme"
-        android:layout_gravity="center"/>
-
-    <TextView
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:id="@+id/textViewPostName"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/pacifico"
+        android:textSize="30sp"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -69,15 +63,39 @@
         android:layout_marginRight="20dp"
         android:id="@+id/textViewPostDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alef"
+        android:textColor="@color/nero"
+        android:textSize="22sp"
+        />
 
     <TextView
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="25sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginBottom="20sp"
         android:id="@+id/textViewPostAuthor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:text="@string/comments"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:textColor="@color/nero"
+        android:fontFamily="@font/acme"
+        />
 
     <EditText
         android:id="@+id/editTextCommentDescription"
@@ -85,17 +103,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/insert_commento"/>
+
     <Button
         android:layout_marginTop="20dp"
         android:id="@+id/addCommentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/buttonStyle"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="20sp"
         android:fontFamily="@font/acme"
-        android:textSize="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:textSize="20sp"
+        android:paddingLeft="20sp"
+        android:paddingRight="20sp"
         android:text="@string/share"/>
 
     <ListView

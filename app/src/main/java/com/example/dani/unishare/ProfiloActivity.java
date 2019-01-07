@@ -277,11 +277,14 @@ public class ProfiloActivity extends Activity {
                 String idPost= post.getId();
                 for(int k=0; k<listaCommenti.size(); k++){
                     Commento commento= listaCommenti.get(k);
-                    DatabaseReference commentiPost= FirebaseDatabase.getInstance().getReference("commento").child(idPost).child(commento.getId());
-                    String idAuthorCommento = commentiPost.child(commento.getAuthorId()).toString();
-                    if(idAuthorCommento.equals(id)){
-                        commento.setAuthor(nomeNuovo);
-                        commentiPost.setValue(commento);
+                    DatabaseReference commentiPost = FirebaseDatabase.getInstance().getReference("commento").child(commento.getId()).getParent();
+                    if(idPost.equals(commentiPost.toString())) {
+                        //DatabaseReference commentiPost= FirebaseDatabase.getInstance().getReference("commento").child(idPost).child(commento.getId());
+                        String idAuthorCommento = commentiPost.child(commento.getAuthorId()).toString();
+                        if (idAuthorCommento.equals(id)) {
+                            commento.setAuthor(nomeNuovo);
+                            commentiPost.setValue(commento);
+                        }
                     }
                 }
 

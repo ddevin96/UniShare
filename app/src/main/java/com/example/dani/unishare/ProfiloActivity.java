@@ -265,11 +265,14 @@ public class ProfiloActivity extends Activity {
             String idBacheca = bacheca.getId();
             for(int j=0; j<listaPost.size(); j++){
                 Post post = listaPost.get(j);
-                DatabaseReference postBacheca=  FirebaseDatabase.getInstance().getReference("post").child(idBacheca).child(post.getId());
-                String idAuthorPost = postBacheca.child(post.getAuthorId()).toString();
-                if(idAuthorPost.equals(id)){
-                    post.setAuthor(nomeNuovo);
-                    postBacheca.setValue(post);
+                DatabaseReference postBacheca = FirebaseDatabase.getInstance().getReference().getParent();
+                if(idBacheca.equals(postBacheca)) {
+                    // DatabaseReference postBacheca=  FirebaseDatabase.getInstance().getReference("post").child(idBacheca).child(post.getId());
+                    String idAuthorPost = postBacheca.child(post.getAuthorId()).toString();
+                    if (idAuthorPost.equals(id)) {
+                        post.setAuthor(nomeNuovo);
+                        postBacheca.setValue(post);
+                    }
                 }
                 String idPost= post.getId();
                 for(int k=0; k<listaCommenti.size(); k++){
@@ -284,26 +287,6 @@ public class ProfiloActivity extends Activity {
 
             }
         }
-
-       /* for(int i=0; i<listaPost.size(); i++){
-            Post postConfronto= listaPost.get(i);
-            if(postConfronto.getAuthorId().equals(id)){
-                postConfronto.setAuthor(nomeNuovo);
-                databasePost.child(postConfronto.getId()).setValue(postConfronto);
-                 DatabaseReference updatePost = FirebaseDatabase.getInstance().getReference("post").child(postConfronto.getId());
-                 updatePost.setValue(postConfronto);
-            }
-        }
-
-        for(int j=0; j<listaCommenti.size(); j++){
-            Commento commentoConfronto = listaCommenti.get(j);
-            if(commentoConfronto.getAuthorId().equals(id)){
-                commentoConfronto.setAuthor(nomeNuovo);
-                DatabaseReference updateCommento = FirebaseDatabase.getInstance().getReference("commento").child(commentoConfronto.getId());
-                updateCommento.setValue(commentoConfronto);
-                databaseCommento.child(commentoConfronto.getId()).setValue(commentoConfronto);
-            }
-        }*/
     }
 
     private void deleteProfilo() {

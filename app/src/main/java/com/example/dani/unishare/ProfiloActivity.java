@@ -118,6 +118,35 @@ public class ProfiloActivity extends Activity {
 
             }
         });
+        databasePost.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Post post = postSnapshot.getValue(Post.class);
+                    listaPost.add(post);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseCommento.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot commentoSnapshot : dataSnapshot.getChildren()){
+                    Commento commento = commentoSnapshot.getValue(Commento.class);
+                    listaCommenti.add(commento);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void modificaProfiloDialog(){
@@ -200,35 +229,7 @@ public class ProfiloActivity extends Activity {
                     user.updatePassword(password);
                     Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
                     databesaProfilo.setValue(utente);
-                databasePost.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                            Post post = postSnapshot.getValue(Post.class);
-                            listaPost.add(post);
-                        }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                databaseCommento.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot commentoSnapshot : dataSnapshot.getChildren()){
-                            Commento commento = commentoSnapshot.getValue(Commento.class);
-                            listaCommenti.add(commento);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
                     updateAllName(id, nome);
                     Toast.makeText(getApplicationContext(), "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();

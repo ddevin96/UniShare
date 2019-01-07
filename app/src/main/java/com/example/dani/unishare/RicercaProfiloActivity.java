@@ -120,7 +120,7 @@ public class RicercaProfiloActivity extends Activity {
                     }
                 }
 
-                UtenteList adapter2 = new UtenteList(RicercaProfiloActivity.this, listaUtenti);
+                UtenteList adapter2 = new UtenteList(RicercaProfiloActivity.this, listaUtentiTrovati);
                 listViewUtenti.setAdapter(adapter2);
             }
         });

@@ -68,6 +68,8 @@ public class ProfiloActivity extends Activity {
 
         user = databaseId.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
+        databasePost= FirebaseDatabase.getInstance().getReference("post");
+        databaseCommento= FirebaseDatabase.getInstance().getReference("commento");
 
         listaPost= new ArrayList<>();
         listaCommenti= new ArrayList<>();
@@ -250,8 +252,7 @@ public class ProfiloActivity extends Activity {
         }
 
         for(int j=0; j<listaCommenti.size(); j++){
-            Commento commentoConfronto = listaCommenti.get(j
-            );
+            Commento commentoConfronto = listaCommenti.get(j);
             if(commentoConfronto.getAuthorId().equals(id)){
                 commentoConfronto.setAuthor(nomeNuovo);
                 DatabaseReference updateCommento = FirebaseDatabase.getInstance().getReference("commento").child(commentoConfronto.getId());

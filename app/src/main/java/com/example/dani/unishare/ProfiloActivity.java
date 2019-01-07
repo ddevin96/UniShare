@@ -26,7 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,10 +42,14 @@ public class ProfiloActivity extends Activity {
     Button modificaProfila;
     Button cancellaProfilo;
     DatabaseReference databesaProfilo;
+    DatabaseReference databasePost;
+    DatabaseReference databaseCommento;
     FirebaseAuth databaseId;
     FirebaseUser user;
     String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit;
     Long year, month, day;
+    List<Post> listaPost;
+    List<Commento> listaCommenti;
 
 
     @Override
@@ -62,6 +68,9 @@ public class ProfiloActivity extends Activity {
 
         user = databaseId.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
+
+        listaPost= new ArrayList<>();
+        listaCommenti= new ArrayList<>();
 
 
         modificaProfila.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +198,7 @@ public class ProfiloActivity extends Activity {
                     user.updatePassword(password);
                     Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
                     databesaProfilo.setValue(utente);
+                    updateAllName(id, nome);
                     Toast.makeText(getApplicationContext(), "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
 
@@ -197,6 +207,57 @@ public class ProfiloActivity extends Activity {
 
             }
         });
+    }
+
+    private void updateAllName(String id, String nomeNuovo){
+        databasePost.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                    Post post = postSnapshot.getValue(Post.class);
+                    listaPost.add(post);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseCommento.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot commentoSnapshot : dataSnapshot.getChildren()){
+                    Commento commento = commentoSnapshot.getValue(Commento.class);
+                    listaCommenti.add(commento);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        for(int i=0; i<listaPost.size(); i++){
+            Post postConfronto= listaPost.get(i);
+            if(postConfronto.getAuthorId().equals(id)){
+                postConfronto.setAuthor(nomeNuovo);
+                DatabaseReference updatePost = FirebaseDatabase.getInstance().getReference("post").child(postConfronto.getId());
+                updatePost.setValue(postConfronto);
+            }
+        }
+
+        for(int j=0; j<listaCommenti.size(); j++){
+            Commento commentoConfronto = listaCommenti.get(j
+            );
+            if(commentoConfronto.getAuthorId().equals(id)){
+                commentoConfronto.setAuthor(nomeNuovo);
+                DatabaseReference updateCommento = FirebaseDatabase.getInstance().getReference("commento").child(commentoConfronto.getId());
+                updateCommento.setValue(commentoConfronto);
+            }
+        }
     }
 
     private void deleteProfilo() {

@@ -265,8 +265,8 @@ public class ProfiloActivity extends Activity {
             String idBacheca = bacheca.getId();
             for(int j=0; j<listaPost.size(); j++){
                 Post post = listaPost.get(j);
-                DatabaseReference postBacheca = FirebaseDatabase.getInstance().getReference().getParent();
-                if(idBacheca.equals(postBacheca)) {
+                DatabaseReference postBacheca = FirebaseDatabase.getInstance().getReference("post").child(post.getId()).getParent();
+                if(idBacheca.equals(postBacheca.toString())) {
                     // DatabaseReference postBacheca=  FirebaseDatabase.getInstance().getReference("post").child(idBacheca).child(post.getId());
                     String idAuthorPost = postBacheca.child(post.getAuthorId()).toString();
                     if (idAuthorPost.equals(id)) {

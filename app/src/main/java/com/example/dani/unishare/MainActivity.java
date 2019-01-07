@@ -52,6 +52,7 @@ public class MainActivity extends Activity {
     Button loginButton;
     Button profileButton;
     Button managerButton;
+    Button cercaProfiloButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class MainActivity extends Activity {
         profileButton = (Button) this.findViewById(R.id.profileButton);
         signOutButton = (Button) this.findViewById(R.id.signOutButton);
         managerButton = (Button) this.findViewById(R.id.ManagerButton);
+        cercaProfiloButton = (Button) this.findViewById(R.id.cercaProfiloButton);
 
         listaBacheca = new ArrayList<>();
         listaPost = new ArrayList<>();
@@ -168,6 +170,14 @@ public class MainActivity extends Activity {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        cercaProfiloButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RicercaProfiloActivity.class);
+                startActivity(intent);
             }
         });
 

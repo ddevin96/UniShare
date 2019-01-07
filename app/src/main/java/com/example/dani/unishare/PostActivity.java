@@ -335,7 +335,7 @@ public class PostActivity extends Activity {
         String parola= "";
         List<String> listaParole= new ArrayList<>();
         for(int i=0; i<stringa.length(); i++){
-            if(stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z' || stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z' || stringa.charAt(i) > '0' && stringa.charAt(i) < '9')
+            if(stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z' || stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z' || stringa.charAt(i) > '0' && stringa.charAt(i) < '9' || stringa.charAt(i) != ' ')
                 parola += stringa.charAt(i);
             else{
                 listaParole.add(parola);

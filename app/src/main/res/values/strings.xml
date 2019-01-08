@@ -44,4 +44,8 @@
     <string name="modify_email">Modifica email</string>
     <string name="modify_name">Modifica nome</string>
     <string name="modify_surname">Modifica cognome</string>
+    <string name="logout">Logout</string>
+    <string name="search_user_item">Cerca utenti</string>
+    <string name="manager_panel">Pannello manager</string>
+    <string name="share_post_2">Pubblica post</string>
 </resources>

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <item
-        android:title="login"
-        android:id="@+id/loginMenu">
-    </item>
+        android:id="@+id/loginMenu"
+        android:title="@string/login"
+        ></item>
     <item
-        android:title="logout"
+        android:title="@string/logout"
         android:id="@+id/logoutMenu">
     </item>
     <item
-        android:title="registrazione"
+        android:title="@string/register"
         android:id="@+id/registrazioneMenu">
     </item>
     <item
-        android:title="cerca utenti"
-        android:id="@+id/cercaMenu">
-    </item>
+        android:id="@+id/cercaMenu"
+        android:title="@string/search_user_item"></item>
     <item
-        android:title="profilo"
+        android:title="@string/profile"
         android:id="@+id/profiloMenu">
     </item>
     <item
-        android:title="pannello manager"
+        android:title="@string/manager_panel"
         android:id="@+id/managerMenu">
     </item>
 </menu>

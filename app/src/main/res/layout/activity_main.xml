@@ -10,42 +10,6 @@
     android:background="@color/verde"
     >
 
-    <Button
-        android:id="@+id/profileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to profile"/>
-
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Registrazione"/>
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to Login"/>
-
-    <Button
-        android:id="@+id/signOutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"/>
-
-    <Button
-        android:id="@+id/ManagerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pannello admin"/>
-
-    <Button
-        android:id="@+id/cercaProfiloButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cerca profilo"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

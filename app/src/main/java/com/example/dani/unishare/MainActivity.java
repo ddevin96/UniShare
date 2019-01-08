@@ -38,9 +38,7 @@ public class MainActivity extends Activity {
 
     EditText editTextTitle;
     EditText editTextDescription;
-    EditText editTextAuthor;
     Button addButton;
-    Button signOutButton;
     DatabaseReference databaseBacheca;
     DatabaseReference databaseUtente;
     DatabaseReference databasePost;
@@ -51,11 +49,6 @@ public class MainActivity extends Activity {
     List<Post> listaPost;
     String ruoloManager;
 
-    Button signUpButton;
-    Button loginButton;
-    Button profileButton;
-    Button managerButton;
-    Button cercaProfiloButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +62,6 @@ public class MainActivity extends Activity {
         listViewBacheca = (ListView) this.findViewById(R.id.listViewBacheca);
         addButton = (Button) this.findViewById(R.id.addBachecaButton);
         addButton.setVisibility(View.GONE);
-
-        signUpButton = (Button) this.findViewById(R.id.signUpButton);
-        loginButton = (Button) this.findViewById(R.id.loginButton);
-        profileButton = (Button) this.findViewById(R.id.profileButton);
-        signOutButton = (Button) this.findViewById(R.id.signOutButton);
-        managerButton = (Button) this.findViewById(R.id.ManagerButton);
-        cercaProfiloButton = (Button) this.findViewById(R.id.cercaProfiloButton);
 
         listaBacheca = new ArrayList<>();
         listaPost = new ArrayList<>();
@@ -100,16 +86,10 @@ public class MainActivity extends Activity {
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*if (bUser==null || isManager())
-                    Toast.makeText(getApplicationContext(), "Solo il manager può creare una bacheca", Toast.LENGTH_SHORT).show();
-                else
-                    showCreaBachecaDialog();*/
                 if (bUser!=null && isManager())
                     showCreaBachecaDialog();
                 else
                     Toast.makeText(getApplicationContext(), "Solo il manager può creare una bacheca", Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -122,7 +102,6 @@ public class MainActivity extends Activity {
                 intent.putExtra(BACHECA_TITLE, bacheca.getTitle());
                 intent.putExtra(BACHECA_DESCRIPTION, bacheca.getDescription());
                 startActivity(intent);
-
             }
         });
 
@@ -137,60 +116,6 @@ public class MainActivity extends Activity {
                     showModificaBachecaDialog(bacheca);
                 }
                 return true;
-            }
-        });
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RegistrazioneActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ProfiloActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        managerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (bUser==null || !isManager())
-                    Toast.makeText(getApplicationContext(), "Solo il manager può entrare nel pannello", Toast.LENGTH_SHORT).show();
-                else {
-                    Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        signOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        cercaProfiloButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RicercaProfiloActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -342,7 +267,6 @@ public class MainActivity extends Activity {
 
     }
 
-    //si devono eliminare pure i commenti o lo fa automativamente?
     private void cancellaBacheca(String id){
         databaseBacheca.child(id).removeValue();
         for (Post elemento : listaPost){
@@ -384,7 +308,6 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_generale, menu);
-        //return super.onCreateOptionsMenu(menu);
 
         return true;
     }
@@ -404,7 +327,7 @@ public class MainActivity extends Activity {
         MenuItem itemProfilo = menu.getItem(4);
         if (bUser == null)
             itemProfilo.setVisible(false);
-        //fix manager
+
         MenuItem itemManager = menu.getItem(5);
         itemManager.setVisible(false);
         if (bUser != null) {
@@ -417,7 +340,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //return super.onOptionsItemSelected(item);
+
         switch(item.getItemId()) {
             case R.id.loginMenu:
                 finish();
@@ -446,7 +369,6 @@ public class MainActivity extends Activity {
                 Intent intent5 = new Intent(getApplicationContext(), ManagerActivity.class);
                 startActivity(intent5);
                 break;
-
         }
 
         return true;

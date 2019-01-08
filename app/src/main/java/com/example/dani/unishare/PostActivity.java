@@ -8,6 +8,9 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -326,6 +329,78 @@ public class PostActivity extends Activity {
         }
         listaParole.add(parola);
         return listaParole;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_generale, menu);
+        //return super.onCreateOptionsMenu(menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem itemLogin = menu.getItem(0);
+        if (mUser !=null)
+            itemLogin.setVisible(false);
+        MenuItem itemLogout = menu.getItem(1);
+        if (mUser == null)
+            itemLogout.setVisible(false);
+        MenuItem itemRegistrazione = menu.getItem(2);
+        if (mUser != null)
+            itemRegistrazione.setVisible(false);
+        MenuItem itemProfilo = menu.getItem(4);
+        if (mUser == null)
+            itemProfilo.setVisible(false);
+        //fix manager
+        MenuItem itemManager = menu.getItem(5);
+        itemManager.setVisible(false);
+        if (mUser != null) {
+            if (isManager())
+                itemManager.setVisible(true);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+        switch(item.getItemId()) {
+            case R.id.loginMenu:
+                finish();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.logoutMenu:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent1);
+                finish();
+                break;
+            case R.id.registrazioneMenu:
+                Intent intent2 = new Intent(getApplicationContext(), RegistrazioneActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.cercaMenu:
+                Intent intent3 = new Intent(getApplicationContext(), RicercaProfiloActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.profiloMenu:
+                Intent intent4 = new Intent(getApplicationContext(), ProfiloActivity.class);
+                startActivity(intent4);
+                break;
+            case R.id.managerMenu:
+                Intent intent5 = new Intent(getApplicationContext(), ManagerActivity.class);
+                startActivity(intent5);
+                break;
+
+        }
+
+        return true;
     }
 
 }

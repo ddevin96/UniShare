@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -365,5 +368,42 @@ public class MainActivity extends Activity {
             return true;
         else
             return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_generale, menu);
+        //return super.onCreateOptionsMenu(menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem itemLogin = menu.getItem(0);
+        if (bUser !=null)
+            itemLogin.setVisible(false);
+        MenuItem itemLogout = menu.getItem(1);
+        if (bUser == null)
+            itemLogout.setVisible(false);
+        MenuItem itemRegistrazione = menu.getItem(2);
+        if (bUser != null)
+            itemRegistrazione.setVisible(false);
+        MenuItem itemProfilo = menu.getItem(4);
+        if (bUser == null)
+            itemProfilo.setVisible(false);
+        MenuItem itemManager = menu.getItem(5);
+        itemManager.setVisible(false);
+        if (bUser!=null && isManager())
+            itemManager.setVisible(true);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -80,7 +80,7 @@
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:fontFamily="@font/acme"
-        android:text="@string/share"
+        android:text="@string/share_post_2"
         android:gravity="center"
         android:textSize="20dp" />
 

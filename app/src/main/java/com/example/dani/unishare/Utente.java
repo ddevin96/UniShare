@@ -17,7 +17,7 @@ public class Utente {
 
     }
 
-    public Utente(String id, String nome, String cognome, String sesso, Date dataDiNascita, String email, String password) {
+    public Utente(String id, String nome, String cognome, String sesso, Date dataDiNascita, String email, String password, String ruolo) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -25,7 +25,7 @@ public class Utente {
         this.dataDiNascita = dataDiNascita;
         this.email = email;
         this.password = password;
-        ruolo = "utente";
+        this.ruolo = ruolo;
     }
 
     public String getId() {

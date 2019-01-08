@@ -100,10 +100,16 @@ public class MainActivity extends Activity {
 
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (bUser==null || !isManager())
+                /*if (bUser==null || isManager())
                     Toast.makeText(getApplicationContext(), "Solo il manager può creare una bacheca", Toast.LENGTH_SHORT).show();
                 else
+                    showCreaBachecaDialog();*/
+                if (bUser!=null && isManager())
                     showCreaBachecaDialog();
+                else
+                    Toast.makeText(getApplicationContext(), "Solo il manager può creare una bacheca", Toast.LENGTH_SHORT).show();
+
+
             }
         });
 

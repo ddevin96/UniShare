@@ -48,7 +48,7 @@ public class ProfiloActivity extends Activity {
     DatabaseReference databaseCommento;
     FirebaseAuth databaseId;
     FirebaseUser user;
-    String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit;
+    String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit, ruolo;
     Long year, month, day;
     List<Bacheca> listaBacheche;
     List<Post> listaPost;
@@ -111,6 +111,7 @@ public class ProfiloActivity extends Activity {
                 month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
                 day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
                 String data= day + "/" + month + "/" + year;
+                ruolo = dataSnapshot.child("ruolo").getValue(String.class);
                 textViewNome.setText(nomeEdit);
                 textViewCognome.setText(cognomeEdit);
                 textViewEmail.setText(emailEdit);
@@ -246,7 +247,7 @@ public class ProfiloActivity extends Activity {
                     String id = user.getUid();
                     user.updateEmail(email);
                     user.updatePassword(password);
-                    Utente utente = new Utente(id, nome, cognome, sesso, date, email, password);
+                    Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
                     databesaProfilo.setValue(utente);
                     Toast.makeText(getApplicationContext(), "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();

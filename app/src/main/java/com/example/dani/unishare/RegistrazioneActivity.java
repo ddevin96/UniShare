@@ -128,7 +128,8 @@ public class RegistrazioneActivity extends Activity {
                         FirebaseUser user = firebaseAuth.getCurrentUser();
                         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
                         user.updateProfile(profileUpdate);
-                        Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password);
+                        String ruolo = "utente";
+                        Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password, ruolo);
                         databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } else {

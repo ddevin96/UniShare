@@ -9,6 +9,17 @@
     >
 
     <TextView
+        android:id="@+id/textViewAutorePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/nero"
+        android:textSize="22sp"
+        android:fontFamily="@font/acme"
+        android:layout_marginTop="15sp"
+        android:layout_marginBottom="15sp"
+        />
+
+    <TextView
         android:id="@+id/textViewTitoloPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +28,7 @@
         android:fontFamily="@font/acme"
         android:layout_marginTop="15sp"
         android:layout_marginBottom="15sp"
-
         />
+
 
 </LinearLayout>

@@ -24,9 +24,12 @@ public class PostList extends ArrayAdapter<Post> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_vew_post, null, true);
+
+        TextView autore = (TextView) listViewItem.findViewById((R.id.textViewAutorePost));
         TextView title = (TextView) listViewItem.findViewById((R.id.textViewTitoloPost));
 
         Post post = listaPost.get(position);
+        autore.setText(post.getAuthor());
         title.setText(post.getTitle());
 
         return listViewItem;

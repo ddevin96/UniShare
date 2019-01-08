@@ -161,8 +161,12 @@ public class MainActivity extends Activity {
         managerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
-                startActivity(intent);
+                if (bUser==null || !isManager())
+                    Toast.makeText(getApplicationContext(), "Solo il manager può entrare nel pannello", Toast.LENGTH_SHORT).show();
+                else {
+                    Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -394,16 +398,48 @@ public class MainActivity extends Activity {
         MenuItem itemProfilo = menu.getItem(4);
         if (bUser == null)
             itemProfilo.setVisible(false);
+        //fix manager
         MenuItem itemManager = menu.getItem(5);
-        itemManager.setVisible(false);
-        if (bUser!=null && isManager())
-            itemManager.setVisible(true);
+        if (bUser==null || !isManager())
+            itemManager.setVisible(false);
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        //return super.onOptionsItemSelected(item);
+        switch(item.getItemId()) {
+            case R.id.loginMenu:
+                finish();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.logoutMenu:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent1);
+                finish();
+                break;
+            case R.id.registrazioneMenu:
+                Intent intent2 = new Intent(getApplicationContext(), RegistrazioneActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.cercaMenu:
+                Intent intent3 = new Intent(getApplicationContext(), RicercaProfiloActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.profiloMenu:
+                Intent intent4 = new Intent(getApplicationContext(), ProfiloActivity.class);
+                startActivity(intent4);
+                break;
+            case R.id.managerMenu:
+                Intent intent5 = new Intent(getApplicationContext(), ManagerActivity.class);
+                startActivity(intent5);
+                break;
+
+        }
+
+        return true;
     }
 }

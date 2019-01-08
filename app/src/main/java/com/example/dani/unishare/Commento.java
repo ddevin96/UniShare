@@ -8,19 +8,17 @@ public class Commento {
     private String author;
     private String authorId;
     private Date data;
-    private String idPost;
 
     public Commento() {
 
     }
 
-    public Commento(String id, String description, String author, String authorId, Date data, String idPost) {
+    public Commento(String id, String description, String author, String authorId, Date data) {
         this.id = id;
         this.description = description;
         this.author = author;
         this.authorId= authorId;
         this.data = data;
-        this.idPost= idPost;
     }
 
     public String getId() {
@@ -63,11 +61,4 @@ public class Commento {
         this.authorId = authorId;
     }
 
-    public String getIdPost() {
-        return idPost;
-    }
-
-    public void setIdPost(String idPost) {
-        this.idPost = idPost;
-    }
 }

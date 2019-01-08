@@ -52,8 +52,6 @@ public class PostActivity extends Activity {
     FirebaseAuth databaseId;
     FirebaseUser mUser;
     String ruoloUser;
-    String idBacheca;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +69,7 @@ public class PostActivity extends Activity {
         listaPost = new ArrayList<>();
 
         Intent intent = getIntent();
-        idBacheca=intent.getStringExtra(MainActivity.BACHECA_ID);
+        String idBacheca=intent.getStringExtra(MainActivity.BACHECA_ID);
         String title=intent.getStringExtra(MainActivity.BACHECA_TITLE);
         String description=intent.getStringExtra(MainActivity.BACHECA_DESCRIPTION);
         textViewTitolo.setText(title);
@@ -214,7 +212,7 @@ public class PostActivity extends Activity {
                     return;
                 }
                 Date date = new Date();
-                Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date, idBacheca);
+                Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date);
                 databasePost.child(postUpdate.getId()).setValue(postUpdate);
                 Toast.makeText(getApplicationContext(), "Post Modificato", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
@@ -269,7 +267,7 @@ public class PostActivity extends Activity {
                 String author = mUser.getDisplayName();
                 String idAuthor = mUser.getUid();
                 String id = databasePost.push().getKey();
-                Post post= new Post(id, title, description, author, idAuthor, data, idBacheca);
+                Post post= new Post(id, title, description, author, idAuthor, data);
                 databasePost.child(post.getId()).setValue(post);
                 Toast.makeText(getApplicationContext(), "Post aggiunto", Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();

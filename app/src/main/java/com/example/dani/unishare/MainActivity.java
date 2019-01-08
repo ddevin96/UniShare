@@ -268,7 +268,7 @@ public class MainActivity extends Activity {
 
     }
 
-    private void showModificaBachecaDialog(Bacheca bacheca){
+    private void showModificaBachecaDialog(final Bacheca bacheca){
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -308,7 +308,7 @@ public class MainActivity extends Activity {
                 }
 
                 Date data = new Date();
-                String id = databaseBacheca.push().getKey();
+                String id = bacheca.getId();
                 Bacheca bacheca = new Bacheca(id, title, description, bUser.getDisplayName(), bUser.getUid(), data);
                 databaseBacheca.child(bacheca.getId()).setValue(bacheca);
                 Toast.makeText(getApplicationContext(), "Bacheca Modificata", Toast.LENGTH_SHORT).show();
@@ -406,8 +406,11 @@ public class MainActivity extends Activity {
             itemProfilo.setVisible(false);
         //fix manager
         MenuItem itemManager = menu.getItem(5);
-        if (bUser==null || !isManager())
-            itemManager.setVisible(false);
+        itemManager.setVisible(false);
+        if (bUser != null) {
+            if (isManager())
+                itemManager.setVisible(true);
+        }
 
         return true;
     }

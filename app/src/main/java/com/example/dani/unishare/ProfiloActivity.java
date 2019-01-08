@@ -186,7 +186,7 @@ public class ProfiloActivity extends Activity {
         editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
         editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
         editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
-        data = (DatePicker) dialogView.findViewById(R.id.modificaData);
+        data = (DatePicker) dialogView.findViewById(R.id.editDatePicker);
         radioButtonUomo = (RadioButton) dialogView.findViewById(R.id.radioModificaUomo1);
         conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
         editTextNome.setText(nomeEdit);

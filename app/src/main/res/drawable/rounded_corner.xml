@@ -6,6 +6,13 @@
 
     <solid android:color="@color/nero" />
 
+    <gradient
+        android:angle="90"
+        android:centerColor="@color/grigio_scuro"
+        android:endColor="@color/nero"
+        android:startColor="@color/grigio_chiaro"
+        android:type="linear" />
+
     <padding
         android:left="1dp"
         android:right="1dp"

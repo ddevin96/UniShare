@@ -107,10 +107,10 @@ public class ProfiloActivity extends Activity {
                 emailEdit = dataSnapshot.child("email").getValue(String.class);
                 sessoEdit = dataSnapshot.child("sesso").getValue(String.class);
                 passwordEdit = dataSnapshot.child("password").getValue(String.class);
-                year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
-                month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
-                day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
-                String data= day + "/" + month + "/" + year;
+                //year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
+                //month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
+                //day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
+                String data= dataSnapshot.child("datadiNascita").getValue(String.class);
                 ruolo = dataSnapshot.child("ruolo").getValue(String.class);
                 textViewNome.setText(nomeEdit);
                 textViewCognome.setText(cognomeEdit);
@@ -196,8 +196,8 @@ public class ProfiloActivity extends Activity {
         editTextPassword.setText(passwordEdit);
 
         int yearUpdate =(int) year.longValue();
-        int monthUpdate = (int) month.longValue();
-        int dayUpdate = (int) day.longValue() +1;
+        int monthUpdate = (int) month.longValue()+1;
+        int dayUpdate = (int) day.longValue();
         data.updateDate(yearUpdate,monthUpdate,dayUpdate);
 
         dialogBuilder.setTitle("Modifica profilo");
@@ -206,7 +206,7 @@ public class ProfiloActivity extends Activity {
 
 
         conferma.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
+
             @Override
             public void onClick(View v) {
                 String nome = editTextNome.getText().toString();
@@ -246,7 +246,7 @@ public class ProfiloActivity extends Activity {
                     return;
                 }
 
-                    Date date = new Date(year, month, day);
+                    String date = day + "/" + month +"/" + year;
                     String id = user.getUid();
                     user.updateEmail(email);
                     user.updatePassword(password);

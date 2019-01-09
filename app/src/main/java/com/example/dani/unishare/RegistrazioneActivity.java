@@ -103,10 +103,10 @@ public class RegistrazioneActivity extends Activity {
         final String password = editTextRegPassword.getText().toString().trim();
         final String ripPassword = editTextRegRipetiPassword.getText().toString().trim();
         int year = editDatePicker.getYear();
-        int month = editDatePicker.getMonth();
+        int month = editDatePicker.getMonth()+1;
         int day = editDatePicker.getDayOfMonth();
 
-        final Date date = new Date(year, month, day);
+        final String date = day + "/"+ month + "/" + year;
         final String sesso;
         if(radioDonna.isSelected())
             sesso = "D";

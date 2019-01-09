@@ -3,8 +3,10 @@ package com.example.dani.unishare;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -195,7 +197,7 @@ public class ProfiloActivity extends Activity {
 
         int yearUpdate =(int) year.longValue();
         int monthUpdate = (int) month.longValue();
-        int dayUpdate = (int) day.longValue();
+        int dayUpdate = (int) day.longValue() +1;
         data.updateDate(yearUpdate,monthUpdate,dayUpdate);
 
         dialogBuilder.setTitle("Modifica profilo");
@@ -204,6 +206,7 @@ public class ProfiloActivity extends Activity {
 
 
         conferma.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 String nome = editTextNome.getText().toString();
@@ -213,6 +216,7 @@ public class ProfiloActivity extends Activity {
                 int year = data.getYear();
                 int month = data.getMonth();
                 int day = data.getDayOfMonth();
+
 
                 String sesso;
                 //radiobutton

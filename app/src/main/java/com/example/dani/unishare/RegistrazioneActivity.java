@@ -2,8 +2,10 @@ package com.example.dani.unishare;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -93,6 +95,7 @@ public class RegistrazioneActivity extends Activity {
     }
 
 
+
     private void registraUtente() {
         final String nome = editTextRegNome.getText().toString().trim();
         final String cognome = editTextRegCognome.getText().toString().trim();
@@ -102,6 +105,7 @@ public class RegistrazioneActivity extends Activity {
         int year = editDatePicker.getYear();
         int month = editDatePicker.getMonth();
         int day = editDatePicker.getDayOfMonth();
+
         final Date date = new Date(year, month, day);
         final String sesso;
         if(radioDonna.isSelected())

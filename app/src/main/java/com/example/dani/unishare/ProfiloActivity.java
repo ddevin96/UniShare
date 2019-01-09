@@ -192,7 +192,7 @@ public class ProfiloActivity extends Activity {
         editTextEmail.setText(emailEdit);
         editTextPassword.setText(passwordEdit);
 
-        aggiornaData(dataPicker);
+        aggiornaData(dataPicker, data);
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();
@@ -286,7 +286,7 @@ public class ProfiloActivity extends Activity {
         return matcher.matches();
     }
 
-    private void aggiornaData(DatePicker data1){
+    private void aggiornaData(DatePicker data1, String data){
         int year=0, month=0, day=0;
         int count=0;
         String temp="";

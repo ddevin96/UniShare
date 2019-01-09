@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verde"
+    android:background="@drawable/background_gradient"
     android:orientation="vertical"
     tools:context=".PostActivity">
 
@@ -23,10 +23,10 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:background="#f8f8ff"
-            android:paddingLeft="10dp"
-            android:paddingBottom="3.5dp"
             android:hint="@string/search_post"
-            />
+            android:paddingLeft="10dp"
+
+            android:paddingBottom="3.5dp" />
 
         <Button
             android:id="@+id/searchButton"
@@ -36,6 +36,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
             android:text="cerca"
+
+
             android:fontFamily="@font/acme"
             />
 
@@ -59,15 +61,14 @@
         android:id="@+id/textViewDescrizione"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/description"
-        android:gravity="center"
         android:fontFamily="@font/alef"
-        android:textSize="22sp"
+        android:gravity="center"
+        android:hint="@string/description"
         android:textColor="@color/nero"
-        />
+        android:textSize="22sp" />
 
     <Button
         android:id="@+id/addPost"

@@ -205,9 +205,9 @@ public class ProfiloActivity extends Activity {
                 String cognome = editTextCognome.getText().toString();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                int year = data.getYear();
-                int month = data.getMonth();
-                int day = data.getDayOfMonth();
+                int year = dataPicker.getYear();
+                int month = dataPicker.getMonth();
+                int day = dataPicker.getDayOfMonth();
 
 
                 String sesso;

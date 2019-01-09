@@ -309,7 +309,7 @@ public class ProfiloActivity extends Activity {
                 break;
             }
         }
-        data1.updateDate(year,month,day);
+        data1.updateDate(year,month+1,day);
     }
 
 }

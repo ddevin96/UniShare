@@ -107,7 +107,7 @@ public class ProfiloActivity extends Activity {
                 emailEdit = dataSnapshot.child("email").getValue(String.class);
                 sessoEdit = dataSnapshot.child("sesso").getValue(String.class);
                 passwordEdit = dataSnapshot.child("password").getValue(String.class);
-                String data= dataSnapshot.child("dataDiNascita").getValue(String.class);
+                data= dataSnapshot.child("dataDiNascita").getValue(String.class);
                 ruolo = dataSnapshot.child("ruolo").getValue(String.class);
                 textViewNome.setText(nomeEdit);
                 textViewCognome.setText(cognomeEdit);
@@ -192,7 +192,7 @@ public class ProfiloActivity extends Activity {
         editTextEmail.setText(emailEdit);
         editTextPassword.setText(passwordEdit);
 
-        aggiornaData(dataPicker, data);
+        aggiornaData(dataPicker);
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();
@@ -286,7 +286,7 @@ public class ProfiloActivity extends Activity {
         return matcher.matches();
     }
 
-    private void aggiornaData(DatePicker data1, String data){
+    private void aggiornaData(DatePicker data1){
         int year=0, month=0, day=0;
         int count=0;
         String temp="";

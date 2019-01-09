@@ -45,6 +45,7 @@ public class RegistrazioneActivity extends Activity {
     RadioButton radioUomo, radioDonna;
     RadioGroup radioGroupSesso;
     Button buttonRegistrazione;
+    Button buttonGiaRegistrato;
     private FirebaseAuth firebaseAuth;
     DatabaseReference databaseUtente;
     List<Utente> listaUtente;
@@ -65,6 +66,7 @@ public class RegistrazioneActivity extends Activity {
         radioDonna = (RadioButton) findViewById(R.id.radioDonna);
         radioUomo = (RadioButton) findViewById(R.id.radioUomo);
         buttonRegistrazione = (Button) findViewById(R.id.buttonRegistrazione);
+        buttonGiaRegistrato = (Button) findViewById(R.id.buttonGiaRegistrato);
 
         listaUtente = new ArrayList<>();
         databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
@@ -90,6 +92,14 @@ public class RegistrazioneActivity extends Activity {
             @Override
             public void onClick(View v) {
                 registraUtente();
+            }
+        });
+
+        buttonGiaRegistrato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -110,7 +110,7 @@ public class ProfiloActivity extends Activity {
                 //year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
                 //month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
                 //day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
-                String data= dataSnapshot.child("datadiNascita").getValue(String.class);
+                String data= dataSnapshot.child("dataDiNascita").getValue(String.class);
                 ruolo = dataSnapshot.child("ruolo").getValue(String.class);
                 textViewNome.setText(nomeEdit);
                 textViewCognome.setText(cognomeEdit);

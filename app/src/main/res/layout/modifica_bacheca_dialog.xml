@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1ed760">
+    android:background="@drawable/background_gradient">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="35dp"
-        android:fontFamily="@font/acme"
-        android:text="Modifica bacheca"
+        android:fontFamily="@font/pacifico"
+        android:text="@string/modify_bacheca"
         android:layout_marginTop="20dp"
         android:gravity="center"/>
 

@@ -2,8 +2,10 @@ package com.example.dani.unishare;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,10 +24,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,6 +47,7 @@ public class RegistrazioneActivity extends Activity {
     Button buttonRegistrazione;
     private FirebaseAuth firebaseAuth;
     DatabaseReference databaseUtente;
+    List<Utente> listaUtente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +66,23 @@ public class RegistrazioneActivity extends Activity {
         radioUomo = (RadioButton) findViewById(R.id.radioUomo);
         buttonRegistrazione = (Button) findViewById(R.id.buttonRegistrazione);
 
+        listaUtente = new ArrayList<>();
         databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+        databaseUtente.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listaUtente.clear();
+                for(DataSnapshot utenteSnapshot: dataSnapshot.getChildren()) {
+                    Utente utente = utenteSnapshot.getValue(Utente.class);
+                    listaUtente.add(utente);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -71,6 +95,7 @@ public class RegistrazioneActivity extends Activity {
     }
 
 
+
     private void registraUtente() {
         final String nome = editTextRegNome.getText().toString().trim();
         final String cognome = editTextRegCognome.getText().toString().trim();
@@ -78,9 +103,10 @@ public class RegistrazioneActivity extends Activity {
         final String password = editTextRegPassword.getText().toString().trim();
         final String ripPassword = editTextRegRipetiPassword.getText().toString().trim();
         int year = editDatePicker.getYear();
-        int month = editDatePicker.getMonth();
+        int month = editDatePicker.getMonth()+1;
         int day = editDatePicker.getDayOfMonth();
-        final Date date = new Date(year, month, day);
+
+        final String date = day + "/"+ month + "/" + year;
         final String sesso;
         if(radioDonna.isSelected())
             sesso = "D";
@@ -96,6 +122,12 @@ public class RegistrazioneActivity extends Activity {
         if(TextUtils.isEmpty(cognome)||cognome.length()>20) {
             editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
             editTextRegCognome.requestFocus();
+            return;
+        }
+
+        if(confrontaMail(email)) {
+            editTextRegEmail.setError("L'email è già presente nel sistema");
+            editTextRegEmail.requestFocus();
             return;
         }
 
@@ -159,6 +191,21 @@ public class RegistrazioneActivity extends Activity {
         matcher = pattern.matcher(email);
 
         return matcher.matches();
+    }
+
+    private boolean confrontaMail(String mail) {
+        boolean value= true;
+        for (Utente utente : listaUtente) {
+            if (utente.getEmail().equals(mail)) {
+                value=true;
+                break;
+            }
+            else {
+                value=false;
+            }
+        }
+
+        return value;
     }
 }
 

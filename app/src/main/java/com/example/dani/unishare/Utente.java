@@ -8,7 +8,7 @@ public class Utente {
     private String nome;
     private String cognome;
     private String sesso;
-    private Date dataDiNascita;
+    private String dataDiNascita;
     private String email;
     private String password;
     private String ruolo;
@@ -17,7 +17,7 @@ public class Utente {
 
     }
 
-    public Utente(String id, String nome, String cognome, String sesso, Date dataDiNascita, String email, String password, String ruolo) {
+    public Utente(String id, String nome, String cognome, String sesso, String dataDiNascita, String email, String password, String ruolo) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -44,7 +44,7 @@ public class Utente {
         return sesso;
     }
 
-    public Date getDataDiNascita() {
+    public String getDataDiNascita() {
         return dataDiNascita;
     }
 
@@ -72,7 +72,7 @@ public class Utente {
         this.sesso = sesso;
     }
 
-    public void setDataDiNascita(Date dataDiNascita) {
+    public void setDataDiNascita(String dataDiNascita) {
         this.dataDiNascita = dataDiNascita;
     }
 

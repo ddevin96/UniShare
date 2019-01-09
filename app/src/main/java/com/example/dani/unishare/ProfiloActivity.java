@@ -3,11 +3,11 @@ package com.example.dani.unishare;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.Editable;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -19,17 +19,17 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +49,7 @@ public class ProfiloActivity extends Activity {
     FirebaseAuth databaseId;
     FirebaseUser user;
     String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit, ruolo;
-    Long year, month, day;
+    String data;
     List<Bacheca> listaBacheche;
     List<Post> listaPost;
     List<Commento> listaCommenti;
@@ -71,9 +71,9 @@ public class ProfiloActivity extends Activity {
 
         user = databaseId.getInstance().getCurrentUser();
         databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
-        //databaseBacheche= FirebaseDatabase.getInstance().getReference("bacheca");
-        //databasePost= FirebaseDatabase.getInstance().getReference("post");
-        //databaseCommento= FirebaseDatabase.getInstance().getReference("commento");
+        databaseBacheche= FirebaseDatabase.getInstance().getReference("bacheca");
+        databasePost= FirebaseDatabase.getInstance().getReference("post");
+        databaseCommento= FirebaseDatabase.getInstance().getReference("commento");
 
         listaBacheche = new ArrayList<>();
         listaPost= new ArrayList<>();
@@ -107,10 +107,7 @@ public class ProfiloActivity extends Activity {
                 emailEdit = dataSnapshot.child("email").getValue(String.class);
                 sessoEdit = dataSnapshot.child("sesso").getValue(String.class);
                 passwordEdit = dataSnapshot.child("password").getValue(String.class);
-                year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
-                month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
-                day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
-                String data= day + "/" + month + "/" + year;
+                data= dataSnapshot.child("dataDiNascita").getValue(String.class);
                 ruolo = dataSnapshot.child("ruolo").getValue(String.class);
                 textViewNome.setText(nomeEdit);
                 textViewCognome.setText(cognomeEdit);
@@ -124,7 +121,7 @@ public class ProfiloActivity extends Activity {
 
             }
         });
-       /* databaseBacheche.addValueEventListener(new ValueEventListener() {
+        databaseBacheche.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot bachecaSnapshot : dataSnapshot.getChildren()){
@@ -137,8 +134,8 @@ public class ProfiloActivity extends Activity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });*/
-     /*   databasePost.addValueEventListener(new ValueEventListener() {
+        });
+       databasePost.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
@@ -166,7 +163,7 @@ public class ProfiloActivity extends Activity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });*/
+        });
     }
 
     private void modificaProfiloDialog(){
@@ -179,7 +176,7 @@ public class ProfiloActivity extends Activity {
         final EditText editTextCognome;
         final EditText editTextEmail;
         final EditText editTextPassword;
-        final DatePicker data;
+        final DatePicker dataPicker;
         final Button conferma;
         final RadioButton radioButtonUomo;
 
@@ -187,7 +184,7 @@ public class ProfiloActivity extends Activity {
         editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
         editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
         editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
-        data = (DatePicker) dialogView.findViewById(R.id.editDatePicker);
+        dataPicker = (DatePicker) dialogView.findViewById(R.id.editDatePicker);
         radioButtonUomo = (RadioButton) dialogView.findViewById(R.id.radioModificaUomo1);
         conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
         editTextNome.setText(nomeEdit);
@@ -195,26 +192,23 @@ public class ProfiloActivity extends Activity {
         editTextEmail.setText(emailEdit);
         editTextPassword.setText(passwordEdit);
 
-        int yearUpdate = year.intValue();
-        int monthUpdate = month.intValue();
-        int dayUpdate = day.intValue();
-        data.updateDate(yearUpdate,monthUpdate,dayUpdate);
-
+        aggiornaData(dataPicker);
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();
 
-
         conferma.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String nome = editTextNome.getText().toString();
                 String cognome = editTextCognome.getText().toString();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                int year = data.getYear();
-                int month = data.getMonth();
-                int day = data.getDayOfMonth();
+                int year = dataPicker.getYear();
+                int month = dataPicker.getMonth();
+                int day = dataPicker.getDayOfMonth();
+
 
                 String sesso;
                 //radiobutton
@@ -243,7 +237,8 @@ public class ProfiloActivity extends Activity {
                     editTextPassword.requestFocus();
                     return;
                 }
-                    Date date = new Date(year, month, day);
+
+                    String date = day + "/" + month +"/" + year;
                     String id = user.getUid();
                     user.updateEmail(email);
                     user.updatePassword(password);
@@ -258,6 +253,8 @@ public class ProfiloActivity extends Activity {
             }
         });
     }
+
+
 
     private void deleteProfilo() {
         FirebaseAuth.getInstance().signOut();
@@ -287,6 +284,32 @@ public class ProfiloActivity extends Activity {
         matcher = pattern.matcher(email);
 
         return matcher.matches();
+    }
+
+    //aggiorna data
+    private void aggiornaData(DatePicker data1){
+        int year=0, month=0, day=0;
+        int count=0;
+        String temp="";
+        for (int i =0; i<data.length(); i++){
+            if(!(data.charAt(i) =='/'))
+                temp += data.charAt(i);
+            else if(count==0){
+                day= Integer.parseInt(temp);
+                count ++;
+                temp="";
+            }
+            else if(count==1){
+                month= Integer.parseInt(temp);
+                count ++;
+                temp="";
+            }
+            else if(count==2){
+                year=Integer.parseInt(temp);
+                break;
+            }
+        }
+        data1.updateDate(year,month+1,day);
     }
 
 }

@@ -141,10 +141,16 @@ public class PostActivity extends Activity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Post post = listaPost.get(position);
 
-                if(mUser == null || !isCreator(post.getAuthorId()))
+                /*if(mUser == null || !isCreator(post.getAuthorId()))
                     Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare", Toast.LENGTH_SHORT).show();
                 else if (isCreator(post.getAuthorId()) || isManager())
                     modificaPostDialog(post);
+                return true;*/
+                if(mUser!=null && (isCreator(post.getAuthorId()) || isManager()))
+                    modificaPostDialog(post);
+                else
+                    Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare", Toast.LENGTH_SHORT).show();
+
                 return true;
             }
         });

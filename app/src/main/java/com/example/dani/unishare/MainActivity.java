@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
             });
         }
 
+
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (bUser!=null && isManager())

@@ -12,32 +12,32 @@ public class UtenteTest {
     @Before
     public void setUp() throws Exception {
         try{
-            u = new Utente("abc","","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123");
+            u = new Utente("abc","","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Nome assente");
         }
         try{
-            u = new Utente("abc","Donatella","","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123");
+            u = new Utente("abc","Donatella","","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Cognome assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","",new Date(1997,06,27),"donacio@gmail.com","abCD.123");
+            u = new Utente("abc","Donatella","Cioffi","",new Date(1997,06,27),"donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Il sesso è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"","abCD.123");
+            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"","abCD.123","utente");
         }catch(Exception e){
             System.out.println("L'email è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","");
+            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","","utente");
         }catch(Exception e){
             System.out.println("La password è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123");
+            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("L'inserimento dovrebbe andare a buon fine");
         }
@@ -125,6 +125,18 @@ public class UtenteTest {
         String password = "abcdef";
         u.setPassword(password);
         assertEquals(password,u.getPassword());
+    }
+
+    @Test
+    public void getRuolo(){
+        assertEquals("utente",u.getRuolo());
+    }
+
+    @Test
+    public void setRuolo(){
+        String ruolo = "manager";
+        u.setRuolo(ruolo);
+        assertEquals(ruolo,u.getRuolo());
     }
 
 }

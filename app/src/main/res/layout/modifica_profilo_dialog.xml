@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verde">
+    android:background="@drawable/background_gradient">
 
 
     <LinearLayout
@@ -110,7 +110,6 @@
             android:layout_marginTop="20sp"
             android:layout_marginRight="15sp"
             android:layout_marginBottom="20sp"
-            android:background="#1b1b1c"
             android:calendarTextColor="@color/bianco"
             android:calendarViewShown="false"
             android:datePickerMode="spinner"

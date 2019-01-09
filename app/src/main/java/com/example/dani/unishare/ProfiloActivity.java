@@ -286,6 +286,7 @@ public class ProfiloActivity extends Activity {
         return matcher.matches();
     }
 
+    //aggiorna data
     private void aggiornaData(DatePicker data1){
         int year=0, month=0, day=0;
         int count=0;

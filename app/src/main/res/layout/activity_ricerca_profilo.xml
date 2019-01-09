@@ -21,11 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:background="#f8f8ff"
-            android:paddingLeft="10dp"
-            android:paddingBottom="3.5dp"
+            android:background="@color/grigio_searchbar"
             android:hint="@string/search_user"
-            />
+            android:paddingLeft="10dp"
+            android:paddingBottom="3.5dp" />
 
         <Button
             android:id="@+id/searchUtenteButton"

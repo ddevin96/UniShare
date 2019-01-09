@@ -176,7 +176,7 @@ public class ProfiloActivity extends Activity {
         final EditText editTextCognome;
         final EditText editTextEmail;
         final EditText editTextPassword;
-        final DatePicker data;
+        final DatePicker dataPicker;
         final Button conferma;
         final RadioButton radioButtonUomo;
 
@@ -184,7 +184,7 @@ public class ProfiloActivity extends Activity {
         editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
         editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
         editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
-        data = (DatePicker) dialogView.findViewById(R.id.editDatePicker);
+        dataPicker = (DatePicker) dialogView.findViewById(R.id.editDatePicker);
         radioButtonUomo = (RadioButton) dialogView.findViewById(R.id.radioModificaUomo1);
         conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
         editTextNome.setText(nomeEdit);
@@ -192,7 +192,7 @@ public class ProfiloActivity extends Activity {
         editTextEmail.setText(emailEdit);
         editTextPassword.setText(passwordEdit);
 
-        aggiornaData(data);
+        aggiornaData(dataPicker);
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();

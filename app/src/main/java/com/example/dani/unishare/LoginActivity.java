@@ -72,14 +72,14 @@ public class LoginActivity extends Activity {
                 String eMail= email.getText().toString();
                 String password1=password.getText().toString();
 
-                if (!confrontaMail(eMail)) {
-                    email.setError("l'e-mail è errata o assente.");
+                if (TextUtils.isEmpty(eMail)||eMail.length()<3||eMail.length()>63||!isValidEmail(eMail)) {
+                    email.setError("L'email non può essere vuota.");
                     email.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(eMail)||eMail.length()<3||eMail.length()>63||!isValidEmail(eMail)) {
-                    email.setError("L'e-mail non può essere vuota");
+                if (!confrontaMail(eMail)) {
+                    email.setError("L' e-mail è errata.");
                     email.requestFocus();
                     return;
                 }
@@ -89,7 +89,6 @@ public class LoginActivity extends Activity {
                     password.requestFocus();
                     return;
                 }
-
 
                 databaseLogin.signInWithEmailAndPassword(eMail, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -147,4 +146,5 @@ public class LoginActivity extends Activity {
 
         return value;
     }
+
 }

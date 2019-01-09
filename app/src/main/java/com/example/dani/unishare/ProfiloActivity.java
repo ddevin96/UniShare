@@ -107,9 +107,6 @@ public class ProfiloActivity extends Activity {
                 emailEdit = dataSnapshot.child("email").getValue(String.class);
                 sessoEdit = dataSnapshot.child("sesso").getValue(String.class);
                 passwordEdit = dataSnapshot.child("password").getValue(String.class);
-                //year = dataSnapshot.child("dataDiNascita").child("year").getValue(Long.class);
-                //month = dataSnapshot.child("dataDiNascita").child("month").getValue(Long.class);
-                //day = dataSnapshot.child("dataDiNascita").child("day").getValue(Long.class);
                 String data= dataSnapshot.child("dataDiNascita").getValue(String.class);
                 ruolo = dataSnapshot.child("ruolo").getValue(String.class);
                 textViewNome.setText(nomeEdit);

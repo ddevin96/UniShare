@@ -193,9 +193,9 @@ public class ProfiloActivity extends Activity {
         editTextEmail.setText(emailEdit);
         editTextPassword.setText(passwordEdit);
 
-        int yearUpdate = year.intValue();
-        int monthUpdate = month.intValue();
-        int dayUpdate = day.intValue();
+        int yearUpdate =(int) year.longValue();
+        int monthUpdate = (int) month.longValue();
+        int dayUpdate = (int) day.longValue();
         data.updateDate(yearUpdate,monthUpdate,dayUpdate);
 
         dialogBuilder.setTitle("Modifica profilo");

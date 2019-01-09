@@ -73,13 +73,13 @@ public class LoginActivity extends Activity {
                 String password1=password.getText().toString();
 
                 if (!confrontaMail(eMail)) {
-                    email.setError("La mail non è presente nel sistema");
+                    email.setError("l'e-mail è errata o assente.");
                     email.requestFocus();
                     return;
                 }
 
                 if (TextUtils.isEmpty(eMail)||eMail.length()<3||eMail.length()>63||!isValidEmail(eMail)) {
-                    email.setError("L'email non può essere vuota");
+                    email.setError("L'e-mail non può essere vuota");
                     email.requestFocus();
                     return;
                 }

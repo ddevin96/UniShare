@@ -49,7 +49,7 @@ public class ProfiloActivity extends Activity {
     FirebaseAuth databaseId;
     FirebaseUser user;
     String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit, ruolo;
-    Long year, month, day;
+    String data;
     List<Bacheca> listaBacheche;
     List<Post> listaPost;
     List<Commento> listaCommenti;
@@ -192,15 +192,10 @@ public class ProfiloActivity extends Activity {
         editTextEmail.setText(emailEdit);
         editTextPassword.setText(passwordEdit);
 
-        int yearUpdate =(int) year.longValue();
-        int monthUpdate = (int) month.longValue()+1;
-        int dayUpdate = (int) day.longValue();
-        data.updateDate(yearUpdate,monthUpdate,dayUpdate);
-
+        aggiornaData(data);
         dialogBuilder.setTitle("Modifica profilo");
         final AlertDialog alertDialog= dialogBuilder.create();
         alertDialog.show();
-
 
         conferma.setOnClickListener(new View.OnClickListener() {
 
@@ -289,6 +284,31 @@ public class ProfiloActivity extends Activity {
         matcher = pattern.matcher(email);
 
         return matcher.matches();
+    }
+
+    private void aggiornaData(DatePicker data1){
+        int year=0, month=0, day=0;
+        int count=0;
+        String temp="";
+        for (int i =0; i<data.length(); i++){
+            if(!(data.charAt(i) =='/'))
+                temp += data.charAt(i);
+            else if(count==0){
+                day= Integer.parseInt(temp);
+                count ++;
+                temp="";
+            }
+            else if(count==1){
+                month= Integer.parseInt(temp);
+                count ++;
+                temp="";
+            }
+            else if(count==2){
+                year=Integer.parseInt(temp);
+                break;
+            }
+        }
+        data1.updateDate(year,month,day);
     }
 
 }

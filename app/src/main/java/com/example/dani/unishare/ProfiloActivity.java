@@ -241,15 +241,8 @@ public class ProfiloActivity extends Activity {
                     editTextPassword.requestFocus();
                     return;
                 }
-                    String d= day + "/" + month + "/" + "/" + year;
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                Date date= null;
-                try {
-                    date = formatter.parse(d);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                //Date date = new Date(year, month, day);
+
+                    Date date = new Date(year, month, day);
                     String id = user.getUid();
                     user.updateEmail(email);
                     user.updatePassword(password);

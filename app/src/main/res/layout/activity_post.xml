@@ -19,12 +19,14 @@
         <EditText
             android:id="@+id/searchbarPost"
             android:layout_width="238dp"
+            android:paddingLeft="7dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
             android:background="@color/grigio_searchbar"
             android:hint="@string/search_post"
-            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+
 
             android:paddingBottom="3.5dp" />
 

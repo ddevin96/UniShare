@@ -31,6 +31,7 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
+    //final for intent
     public static final String BACHECA_ID = "bachecaid";
     public static final String BACHECA_TITLE = "bachecatitle";
     public static final String BACHECA_DESCRIPTION = "bachecadescription";

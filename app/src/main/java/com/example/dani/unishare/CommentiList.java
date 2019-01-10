@@ -25,8 +25,10 @@ public class CommentiList extends ArrayAdapter<Commento> {
     LayoutInflater inflater = context.getLayoutInflater();
     View listViewItem = inflater.inflate(R.layout.list_view_commenti, null, true);
 
-    TextView textViewCommentDescription = (TextView) listViewItem.findViewById(R.id.textViewCommentDescription);
-    TextView textViewCommentAuthor = (TextView) listViewItem.findViewById(R.id.textViewCommentAuthor);
+    TextView textViewCommentDescription = (TextView)
+            listViewItem.findViewById(R.id.textViewCommentDescription);
+    TextView textViewCommentAuthor = (TextView)
+            listViewItem.findViewById(R.id.textViewCommentAuthor);
 
     Commento commento = lista.get(position);
     textViewCommentDescription.setText(commento.getDescription());

@@ -48,7 +48,12 @@ public class ProfiloActivity extends Activity {
   DatabaseReference databaseCommento;
   FirebaseAuth databaseId;
   FirebaseUser user;
-  String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit, ruolo;
+  String nomeEdit;
+  String cognomeEdit;
+  String emailEdit;
+  String sessoEdit;
+  String passwordEdit;
+  String ruolo;
   String data;
   List<Bacheca> listaBacheche;
   List<Post> listaPost;
@@ -212,28 +217,40 @@ public class ProfiloActivity extends Activity {
 
         String sesso;
         //radiobutton
-        if (radioButtonUomo.isSelected())
+        if (radioButtonUomo.isSelected()) {
           sesso = "M";
-        else
+        } else {
           sesso = "F";
+        }
 
         if (TextUtils.isEmpty(editTextNome.getText()) || editTextNome.getText().length() > 20) {
-          editTextNome.setError("Il campo Nome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
+          editTextNome.setError("Il campo Nome non può essere vuoto.\n "
+                  + "Deve avere al massimo 20 caratteri");
           editTextNome.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextCognome.getText()) || editTextCognome.getText().length() > 20) {
-          editTextCognome.setError("Il campo Cognome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
+        if (TextUtils.isEmpty(editTextCognome.getText())
+                || editTextCognome.getText().length() > 20) {
+          editTextCognome.setError("Il campo Cognome non può essere vuoto.\n"
+                  + " Deve avere al massimo 20 caratteri");
           editTextCognome.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextEmail.getText()) || editTextEmail.getText().length() < 3 || editTextEmail.getText().length() > 63 || !isValidEmail(email)) {
-          editTextEmail.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
+        if (TextUtils.isEmpty(editTextEmail.getText())
+                || editTextEmail.getText().length() < 3
+                || editTextEmail.getText().length() > 63 || !isValidEmail(email)) {
+          editTextEmail.setError("il campo E-mail non può essere vuoto.\n "
+                  + "min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
           editTextEmail.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextPassword.getText()) || editTextPassword.getText().length() < 8 || editTextPassword.getText().length() > 20 || !isValidPassword(editTextPassword.getText().toString())) {
-          editTextPassword.setError("Il campo password non può essere vuoto. \n Deve essere compposto dal almeno 8 caratteri e massimo 20. \n La password deve rispettare il formato.");
+        if (TextUtils.isEmpty(editTextPassword.getText())
+                || editTextPassword.getText().length() < 8
+                || editTextPassword.getText().length() > 20
+                || !isValidPassword(editTextPassword.getText().toString())) {
+          editTextPassword.setError("Il campo password non può essere vuoto."
+                  + " \n Deve essere compposto dal almeno 8 caratteri e massimo 20. "
+                  + "\n La password deve rispettare il formato.");
           editTextPassword.requestFocus();
           return;
         }
@@ -244,7 +261,8 @@ public class ProfiloActivity extends Activity {
         user.updatePassword(password);
         Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
         databesaProfilo.setValue(utente);
-        Toast.makeText(getApplicationContext(), "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "La modifica ha avuto successo",
+                Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
 
         finish();
@@ -267,7 +285,8 @@ public class ProfiloActivity extends Activity {
 
     Pattern pattern;
     Matcher matcher;
-    final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+    final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
     pattern = Pattern.compile(PASSWORD_PATTERN);
     matcher = pattern.matcher(password);
 
@@ -287,13 +306,15 @@ public class ProfiloActivity extends Activity {
 
   //aggiorna data
   private void aggiornaData(DatePicker data1) {
-    int year = 0, month = 0, day = 0;
+    int year = 0;
+    int month = 0;
+    int day = 0;
     int count = 0;
     String temp = "";
     for (int i = 0; i < data.length(); i++) {
-      if (!(data.charAt(i) == '/'))
+      if (!(data.charAt(i) == '/')) {
         temp += data.charAt(i);
-      else if (count == 0) {
+      } else if (count == 0) {
         day = Integer.parseInt(temp);
         count++;
         temp = "";

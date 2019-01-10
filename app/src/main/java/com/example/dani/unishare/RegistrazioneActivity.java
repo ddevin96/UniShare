@@ -36,6 +36,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <p>Activity usata per registrare un nuovo utente all'interno del database del sistema.</p>
+ * <p>Verranno inseriti tramite EditText tutti i dati richiesti nella classe utente.</p>
+ *  @see Utente
+ *
+ *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni.</p>
+ *  <p>All'interno del metodo privato RegistraUtente vengono effettuati tutti
+ *  i controlli per l'accettazione dei parametri inseriti dall'Utente (riga 139).</p>
+ */
 public class RegistrazioneActivity extends Activity {
 
   EditText editTextRegNome;
@@ -191,10 +200,12 @@ public class RegistrazioneActivity extends Activity {
               });
   }
 
+
   /**
    * Metodo private usato per confrontare la password inserita dall'utente con il formato richiesto.
-   * @param password Stringa contenente la password inserita dall'utente.
-   * @return valore boolean.
+   * @param password  Stringa contenente la password inserita dall'utente.
+   * @return  Valore boolean.
+   * <p>Se il valore restituito è ture, il formato richiesto è stato rispettato.</p>
    */
   private static boolean isValidPassword(String password) {
 
@@ -209,6 +220,13 @@ public class RegistrazioneActivity extends Activity {
 
   }
 
+
+  /**
+   * Metodo private usato per confrontare l'e-mail inserita dall'utente con il formato richiesto.
+   * @param email  Stringa contenente l'e-mail inserita dall'utente.
+   * @return  Valore boolean.
+   * <p>Se il valore restituito è true, il formato richiesto è stato rispettato.</p>
+   */
   private static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
@@ -219,6 +237,15 @@ public class RegistrazioneActivity extends Activity {
     return matcher.matches();
   }
 
+
+  /**
+   * Metodo private usato per verificare che l'e-mail
+   * inserita dall'utente non sia già presente nel database.
+   * @param mail  Stringa contenente l'e-mail inserita dall'utente.
+   * @return  Valore boolean.
+   * <p>Se il valore restituito è true, l'e-mail non è presente nel database.
+   * Sarà dunque valida per l'utente che l'ha inserita.</p>
+   */
   private boolean confrontaMail(String mail) {
     boolean value = true;
     for (Utente utente : listaUtente) {

@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -140,17 +140,12 @@ public class PostActivity extends Activity {
       @Override
       public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Post post = listaPost.get(position);
-
-                /*if(mUser == null || !isCreator(post.getAuthorId()))
-                    Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare", Toast.LENGTH_SHORT).show();
-                else if (isCreator(post.getAuthorId()) || isManager())
-                    modificaPostDialog(post);
-                return true;*/
-        if (mUser != null && (isCreator(post.getAuthorId()) || isManager()))
+        if (mUser != null && (isCreator(post.getAuthorId()) || isManager())) {
           modificaPostDialog(post);
-        else
-          Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare", Toast.LENGTH_SHORT).show();
-
+        } else {
+          Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare",
+                  Toast.LENGTH_SHORT).show();
+        }
         return true;
       }
     });
@@ -208,19 +203,23 @@ public class PostActivity extends Activity {
         String title = editTextTitlePost.getText().toString();
         String description = editTextDescriptionPost.getText().toString();
         if (TextUtils.isEmpty(title) || title.length() > 65534 || confrontaPost(title)) {
-          editTextTitlePost.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 65534 caratteri.");
+          editTextTitlePost.setError("Il titolo non può essere vuoto.\n "
+                  + "Deve avere un massimo di 65534 caratteri.");
           editTextTitlePost.requestFocus();
           return;
         }
         if (TextUtils.isEmpty(description) || description.length() > 65534) {
-          editTextDescriptionPost.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 65534 caratteri.");
+          editTextDescriptionPost.setError("La descrizione non può essere vuota."
+                  + "\n Deve avere un massimo di 65534 caratteri.");
           editTextDescriptionPost.requestFocus();
           return;
         }
         Date date = new Date();
-        Post postUpdate = new Post(id, title, description, mUser.getDisplayName(), mUser.getUid(), date);
+        Post postUpdate = new Post(id, title, description,
+                mUser.getDisplayName(), mUser.getUid(), date);
         databasePost.child(postUpdate.getId()).setValue(postUpdate);
-        Toast.makeText(getApplicationContext(), "Post Modificato", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Post Modificato",
+                Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
       }
     });
@@ -260,12 +259,14 @@ public class PostActivity extends Activity {
         String description = editTextDescription.getText().toString();
 
         if (TextUtils.isEmpty(title) || title.length() > 65534 || confrontaPost(title)) {
-          editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 65534 caratteri.");
+          editTextTitle.setError("Il titolo non può essere vuoto.\n "
+                  + "Deve avere un massimo di 65534 caratteri.");
           editTextTitle.requestFocus();
           return;
         }
         if (TextUtils.isEmpty(description) || description.length() > 65534) {
-          editTextDescription.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 65534 caratteri.");
+          editTextDescription.setError("La descrizione non può essere vuota.\n "
+                  + "Deve avere un massimo di 65534 caratteri.");
           editTextDescription.requestFocus();
           return;
         }
@@ -285,7 +286,8 @@ public class PostActivity extends Activity {
 
   private void deletePost(String id) {
     databasePost.child(id).removeValue();
-    DatabaseReference postCommenti = FirebaseDatabase.getInstance().getReference("commento").child(id);
+    DatabaseReference postCommenti = FirebaseDatabase.getInstance()
+            .getReference("commento").child(id);
     postCommenti.removeValue();
     Toast.makeText(getApplicationContext(), "Post Eliminato", Toast.LENGTH_SHORT).show();
   }
@@ -301,32 +303,38 @@ public class PostActivity extends Activity {
           value = false;
         }
       }
-    } else
+    } else {
       return false;
+    }
     return value;
   }
 
   private boolean isManager() {
-    if (ruoloUser.equals("manager"))
+    if (ruoloUser.equals("manager")) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   private boolean isCreator(String id) {
-    if (mUser.getUid().equals(id))
+    if (mUser.getUid().equals(id)) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   private List<String> trovaParole(String stringa) {
     String parola = "";
     List<String> listaParole = new ArrayList<>();
     for (int i = 0; i < stringa.length(); i++) {
-      if (stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z' || stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z' || stringa.charAt(i) > '0' && stringa.charAt(i) < '9' || stringa.charAt(i) != ' ')
+      if (stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z'
+              || stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z'
+              || stringa.charAt(i) > '0' && stringa.charAt(i) < '9'
+              || stringa.charAt(i) != ' ') {
         parola += stringa.charAt(i);
-      else {
+      } else {
         listaParole.add(parola);
         parola = "";
       }
@@ -350,23 +358,27 @@ public class PostActivity extends Activity {
   public boolean onPrepareOptionsMenu(Menu menu) {
     super.onPrepareOptionsMenu(menu);
     MenuItem itemLogin = menu.getItem(0);
-    if (mUser != null)
+    if (mUser != null) {
       itemLogin.setVisible(false);
+    }
     MenuItem itemLogout = menu.getItem(1);
-    if (mUser == null)
+    if (mUser == null) {
       itemLogout.setVisible(false);
+    }
     MenuItem itemRegistrazione = menu.getItem(2);
-    if (mUser != null)
+    if (mUser != null) {
       itemRegistrazione.setVisible(false);
+    }
     MenuItem itemProfilo = menu.getItem(4);
-    if (mUser == null)
+    if (mUser == null) {
       itemProfilo.setVisible(false);
-    //fix manager
+    }
     MenuItem itemManager = menu.getItem(5);
     itemManager.setVisible(false);
     if (mUser != null) {
-      if (isManager())
+      if (isManager()) {
         itemManager.setVisible(true);
+      }
     }
 
     return true;
@@ -402,6 +414,8 @@ public class PostActivity extends Activity {
       case R.id.managerMenu:
         Intent intent5 = new Intent(getApplicationContext(), ManagerActivity.class);
         startActivity(intent5);
+        break;
+      default:
         break;
 
     }

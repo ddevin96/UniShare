@@ -85,7 +85,6 @@ public class RicercaProfiloActivity extends Activity {
     listViewUtenti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Utente utente = listaUtenti.get(position);
         listViewUtenti.setVisibility(View.GONE);
         textViewNomeUtenteCercato.setVisibility(View.VISIBLE);
         textViewCognomeUtenteCercato.setVisibility(View.VISIBLE);
@@ -99,6 +98,7 @@ public class RicercaProfiloActivity extends Activity {
         labelSessoCercato.setVisibility(View.VISIBLE);
         labelDataCercato.setVisibility(View.VISIBLE);
 
+        Utente utente = listaUtenti.get(position);
         textViewNomeUtenteCercato.setText(utente.getNome());
         textViewCognomeUtenteCercato.setText(utente.getCognome());
         textViewEmailUtenteCercato.setText(utente.getEmail());

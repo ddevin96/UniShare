@@ -9,8 +9,14 @@ import static org.junit.Assert.*;
 
 public class PostTest {
     private Post p;
+
     @Before
     public void setUp() throws Exception {
+        try{
+            p = new Post();
+        }catch(Exception e){
+            System.out.println("Post assente");
+        }
         try{
             p = new Post("abc","","Descrizione","Daniele","ddv",new Date());
         }catch(Exception e){
@@ -47,11 +53,12 @@ public class PostTest {
     public void getAuthor() {
         assertEquals("Daniele",p.getAuthor());
     }
-/*
+
     @Test
     public void getDate() {
+        assertEquals("12/10/2010",p.getDate());
     }
-*/
+
     @Test
     public void setId() {
         String id = "dadada";
@@ -72,11 +79,14 @@ public class PostTest {
         p.setAuthor(author);
         assertEquals(author,p.getAuthor());
     }
-/*
+
     @Test
     public void setDate() {
+        Date date = new Date();
+        p.setDate(date);
+        assertEquals(date,p.getDate());
     }
-*/
+
     @Test
     public void getTitle() {
         assertEquals("Residenze",p.getTitle());
@@ -84,7 +94,7 @@ public class PostTest {
 
     @Test
     public void setTitle() {
-        String title = "Appartamenti";
+        String title = "Residenze";
         p.setId(title);
         assertEquals(title,p.getTitle());
     }

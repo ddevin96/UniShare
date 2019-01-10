@@ -11,6 +11,11 @@ public class UtenteTest {
     @Before
     public void setUp() throws Exception {
         try{
+            u = new Utente();
+        }catch(Exception e){
+            System.out.println("Utente assente");
+        }
+        try{
             u = new Utente("abc","","Cioffi","F","10/12/97","donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Nome assente");

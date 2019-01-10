@@ -191,6 +191,11 @@ public class RegistrazioneActivity extends Activity {
               });
   }
 
+  /**
+   * Metodo private usato per confrontare la password inserita dall'utente con il formato richiesto.
+   * @param password Stringa contenente la password inserita dall'utente.
+   * @return valore boolean.
+   */
   private static boolean isValidPassword(String password) {
 
     Pattern pattern;

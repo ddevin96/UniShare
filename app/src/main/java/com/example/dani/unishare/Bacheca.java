@@ -15,7 +15,9 @@ public class Bacheca {
   }
 
   /**
+   * Classe Bacheca.
    *
+   * @see Bacheca
    * @param id  Codice univoco che identifica la bacheca all'interno del database.
    * @param title  Stringa di presentazione della bacheca all'interno della home.
    * @param description  Stringa in cui si descrive l'oggetto.

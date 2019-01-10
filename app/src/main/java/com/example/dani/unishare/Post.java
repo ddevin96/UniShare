@@ -17,7 +17,9 @@ public class Post {
   }
 
   /**
+   * Classe Post.
    *
+   * @see Post
    * @param id  Codice univoco che identifica il post nel database.
    * @param title  Stringa di presentazione del post all'interno della bacheca.
    * @param description Stringa in cui vi è il corpo del post.

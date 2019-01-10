@@ -3,7 +3,6 @@ package com.example.dani.unishare;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -12,32 +11,32 @@ public class UtenteTest {
     @Before
     public void setUp() throws Exception {
         try{
-            u = new Utente("abc","","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123","utente");
+            u = new Utente("abc","","Cioffi","F","10/12/97","donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Nome assente");
         }
         try{
-            u = new Utente("abc","Donatella","","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123","utente");
+            u = new Utente("abc","Donatella","","F","10/12/97","donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Cognome assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","",new Date(1997,06,27),"donacio@gmail.com","abCD.123","utente");
+            u = new Utente("abc","Donatella","Cioffi","","10/12/97","donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Il sesso è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"","abCD.123","utente");
+            u = new Utente("abc","Donatella","Cioffi","F","10/12/97","","abCD.123","utente");
         }catch(Exception e){
             System.out.println("L'email è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","","utente");
+            u = new Utente("abc","Donatella","Cioffi","F","10/12/97","donacio@gmail.com","","utente");
         }catch(Exception e){
             System.out.println("La password è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","F",new Date(1997,06,27),"donacio@gmail.com","abCD.123","utente");
+            u = new Utente("abc","Donatella","Cioffi","F","10/12/97","donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("L'inserimento dovrebbe andare a buon fine");
         }
@@ -65,7 +64,7 @@ public class UtenteTest {
 
     @Test
     public void getDataDiNascita() {
-        assertEquals(new Date(1997,06,27),u.getDataDiNascita());
+        assertEquals("10/12/97",u.getDataDiNascita());
     }
 
     @Test
@@ -75,7 +74,7 @@ public class UtenteTest {
 
     @Test
     public void getPassword() {
-        assertEquals("1234",u.getPassword());
+        assertEquals("abCD.123",u.getPassword());
     }
 
     @Test
@@ -108,7 +107,7 @@ public class UtenteTest {
 
     @Test
     public void setDataDiNascita() {
-        Date data = new Date(1997,01,01);
+        String data = "10/12/97";
         u.setDataDiNascita(data);
         assertEquals(data,u.getDataDiNascita());
     }

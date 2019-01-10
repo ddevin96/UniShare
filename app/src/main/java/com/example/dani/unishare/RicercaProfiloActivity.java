@@ -30,8 +30,17 @@ public class RicercaProfiloActivity extends Activity {
   List<Utente> listaUtenti;
   FirebaseAuth databaseId;
   FirebaseUser mUser;
-  TextView textViewNomeUtenteCercato, textViewCognomeUtenteCercato, textViewEmailUtenteCercato, textViewSessoUtenteCercato, textViewDataUtenteCercato;
-  TextView labelNomeCercato, labelCognomeCercato, labelEmailCercato, labelSessoCercato, labelDataCercato;
+  TextView textViewNomeUtenteCercato;
+  TextView textViewCognomeUtenteCercato;
+  TextView textViewEmailUtenteCercato;
+  TextView textViewSessoUtenteCercato;
+  TextView textViewDataUtenteCercato;
+
+  TextView labelNomeCercato;
+  TextView labelCognomeCercato;
+  TextView labelEmailCercato;
+  TextView labelSessoCercato;
+  TextView labelDataCercato;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -154,9 +163,12 @@ public class RicercaProfiloActivity extends Activity {
     String parola = "";
     List<String> listaParole = new ArrayList<>();
     for (int i = 0; i < stringa.length(); i++) {
-      if (stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z' || stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z' || stringa.charAt(i) > '0' && stringa.charAt(i) < '9' || stringa.charAt(i) != ' ')
+      if (stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z'
+              || stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z'
+              || stringa.charAt(i) > '0' && stringa.charAt(i) < '9'
+              || stringa.charAt(i) != ' ') {
         parola += stringa.charAt(i);
-      else {
+      } else {
         listaParole.add(parola);
         parola = "";
       }

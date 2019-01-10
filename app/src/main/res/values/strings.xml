@@ -28,8 +28,8 @@
     <string name="insert_pass">Inserisci password</string>
     <string name="confirm_pass">Conferma password</string>
     <string name="insert_sex">Inserisci sesso</string>
-    <string name="male">Maschio</string>
-    <string name="female">Femmina</string>
+    <string name="male">Uomo</string>
+    <string name="female">Donna</string>
     <string name="privacy">Condizioni sulla privacy</string>
     <string name="accept_privacy">Accetto i termini e le condizioni</string>
     <string name="login">Login</string>

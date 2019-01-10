@@ -209,9 +209,9 @@ public class ProfiloActivity extends Activity {
         String nome = editTextNome.getText().toString();
         String sesso;
         if (radioButtonUomo.isSelected()) {
-          sesso = "M";
+          sesso = "U";
         } else {
-          sesso = "F";
+          sesso = "D";
         }
 
         if (TextUtils.isEmpty(nome) || nome.length() > 20) {

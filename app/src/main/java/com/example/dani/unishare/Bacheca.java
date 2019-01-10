@@ -14,6 +14,19 @@ public class Bacheca {
 
   }
 
+  /**
+   * Classe Bacheca.
+   *
+   * @see Bacheca
+   * @param id  Codice univoco che identifica la bacheca all'interno del database.
+   * @param title  Stringa di presentazione della bacheca all'interno della home.
+   * @param description  Stringa in cui si descrive l'oggetto.
+   * @param author  Stringa in cui si specifica l'utente che ha pubblicato la bacheca.
+   * <p>Solo i manager sono autorizzati a pubblicare nuove bacheche.</p>
+   * @param authorId  Codice univoco he identifica l'autore della baceca.
+   * @param data  Parametro contenente la data in  cui viene pubblicato il post.
+   */
+
   public Bacheca(String id, String title, String description,
                  String author, String authorId, Date data) {
     this.id = id;

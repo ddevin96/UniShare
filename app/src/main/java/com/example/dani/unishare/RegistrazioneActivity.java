@@ -38,11 +38,15 @@ import java.util.regex.Pattern;
 
 public class RegistrazioneActivity extends Activity {
 
-  EditText editTextRegNome, editTextRegCognome, editTextRegEmail, editTextRegPassword;
+  EditText editTextRegNome;
+  EditText editTextRegCognome;
+  EditText editTextRegEmail;
+  EditText editTextRegPassword;
   EditText editTextRegRipetiPassword;
   DatePicker editDatePicker;
   CheckBox checkboxPrivacy;
-  RadioButton radioUomo, radioDonna;
+  RadioButton radioUomo;
+  RadioButton radioDonna;
   RadioGroup radioGroupSesso;
   Button buttonRegistrazione;
   Button buttonGiaRegistrato;
@@ -117,10 +121,11 @@ public class RegistrazioneActivity extends Activity {
 
     final String date = day + "/" + month + "/" + year;
     final String sesso;
-    if (radioDonna.isSelected())
+    if (radioDonna.isSelected()) {
       sesso = "D";
-    else
+    } else {
       sesso = "M";
+    }
 
     if (nome.isEmpty() || nome.length() > 20) {
       editTextRegNome.setError("Il nome non può essere vuoto\nMax20Caratteri");
@@ -140,14 +145,17 @@ public class RegistrazioneActivity extends Activity {
       return;
     }
 
-    if (TextUtils.isEmpty(email) || email.length() < 3 || email.length() > 63 || !isValidEmail(email)) {
+    if (TextUtils.isEmpty(email) || email.length() < 3
+            || email.length() > 63 || !isValidEmail(email)) {
       editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
       editTextRegEmail.requestFocus();
       return;
     }
 
-    if (TextUtils.isEmpty(password) || password.length() < 8 || password.length() > 23 || !isValidPassword(password)) {
-      editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
+    if (TextUtils.isEmpty(password) || password.length() < 8
+            || password.length() > 23 || !isValidPassword(password)) {
+      editTextRegPassword.setError("La password non può essere vuota\n"
+              + "Min 8 caratteri\nMax 20 caratteri");
       editTextRegPassword.requestFocus();
       return;
     }
@@ -165,14 +173,17 @@ public class RegistrazioneActivity extends Activity {
         if (task.isSuccessful()) {
           Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
           FirebaseUser user = firebaseAuth.getCurrentUser();
-          UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
+          UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
+                  .Builder().setDisplayName(nome).build();
           user.updateProfile(profileUpdate);
           String ruolo = "utente";
-          Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password, ruolo);
+          Utente utente = new Utente(user.getUid(), nome, cognome,
+                  sesso, date, email, password, ruolo);
           databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
           startActivity(new Intent(getApplicationContext(), MainActivity.class));
         } else {
-          Toast.makeText(getApplicationContext(), "Problema con registrazione", Toast.LENGTH_SHORT).show();
+          Toast.makeText(getApplicationContext(), "Problema con registrazione",
+                  Toast.LENGTH_SHORT).show();
         }
       }
     });
@@ -182,7 +193,8 @@ public class RegistrazioneActivity extends Activity {
 
     Pattern pattern;
     Matcher matcher;
-    final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+    final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
     pattern = Pattern.compile(PASSWORD_PATTERN);
     matcher = pattern.matcher(password);
 

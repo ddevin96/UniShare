@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
     </style>
 
     <!-- Stile in uso per pulsanti e textview cliccabili-->
@@ -11,6 +10,5 @@
         <item name="android:textColor">@color/bianco</item>
         <item name="android:textAllCaps">false</item>
     </style>
-
 
 </resources>

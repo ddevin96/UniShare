@@ -92,20 +92,21 @@ public class LoginActivity extends Activity {
           return;
         }
 
-        databaseLogin.signInWithEmailAndPassword(eMail, password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-          @Override
-          public void onComplete(@NonNull Task<AuthResult> task) {
-            if (task.isSuccessful()) {
-              finish();
-              Toast.makeText(getApplicationContext(), "Login effettuato con successo.",
-                      Toast.LENGTH_SHORT).show();
-              startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            } else {
-              Toast.makeText(getApplicationContext(), "L'E-mail o la password sono errate.",
-                      Toast.LENGTH_SHORT).show();
-            }
-          }
-        });
+        databaseLogin.signInWithEmailAndPassword(eMail,
+                password1).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                  @Override
+                  public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                      finish();
+                      Toast.makeText(getApplicationContext(), "Login effettuato con successo.",
+                              Toast.LENGTH_SHORT).show();
+                      startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    } else {
+                      Toast.makeText(getApplicationContext(), "L'E-mail o la password sono errate.",
+                              Toast.LENGTH_SHORT).show();
+                    }
+                  }
+                });
       }
     });
 
@@ -118,9 +119,9 @@ public class LoginActivity extends Activity {
 
     Pattern pattern;
     Matcher matcher;
-    final String PASSWORD_PATTERN =
+    final String Password_Pattern =
             "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
-    pattern = Pattern.compile(PASSWORD_PATTERN);
+    pattern = Pattern.compile(Password_Pattern);
     matcher = pattern.matcher(password);
 
     return matcher.matches();
@@ -130,8 +131,8 @@ public class LoginActivity extends Activity {
   private static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
-    final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    pattern = Pattern.compile(EMAIL_PATTERN);
+    final String Email_Pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    pattern = Pattern.compile(Email_Pattern);
     matcher = pattern.matcher(email);
 
     return matcher.matches();

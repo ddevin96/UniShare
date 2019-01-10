@@ -88,10 +88,12 @@ public class MainActivity extends Activity {
 
     addButton.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
-        if (bUser != null && isManager())
+        if (bUser != null && isManager()) {
           showCreaBachecaDialog();
-        else
-          Toast.makeText(getApplicationContext(), "Solo il manager può creare una bacheca", Toast.LENGTH_SHORT).show();
+        } else {
+          Toast.makeText(getApplicationContext(), "Solo il manager può creare una bacheca",
+                  Toast.LENGTH_SHORT).show();
+        }
       }
     });
 
@@ -112,7 +114,8 @@ public class MainActivity extends Activity {
       public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Bacheca bacheca = listaBacheca.get(position);
         if (bUser == null || !isManager()) {
-          Toast.makeText(getApplicationContext(), "Solo un manager può modificare le bacheche.", Toast.LENGTH_SHORT).show();
+          Toast.makeText(getApplicationContext(), "Solo un manager può modificare le bacheche.",
+                  Toast.LENGTH_SHORT).show();
         } else {
           showModificaBachecaDialog(bacheca);
         }
@@ -155,7 +158,8 @@ public class MainActivity extends Activity {
     dialogBuilder.setView(dialogView);
 
     final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
-    final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
+    final EditText editTextDescription = (EditText)
+            dialogView.findViewById(R.id.editTextDescription);
     final Button addBachecaButton = (Button) dialogView.findViewById(R.id.addButton);
 
     dialogBuilder.setTitle("Crea bacheca");
@@ -170,20 +174,26 @@ public class MainActivity extends Activity {
         String description = editTextDescription.getText().toString();
 
 
-        if (TextUtils.isEmpty(editTextTitle.getText()) || editTextTitle.getText().length() > 20 || confrontaBacheche(editTextTitle.getText().toString())) {
-          editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 20 caratteri.\n Non possono esistere due Bacheche di uno stesso paese.");
+        if (TextUtils.isEmpty(editTextTitle.getText()) || editTextTitle.getText().length() > 20
+                || confrontaBacheche(editTextTitle.getText().toString())) {
+          editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un "
+                  + "massimo di 20 caratteri.\n Non possono esistere "
+                  + "due Bacheche di uno stesso paese.");
           editTextTitle.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextDescription.getText()) || editTextDescription.getText().length() > 200) {
-          editTextDescription.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 200 caratteri.");
+        if (TextUtils.isEmpty(editTextDescription.getText())
+                || editTextDescription.getText().length() > 200) {
+          editTextDescription.setError("La descrizione non può essere vuota.\n Deve "
+                  + "avere un massimo di 200 caratteri.");
           editTextDescription.requestFocus();
           return;
         }
 
         Date data = new Date();
         String id = databaseBacheca.push().getKey();
-        Bacheca bacheca = new Bacheca(id, title, description, bUser.getDisplayName(), bUser.getUid(), data);
+        Bacheca bacheca = new Bacheca(id, title, description,
+                bUser.getDisplayName(), bUser.getUid(), data);
         databaseBacheca.child(bacheca.getId()).setValue(bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
@@ -199,10 +209,14 @@ public class MainActivity extends Activity {
     final View dialogView = inflater.inflate(R.layout.modifica_bacheca_dialog, null);
     dialogBuilder.setView(dialogView);
 
-    final EditText editTextTitleModifica = (EditText) dialogView.findViewById(R.id.editTextTitoloBacheca);
-    final EditText editTextDescriptionModifica = (EditText) dialogView.findViewById(R.id.editTextDescriptionBacheca);
-    final Button modificaBachecaButton = (Button) dialogView.findViewById(R.id.modificaBachecaButton);
-    final Button cancellaBachecaButton = (Button) dialogView.findViewById(R.id.cancellaBachecaButton);
+    final EditText editTextTitleModifica = (EditText)
+            dialogView.findViewById(R.id.editTextTitoloBacheca);
+    final EditText editTextDescriptionModifica = (EditText)
+            dialogView.findViewById(R.id.editTextDescriptionBacheca);
+    final Button modificaBachecaButton = (Button)
+            dialogView.findViewById(R.id.modificaBachecaButton);
+    final Button cancellaBachecaButton = (Button)
+            dialogView.findViewById(R.id.cancellaBachecaButton);
 
     editTextTitleModifica.setText(bacheca.getTitle());
     editTextDescriptionModifica.setText(bacheca.getDescription());
@@ -220,22 +234,30 @@ public class MainActivity extends Activity {
         String description = editTextDescriptionModifica.getText().toString();
 
 
-        if (TextUtils.isEmpty(editTextTitleModifica.getText()) || editTextTitleModifica.getText().length() > 20 || confrontaBacheche(editTextTitleModifica.getText().toString())) {
-          editTextTitleModifica.setError("Il titolo non può essere vuoto.\n Deve avere un massimo di 20 caratteri.\n Non possono esistere due Bacheche di uno stesso paese.");
+        if (TextUtils.isEmpty(editTextTitleModifica.getText())
+                || editTextTitleModifica.getText().length() > 20
+                || confrontaBacheche(editTextTitleModifica.getText().toString())) {
+          editTextTitleModifica.setError("Il titolo non può essere vuoto."
+                  + "\n Deve avere un massimo di 20 caratteri.\n Non possono "
+                  + "esistere due Bacheche di uno stesso paese.");
           editTextTitleModifica.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextDescriptionModifica.getText()) || editTextDescriptionModifica.getText().length() > 200) {
-          editTextDescriptionModifica.setError("La descrizione non può essere vuota.\n Deve avere un massimo di 200 caratteri.");
+        if (TextUtils.isEmpty(editTextDescriptionModifica.getText())
+                || editTextDescriptionModifica.getText().length() > 200) {
+          editTextDescriptionModifica.setError("La descrizione non può essere "
+                  + "vuota.\n Deve avere un massimo di 200 caratteri.");
           editTextDescriptionModifica.requestFocus();
           return;
         }
 
         Date data = new Date();
         String id = bacheca.getId();
-        Bacheca bacheca = new Bacheca(id, title, description, bUser.getDisplayName(), bUser.getUid(), data);
+        Bacheca bacheca = new Bacheca(id, title, description,
+                bUser.getDisplayName(), bUser.getUid(), data);
         databaseBacheca.child(bacheca.getId()).setValue(bacheca);
-        Toast.makeText(getApplicationContext(), "Bacheca Modificata", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Bacheca Modificata",
+                Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
       }
     });
@@ -270,8 +292,10 @@ public class MainActivity extends Activity {
     databaseBacheca.child(id).removeValue();
     for (Post elemento : listaPost) {
       String idPost = elemento.getId();
-      DatabaseReference commenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
-      DatabaseReference postDaEliminare = FirebaseDatabase.getInstance().getReference("post").child(id).child(idPost);
+      DatabaseReference commenti = FirebaseDatabase.getInstance()
+              .getReference("commento").child(idPost);
+      DatabaseReference postDaEliminare = FirebaseDatabase.getInstance()
+              .getReference("post").child(id).child(idPost);
       postDaEliminare.removeValue();
       commenti.removeValue();
     }
@@ -290,17 +314,18 @@ public class MainActivity extends Activity {
           value = false;
         }
       }
-    } else
+    } else {
       return false;
-
+    }
     return value;
   }
 
   private boolean isManager() {
-    if (ruoloManager.equals("manager"))
+    if (ruoloManager.equals("manager")) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   @Override
@@ -315,23 +340,27 @@ public class MainActivity extends Activity {
   public boolean onPrepareOptionsMenu(Menu menu) {
     super.onPrepareOptionsMenu(menu);
     MenuItem itemLogin = menu.getItem(0);
-    if (bUser != null)
+    if (bUser != null) {
       itemLogin.setVisible(false);
+    }
     MenuItem itemLogout = menu.getItem(1);
-    if (bUser == null)
+    if (bUser == null) {
       itemLogout.setVisible(false);
+    }
     MenuItem itemRegistrazione = menu.getItem(2);
-    if (bUser != null)
+    if (bUser != null) {
       itemRegistrazione.setVisible(false);
+    }
     MenuItem itemProfilo = menu.getItem(4);
-    if (bUser == null)
+    if (bUser == null) {
       itemProfilo.setVisible(false);
-
+    }
     MenuItem itemManager = menu.getItem(5);
     itemManager.setVisible(false);
     if (bUser != null) {
-      if (isManager())
+      if (isManager()) {
         itemManager.setVisible(true);
+      }
     }
 
     return true;
@@ -367,6 +396,8 @@ public class MainActivity extends Activity {
       case R.id.managerMenu:
         Intent intent5 = new Intent(getApplicationContext(), ManagerActivity.class);
         startActivity(intent5);
+        break;
+      default:
         break;
     }
 

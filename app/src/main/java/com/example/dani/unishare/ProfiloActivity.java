@@ -207,54 +207,56 @@ public class ProfiloActivity extends Activity {
       @Override
       public void onClick(View v) {
         String nome = editTextNome.getText().toString();
-        String cognome = editTextCognome.getText().toString();
-        String email = editTextEmail.getText().toString();
-        String password = editTextPassword.getText().toString();
-        int year = dataPicker.getYear();
-        int month = dataPicker.getMonth() + 1;
-        int day = dataPicker.getDayOfMonth();
-
-
         String sesso;
-        //radiobutton
         if (radioButtonUomo.isSelected()) {
-          sesso = "M";
+          sesso = "U";
         } else {
-          sesso = "F";
+          sesso = "D";
         }
 
-        if (TextUtils.isEmpty(editTextNome.getText()) || editTextNome.getText().length() > 20) {
+        if (TextUtils.isEmpty(nome) || nome.length() > 20) {
           editTextNome.setError("Il campo Nome non può essere vuoto.\n "
                   + "Deve avere al massimo 20 caratteri");
           editTextNome.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextCognome.getText())
-                || editTextCognome.getText().length() > 20) {
+
+        String cognome = editTextCognome.getText().toString();
+
+        if (TextUtils.isEmpty(cognome)
+                || cognome.length() > 20) {
           editTextCognome.setError("Il campo Cognome non può essere vuoto.\n"
                   + " Deve avere al massimo 20 caratteri");
           editTextCognome.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextEmail.getText())
-                || editTextEmail.getText().length() < 3
-                || editTextEmail.getText().length() > 63 || !isValidEmail(email)) {
+
+        String email = editTextEmail.getText().toString();
+
+        if (TextUtils.isEmpty(email)
+                || email.length() < 3
+                || email.length() > 63 || !isValidEmail(email)) {
           editTextEmail.setError("il campo E-mail non può essere vuoto.\n "
                   + "min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
           editTextEmail.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextPassword.getText())
-                || editTextPassword.getText().length() < 8
-                || editTextPassword.getText().length() > 20
-                || !isValidPassword(editTextPassword.getText().toString())) {
+
+        String password = editTextPassword.getText().toString();
+
+        if (TextUtils.isEmpty(password)
+                || password.length() < 8
+                || password.length() > 20
+                || !isValidPassword(password)) {
           editTextPassword.setError("Il campo password non può essere vuoto."
                   + " \n Deve essere compposto dal almeno 8 caratteri e massimo 20. "
                   + "\n La password deve rispettare il formato.");
           editTextPassword.requestFocus();
           return;
         }
-
+        int year = dataPicker.getYear();
+        int month = dataPicker.getMonth() + 1;
+        int day = dataPicker.getDayOfMonth();
         String date = day + "/" + month + "/" + year;
         String id = user.getUid();
         user.updateEmail(email);
@@ -285,9 +287,9 @@ public class ProfiloActivity extends Activity {
 
     Pattern pattern;
     Matcher matcher;
-    final String PASSWORD_PATTERN =
+    final String Password_Pattern =
             "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
-    pattern = Pattern.compile(PASSWORD_PATTERN);
+    pattern = Pattern.compile(Password_Pattern);
     matcher = pattern.matcher(password);
 
     return matcher.matches();
@@ -297,8 +299,8 @@ public class ProfiloActivity extends Activity {
   private static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
-    final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    pattern = Pattern.compile(EMAIL_PATTERN);
+    final String Email_Pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    pattern = Pattern.compile(Email_Pattern);
     matcher = pattern.matcher(email);
 
     return matcher.matches();

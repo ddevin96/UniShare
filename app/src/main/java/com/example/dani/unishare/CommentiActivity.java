@@ -70,13 +70,14 @@ public class CommentiActivity extends Activity {
     lista = new ArrayList<>();
 
     Intent intent = getIntent();
-    String idPost = intent.getStringExtra(PostActivity.POST_ID);
     String title = intent.getStringExtra(PostActivity.POST_TITLE);
     String description = intent.getStringExtra(PostActivity.POST_DESCRIZIONE);
     String autore = intent.getStringExtra(PostActivity.POST_AUTORE);
     textViewPostName.setText(title);
     textViewPostDescription.setText(description);
     textViewPostAuthor.setText(autore);
+
+    String idPost = intent.getStringExtra(PostActivity.POST_ID);
 
     databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
     if (cUser != null) {

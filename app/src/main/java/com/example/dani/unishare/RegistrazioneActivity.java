@@ -124,7 +124,7 @@ public class RegistrazioneActivity extends Activity {
     if (radioDonna.isSelected()) {
       sesso = "D";
     } else {
-      sesso = "M";
+      sesso = "U";
     }
 
     if (nome.isEmpty() || nome.length() > 20) {

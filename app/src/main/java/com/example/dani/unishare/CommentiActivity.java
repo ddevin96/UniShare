@@ -121,13 +121,15 @@ public class CommentiActivity extends Activity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Commento commento = lista.get(position);
 
-        if (cUser == null)
-          Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare", Toast.LENGTH_SHORT).show();
-        else if (isCreator(commento.getAuthorId()) || isManager())
+        if (cUser == null) {
+          Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare",
+                  Toast.LENGTH_SHORT).show();
+        } else if (isCreator(commento.getAuthorId()) || isManager()) {
           modificaCommentoDialog(commento);
-        else
-          Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare", Toast.LENGTH_SHORT).show();
-
+        } else {
+          Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare",
+                  Toast.LENGTH_SHORT).show();
+        }
       }
     });
 
@@ -209,7 +211,8 @@ public class CommentiActivity extends Activity {
     final Button modificaCommentoButton;
     final Button cancellaCommentoButton;
 
-    editTextDescriptionCommento = (EditText) dialogView.findViewById(R.id.editTextDescriptionCommento);
+    editTextDescriptionCommento = (EditText)
+            dialogView.findViewById(R.id.editTextDescriptionCommento);
     modificaCommentoButton = (Button) dialogView.findViewById(R.id.modificaCommentoButton);
     cancellaCommentoButton = (Button) dialogView.findViewById(R.id.cancellaCommentoButton);
     editTextDescriptionCommento.setText(commento.getDescription());
@@ -225,13 +228,15 @@ public class CommentiActivity extends Activity {
         String description = editTextDescriptionCommento.getText().toString();
 
         if (description.isEmpty() || description.length() >= 65535) {
-          editTextCommentDescription.setError("Il commento non può essere vuoto\nMax 65535 caratteri");
+          editTextCommentDescription
+                  .setError("Il commento non può essere vuoto\nMax 65535 caratteri");
           editTextCommentDescription.requestFocus();
           return;
         }
 
         Date date = new Date();
-        Commento commento = new Commento(id, description, cUser.getDisplayName(), cUser.getUid(), date);
+        Commento commento = new Commento(id, description,
+                cUser.getDisplayName(), cUser.getUid(), date);
         databaseCommenti.child(commento.getId()).setValue(commento);
         Toast.makeText(getApplicationContext(), "Commento modificato", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
@@ -253,27 +258,30 @@ public class CommentiActivity extends Activity {
   }
 
   private boolean isManager() {
-    if (ruolo.equals("manager"))
+    if (ruolo.equals("manager")) {
       return true;
-    else
+    } else {
       return false;
-
+    }
   }
 
   private boolean isCreator(String id) {
-    if (cUser.getUid().equals(id))
+    if (cUser.getUid().equals(id)) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   private List<String> trovaParole(String stringa) {
     String parola = "";
     List<String> listaParole = new ArrayList<>();
     for (int i = 0; i < stringa.length(); i++) {
-      if ((stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z') || (stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z') || (stringa.charAt(i) > '0' && stringa.charAt(i) < '9') || stringa.charAt(i) != ' ')
+      if ((stringa.charAt(i) > 'a' && stringa.charAt(i) < 'z')
+              || (stringa.charAt(i) > 'A' && stringa.charAt(i) < 'Z')
+              || (stringa.charAt(i) > '0' && stringa.charAt(i) < '9') || stringa.charAt(i) != ' ') {
         parola += stringa.charAt(i);
-      else {
+      } else {
         listaParole.add(parola);
         parola = "";
       }
@@ -295,23 +303,27 @@ public class CommentiActivity extends Activity {
   public boolean onPrepareOptionsMenu(Menu menu) {
     super.onPrepareOptionsMenu(menu);
     MenuItem itemLogin = menu.getItem(0);
-    if (cUser != null)
+    if (cUser != null) {
       itemLogin.setVisible(false);
+    }
     MenuItem itemLogout = menu.getItem(1);
-    if (cUser == null)
+    if (cUser == null) {
       itemLogout.setVisible(false);
+    }
     MenuItem itemRegistrazione = menu.getItem(2);
-    if (cUser != null)
+    if (cUser != null) {
       itemRegistrazione.setVisible(false);
+    }
     MenuItem itemProfilo = menu.getItem(4);
-    if (cUser == null)
+    if (cUser == null) {
       itemProfilo.setVisible(false);
-    //fix manager
+    }
     MenuItem itemManager = menu.getItem(5);
     itemManager.setVisible(false);
     if (cUser != null) {
-      if (isManager())
+      if (isManager()) {
         itemManager.setVisible(true);
+      }
     }
 
     return true;
@@ -347,6 +359,8 @@ public class CommentiActivity extends Activity {
       case R.id.managerMenu:
         Intent intent5 = new Intent(getApplicationContext(), ManagerActivity.class);
         startActivity(intent5);
+        break;
+      default:
         break;
 
     }

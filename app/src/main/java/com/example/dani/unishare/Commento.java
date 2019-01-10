@@ -13,6 +13,17 @@ public class Commento {
 
   }
 
+  /**
+   *
+   * @param id  Codice univoco che identifica il commento nel database.
+   * @param description  Stringa che rappresenta il corpo del commento.
+   * @param author  Stringa contenete il nome dell'utente che ha pubblicato il commento.
+   * <p>L'autore e la descrizione sono visualizzati a video.</p>
+   * @param authorId  Codice univoco che identifica l'autore del commento nel database.
+   * @param data  Parametro contenente la data di pubblicazione del commento.
+   */
+
+
   public Commento(String id, String description, String author, String authorId, Date data) {
     this.id = id;
     this.description = description;

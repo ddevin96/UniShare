@@ -1,6 +1,5 @@
 package com.example.dani.unishare;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Post {
@@ -16,6 +15,17 @@ public class Post {
   public Post() {
 
   }
+
+  /**
+   *
+   * @param id  Codice univoco che identifica il post nel database.
+   * @param title  Stringa di presentazione del post all'interno della bacheca.
+   * @param description Stringa in cui vi è il corpo del post.
+   * @param author  Utente loggato che ha scritto il post.
+   * <p>L'autore, il titolo e la descrizione verrano visualizzati a video.</p>
+   * @param authorId  Codice univoco che identifica l'autore del post nel database.
+   * @param date  Data in cui il post è stato pubblicato.
+   */
 
   public Post(String id, String title, String description,
               String author, String authorId, Date date) {

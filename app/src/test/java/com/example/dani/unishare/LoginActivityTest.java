@@ -2,8 +2,6 @@ package com.example.dani.unishare;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,22 +10,15 @@ import static org.junit.Assert.*;
 
 public class LoginActivityTest {
 
-    /*
-    * 1 EMAIL VUOTA
-    * 2 NO CORRISPONDENZE NEL DATABASE (CONFRONTA EMAIL)
-    * 3 PASS VUOTA
-    * */
-
     //Inizializzazione della lista di utenti
     private ArrayList<Utente> lista;
     @Before
     public void setUp() throws Exception {
        lista = new ArrayList<Utente>();
-       lista.add(new Utente("DDV","Daniele","De Vinco","M","22/03/1996","danieledivi@live.com","abc.123.DE","utente"));
-       lista.add(new Utente("LDP","Luigi","Di Palma","M","18/04/1997","dypalma@gmail.com","@DIP123456","utente"));
-       lista.add(new Utente("DCF","Donatella","Cioffi","F","27/06/1997","donaciof@live.com","passW@456789","utente"));
-       lista.add(new Utente("FUN","Federica","Ungherese","F","04/11/1997","fedeu@gmail.com",".0512104717.","utente"));
-
+       lista.add(new Utente("DDV","Daniele","De Vinco","U","22/03/1996","danieledivi@live.com","abc.123.DE","utente"));
+       lista.add(new Utente("LDP","Luigi","Di Palma","U","18/04/1997","dypalma@gmail.com","@DIP123456","utente"));
+       lista.add(new Utente("DCF","Donatella","Cioffi","D","27/06/1997","donaciof@live.com","passW@456789","utente"));
+       lista.add(new Utente("FUN","Federica","Ungherese","D","04/11/1997","fedeu@gmail.com",".0512104717.","utente"));
     }
 
     //Testing sui metodi di LoginActivity
@@ -88,6 +79,4 @@ public class LoginActivityTest {
         }
         return value;
     }
-
-
 }

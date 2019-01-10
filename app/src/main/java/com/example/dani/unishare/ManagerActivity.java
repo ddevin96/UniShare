@@ -53,8 +53,9 @@ public class ManagerActivity extends Activity {
           utente.setRuolo("manager");
           databaseUtente.child(utente.getId()).setValue(utente);
           Toast.makeText(getApplicationContext(), "Manager aggiunto", Toast.LENGTH_SHORT).show();
-        } else
+        } else {
           Toast.makeText(getApplicationContext(), "E' già manager!", Toast.LENGTH_SHORT).show();
+        }
       }
     });
 

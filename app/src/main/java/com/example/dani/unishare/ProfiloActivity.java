@@ -35,281 +35,278 @@ import java.util.regex.Pattern;
 
 public class ProfiloActivity extends Activity {
 
-    TextView textViewNome;
-    TextView textViewCognome;
-    TextView textViewEmail;
-    TextView textViewSesso;
-    TextView textViewData;
-    Button modificaProfila;
-    Button cancellaProfilo;
-    DatabaseReference databesaProfilo;
-    DatabaseReference databaseBacheche;
-    DatabaseReference databasePost;
-    DatabaseReference databaseCommento;
-    FirebaseAuth databaseId;
-    FirebaseUser user;
-    String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit, ruolo;
-    String data;
-    List<Bacheca> listaBacheche;
-    List<Post> listaPost;
-    List<Commento> listaCommenti;
+  TextView textViewNome;
+  TextView textViewCognome;
+  TextView textViewEmail;
+  TextView textViewSesso;
+  TextView textViewData;
+  Button modificaProfila;
+  Button cancellaProfilo;
+  DatabaseReference databesaProfilo;
+  DatabaseReference databaseBacheche;
+  DatabaseReference databasePost;
+  DatabaseReference databaseCommento;
+  FirebaseAuth databaseId;
+  FirebaseUser user;
+  String nomeEdit, cognomeEdit, emailEdit, sessoEdit, passwordEdit, ruolo;
+  String data;
+  List<Bacheca> listaBacheche;
+  List<Post> listaPost;
+  List<Commento> listaCommenti;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profilo);
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_profilo);
 
-        textViewNome= (TextView) findViewById(R.id.textViewNomeUser);
-        textViewCognome= (TextView) findViewById(R.id.textViewCognomeUtente);
-        textViewEmail= (TextView) findViewById(R.id.textViewEmailUtente);
-        textViewSesso= (TextView) findViewById(R.id.textViewSessoUtente);
-        textViewData= (TextView) findViewById(R.id.textViewDataUtente);
-        modificaProfila= (Button) findViewById(R.id.modificaProfiloButton);
-        cancellaProfilo= (Button) findViewById(R.id.cancellaProfiloButton);
+    textViewNome = (TextView) findViewById(R.id.textViewNomeUser);
+    textViewCognome = (TextView) findViewById(R.id.textViewCognomeUtente);
+    textViewEmail = (TextView) findViewById(R.id.textViewEmailUtente);
+    textViewSesso = (TextView) findViewById(R.id.textViewSessoUtente);
+    textViewData = (TextView) findViewById(R.id.textViewDataUtente);
+    modificaProfila = (Button) findViewById(R.id.modificaProfiloButton);
+    cancellaProfilo = (Button) findViewById(R.id.cancellaProfiloButton);
 
-        user = databaseId.getInstance().getCurrentUser();
-        databesaProfilo= FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
-        databaseBacheche= FirebaseDatabase.getInstance().getReference("bacheca");
-        databasePost= FirebaseDatabase.getInstance().getReference("post");
-        databaseCommento= FirebaseDatabase.getInstance().getReference("commento");
+    user = databaseId.getInstance().getCurrentUser();
+    databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
+    databaseBacheche = FirebaseDatabase.getInstance().getReference("bacheca");
+    databasePost = FirebaseDatabase.getInstance().getReference("post");
+    databaseCommento = FirebaseDatabase.getInstance().getReference("commento");
 
-        listaBacheche = new ArrayList<>();
-        listaPost= new ArrayList<>();
-        listaCommenti= new ArrayList<>();
-
-
-        modificaProfila.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modificaProfiloDialog();
-
-            }
-        });
-
-        cancellaProfilo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteProfilo();
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                nomeEdit = dataSnapshot.child("nome").getValue(String.class);
-                cognomeEdit = dataSnapshot.child("cognome").getValue(String.class);
-                emailEdit = dataSnapshot.child("email").getValue(String.class);
-                sessoEdit = dataSnapshot.child("sesso").getValue(String.class);
-                passwordEdit = dataSnapshot.child("password").getValue(String.class);
-                data= dataSnapshot.child("dataDiNascita").getValue(String.class);
-                ruolo = dataSnapshot.child("ruolo").getValue(String.class);
-                textViewNome.setText(nomeEdit);
-                textViewCognome.setText(cognomeEdit);
-                textViewEmail.setText(emailEdit);
-                textViewSesso.setText(sessoEdit);
-                textViewData.setText(data);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        databaseBacheche.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot bachecaSnapshot : dataSnapshot.getChildren()){
-                    Bacheca bacheca = bachecaSnapshot.getValue(Bacheca.class);
-                    listaBacheche.add(bacheca);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-       databasePost.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                    Post post = postSnapshot.getValue(Post.class);
-                    listaPost.add(post);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-            databaseCommento.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot commentoSnapshot : dataSnapshot.getChildren()){
-                    Commento commento = commentoSnapshot.getValue(Commento.class);
-                    listaCommenti.add(commento);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void modificaProfiloDialog(){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView= inflater.inflate(R.layout.modifica_profilo_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final EditText editTextNome;
-        final EditText editTextCognome;
-        final EditText editTextEmail;
-        final EditText editTextPassword;
-        final DatePicker dataPicker;
-        final Button conferma;
-        final RadioButton radioButtonUomo;
-
-        editTextNome= (EditText) dialogView.findViewById(R.id.editTextModificaNome);
-        editTextCognome =(EditText) dialogView.findViewById(R.id.editTextModificaCognome);
-        editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
-        editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
-        dataPicker = (DatePicker) dialogView.findViewById(R.id.editDatePicker);
-        radioButtonUomo = (RadioButton) dialogView.findViewById(R.id.radioModificaUomo1);
-        conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
-        editTextNome.setText(nomeEdit);
-        editTextCognome.setText(cognomeEdit);
-        editTextEmail.setText(emailEdit);
-        editTextPassword.setText(passwordEdit);
-
-        aggiornaData(dataPicker);
-        dialogBuilder.setTitle("Modifica profilo");
-        final AlertDialog alertDialog= dialogBuilder.create();
-        alertDialog.show();
-
-        conferma.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                String nome = editTextNome.getText().toString();
-                String cognome = editTextCognome.getText().toString();
-                String email = editTextEmail.getText().toString();
-                String password = editTextPassword.getText().toString();
-                int year = dataPicker.getYear();
-                int month = dataPicker.getMonth()+1;
-                int day = dataPicker.getDayOfMonth();
+    listaBacheche = new ArrayList<>();
+    listaPost = new ArrayList<>();
+    listaCommenti = new ArrayList<>();
 
 
-                String sesso;
-                //radiobutton
-                if (radioButtonUomo.isSelected())
-                    sesso = "M";
-                else
-                    sesso = "F";
+    modificaProfila.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        modificaProfiloDialog();
 
-                if(TextUtils.isEmpty(editTextNome.getText()) || editTextNome.getText().length()>20){
-                    editTextNome.setError("Il campo Nome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
-                    editTextNome.requestFocus();
-                    return;
-                }
-                if(TextUtils.isEmpty(editTextCognome.getText()) || editTextCognome.getText().length()>20){
-                    editTextCognome.setError("Il campo Cognome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
-                    editTextCognome.requestFocus();
-                    return;
-                }
-                if(TextUtils.isEmpty(editTextEmail.getText()) || editTextEmail.getText().length()<3 || editTextEmail.getText().length()>63 || !isValidEmail(email)){
-                    editTextEmail.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
-                    editTextEmail.requestFocus();
-                    return;
-                }
-                if(TextUtils.isEmpty(editTextPassword.getText()) || editTextPassword.getText().length()<8 || editTextPassword.getText().length()>20 || !isValidPassword(editTextPassword.getText().toString())){
-                    editTextPassword.setError("Il campo password non può essere vuoto. \n Deve essere compposto dal almeno 8 caratteri e massimo 20. \n La password deve rispettare il formato.");
-                    editTextPassword.requestFocus();
-                    return;
-                }
+      }
+    });
 
-                    String date = day + "/" + month +"/" + year;
-                    String id = user.getUid();
-                    user.updateEmail(email);
-                    user.updatePassword(password);
-                    Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
-                    databesaProfilo.setValue(utente);
-                    Toast.makeText(getApplicationContext(), "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
-                    alertDialog.dismiss();
+    cancellaProfilo.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        deleteProfilo();
+      }
+    });
+  }
 
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
+  @Override
+  protected void onStart() {
+    super.onStart();
+    databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        nomeEdit = dataSnapshot.child("nome").getValue(String.class);
+        cognomeEdit = dataSnapshot.child("cognome").getValue(String.class);
+        emailEdit = dataSnapshot.child("email").getValue(String.class);
+        sessoEdit = dataSnapshot.child("sesso").getValue(String.class);
+        passwordEdit = dataSnapshot.child("password").getValue(String.class);
+        data = dataSnapshot.child("dataDiNascita").getValue(String.class);
+        ruolo = dataSnapshot.child("ruolo").getValue(String.class);
+        textViewNome.setText(nomeEdit);
+        textViewCognome.setText(cognomeEdit);
+        textViewEmail.setText(emailEdit);
+        textViewSesso.setText(sessoEdit);
+        textViewData.setText(data);
+      }
 
-            }
-        });
-    }
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-
-    private void deleteProfilo() {
-        FirebaseAuth.getInstance().signOut();
-        user.delete();
-        databesaProfilo.removeValue();
-        Toast.makeText(this,"Il profilo è stato cancellato" , Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-    }
-
-    private static boolean isValidPassword(String password) {
-
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches();
-
-    }
-
-    private static boolean isValidEmail(String email){
-        Pattern pattern;
-        Matcher matcher;
-        final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
-
-        return matcher.matches();
-    }
-
-    //aggiorna data
-    private void aggiornaData(DatePicker data1){
-        int year=0, month=0, day=0;
-        int count=0;
-        String temp="";
-        for (int i =0; i<data.length(); i++){
-            if(!(data.charAt(i) =='/'))
-                temp += data.charAt(i);
-            else if(count==0){
-                day= Integer.parseInt(temp);
-                count ++;
-                temp="";
-            }
-            else if(count==1){
-                month= Integer.parseInt(temp);
-                count ++;
-                temp="";
-            }
-            else if(count==2){
-                year=Integer.parseInt(temp);
-                break;
-            }
+      }
+    });
+    databaseBacheche.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        for (DataSnapshot bachecaSnapshot : dataSnapshot.getChildren()) {
+          Bacheca bacheca = bachecaSnapshot.getValue(Bacheca.class);
+          listaBacheche.add(bacheca);
         }
-        data1.updateDate(year,month+1,day);
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
+
+      }
+    });
+    databasePost.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+          Post post = postSnapshot.getValue(Post.class);
+          listaPost.add(post);
+        }
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
+
+      }
+    });
+
+    databaseCommento.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        for (DataSnapshot commentoSnapshot : dataSnapshot.getChildren()) {
+          Commento commento = commentoSnapshot.getValue(Commento.class);
+          listaCommenti.add(commento);
+        }
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
+
+      }
+    });
+  }
+
+  private void modificaProfiloDialog() {
+    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+    LayoutInflater inflater = getLayoutInflater();
+    final View dialogView = inflater.inflate(R.layout.modifica_profilo_dialog, null);
+    dialogBuilder.setView(dialogView);
+
+    final EditText editTextNome;
+    final EditText editTextCognome;
+    final EditText editTextEmail;
+    final EditText editTextPassword;
+    final DatePicker dataPicker;
+    final Button conferma;
+    final RadioButton radioButtonUomo;
+
+    editTextNome = (EditText) dialogView.findViewById(R.id.editTextModificaNome);
+    editTextCognome = (EditText) dialogView.findViewById(R.id.editTextModificaCognome);
+    editTextEmail = (EditText) dialogView.findViewById(R.id.editTextModificaEmail);
+    editTextPassword = (EditText) dialogView.findViewById(R.id.editTextModificaPassword);
+    dataPicker = (DatePicker) dialogView.findViewById(R.id.editDatePicker);
+    radioButtonUomo = (RadioButton) dialogView.findViewById(R.id.radioModificaUomo1);
+    conferma = (Button) dialogView.findViewById(R.id.ButtonModifica);
+    editTextNome.setText(nomeEdit);
+    editTextCognome.setText(cognomeEdit);
+    editTextEmail.setText(emailEdit);
+    editTextPassword.setText(passwordEdit);
+
+    aggiornaData(dataPicker);
+    dialogBuilder.setTitle("Modifica profilo");
+    final AlertDialog alertDialog = dialogBuilder.create();
+    alertDialog.show();
+
+    conferma.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View v) {
+        String nome = editTextNome.getText().toString();
+        String cognome = editTextCognome.getText().toString();
+        String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
+        int year = dataPicker.getYear();
+        int month = dataPicker.getMonth() + 1;
+        int day = dataPicker.getDayOfMonth();
+
+
+        String sesso;
+        //radiobutton
+        if (radioButtonUomo.isSelected())
+          sesso = "M";
+        else
+          sesso = "F";
+
+        if (TextUtils.isEmpty(editTextNome.getText()) || editTextNome.getText().length() > 20) {
+          editTextNome.setError("Il campo Nome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
+          editTextNome.requestFocus();
+          return;
+        }
+        if (TextUtils.isEmpty(editTextCognome.getText()) || editTextCognome.getText().length() > 20) {
+          editTextCognome.setError("Il campo Cognome non può essere vuoto.\n Deve avere al massimo 20 caratteri");
+          editTextCognome.requestFocus();
+          return;
+        }
+        if (TextUtils.isEmpty(editTextEmail.getText()) || editTextEmail.getText().length() < 3 || editTextEmail.getText().length() > 63 || !isValidEmail(email)) {
+          editTextEmail.setError("il campo E-mail non può essere vuoto.\n min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
+          editTextEmail.requestFocus();
+          return;
+        }
+        if (TextUtils.isEmpty(editTextPassword.getText()) || editTextPassword.getText().length() < 8 || editTextPassword.getText().length() > 20 || !isValidPassword(editTextPassword.getText().toString())) {
+          editTextPassword.setError("Il campo password non può essere vuoto. \n Deve essere compposto dal almeno 8 caratteri e massimo 20. \n La password deve rispettare il formato.");
+          editTextPassword.requestFocus();
+          return;
+        }
+
+        String date = day + "/" + month + "/" + year;
+        String id = user.getUid();
+        user.updateEmail(email);
+        user.updatePassword(password);
+        Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
+        databesaProfilo.setValue(utente);
+        Toast.makeText(getApplicationContext(), "La modifica ha avuto successo", Toast.LENGTH_SHORT).show();
+        alertDialog.dismiss();
+
+        finish();
+        startActivity(new Intent(getApplicationContext(), ProfiloActivity.class));
+
+      }
+    });
+  }
+
+
+  private void deleteProfilo() {
+    FirebaseAuth.getInstance().signOut();
+    user.delete();
+    databesaProfilo.removeValue();
+    Toast.makeText(this, "Il profilo è stato cancellato", Toast.LENGTH_SHORT).show();
+    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+  }
+
+  private static boolean isValidPassword(String password) {
+
+    Pattern pattern;
+    Matcher matcher;
+    final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+    pattern = Pattern.compile(PASSWORD_PATTERN);
+    matcher = pattern.matcher(password);
+
+    return matcher.matches();
+
+  }
+
+  private static boolean isValidEmail(String email) {
+    Pattern pattern;
+    Matcher matcher;
+    final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    pattern = Pattern.compile(EMAIL_PATTERN);
+    matcher = pattern.matcher(email);
+
+    return matcher.matches();
+  }
+
+  //aggiorna data
+  private void aggiornaData(DatePicker data1) {
+    int year = 0, month = 0, day = 0;
+    int count = 0;
+    String temp = "";
+    for (int i = 0; i < data.length(); i++) {
+      if (!(data.charAt(i) == '/'))
+        temp += data.charAt(i);
+      else if (count == 0) {
+        day = Integer.parseInt(temp);
+        count++;
+        temp = "";
+      } else if (count == 1) {
+        month = Integer.parseInt(temp);
+        count++;
+        temp = "";
+      } else if (count == 2) {
+        year = Integer.parseInt(temp);
+        break;
+      }
     }
+    data1.updateDate(year, month + 1, day);
+  }
 
 }

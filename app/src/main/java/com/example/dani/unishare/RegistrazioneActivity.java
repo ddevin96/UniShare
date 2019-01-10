@@ -167,35 +167,37 @@ public class RegistrazioneActivity extends Activity {
     }
 
 
-    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-      @Override
-      public void onComplete(@NonNull Task<AuthResult> task) {
-        if (task.isSuccessful()) {
-          Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
-          FirebaseUser user = firebaseAuth.getCurrentUser();
-          UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
-                  .Builder().setDisplayName(nome).build();
-          user.updateProfile(profileUpdate);
-          String ruolo = "utente";
-          Utente utente = new Utente(user.getUid(), nome, cognome,
-                  sesso, date, email, password, ruolo);
-          databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
-          startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        } else {
-          Toast.makeText(getApplicationContext(), "Problema con registrazione",
-                  Toast.LENGTH_SHORT).show();
-        }
-      }
-    });
+    firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                  if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Utente Aggiunto",
+                            Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
+                            .Builder().setDisplayName(nome).build();
+                    user.updateProfile(profileUpdate);
+                    String ruolo = "utente";
+                    Utente utente = new Utente(user.getUid(), nome, cognome,
+                            sesso, date, email, password, ruolo);
+                    databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                  } else {
+                    Toast.makeText(getApplicationContext(), "Problema con registrazione",
+                            Toast.LENGTH_SHORT).show();
+                  }
+                }
+              });
   }
 
   private static boolean isValidPassword(String password) {
 
     Pattern pattern;
     Matcher matcher;
-    final String PASSWORD_PATTERN =
+    final String Password_Pattern =
             "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
-    pattern = Pattern.compile(PASSWORD_PATTERN);
+    pattern = Pattern.compile(Password_Pattern);
     matcher = pattern.matcher(password);
 
     return matcher.matches();
@@ -205,8 +207,8 @@ public class RegistrazioneActivity extends Activity {
   private static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
-    final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    pattern = Pattern.compile(EMAIL_PATTERN);
+    final String Email_Pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    pattern = Pattern.compile(Email_Pattern);
     matcher = pattern.matcher(email);
 
     return matcher.matches();

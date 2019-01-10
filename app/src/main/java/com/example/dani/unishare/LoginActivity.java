@@ -72,7 +72,8 @@ public class LoginActivity extends Activity {
         String eMail = email.getText().toString();
         String password1 = password.getText().toString();
 
-        if (TextUtils.isEmpty(eMail) || eMail.length() < 3 || eMail.length() > 63 || !isValidEmail(eMail)) {
+        if (TextUtils.isEmpty(eMail) || eMail.length() < 3
+                || eMail.length() > 63 || !isValidEmail(eMail)) {
           email.setError("L'email non può essere vuota.");
           email.requestFocus();
           return;
@@ -84,7 +85,8 @@ public class LoginActivity extends Activity {
           return;
         }
 
-        if (TextUtils.isEmpty(password1) || password1.length() < 8 || password1.length() > 23 || !isValidPassword(password1)) {
+        if (TextUtils.isEmpty(password1) || password1.length() < 8
+                || password1.length() > 23 || !isValidPassword(password1)) {
           password.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
           password.requestFocus();
           return;
@@ -95,10 +97,12 @@ public class LoginActivity extends Activity {
           public void onComplete(@NonNull Task<AuthResult> task) {
             if (task.isSuccessful()) {
               finish();
-              Toast.makeText(getApplicationContext(), "Login effettuato con successo.", Toast.LENGTH_SHORT).show();
+              Toast.makeText(getApplicationContext(), "Login effettuato con successo.",
+                      Toast.LENGTH_SHORT).show();
               startActivity(new Intent(getApplicationContext(), MainActivity.class));
             } else {
-              Toast.makeText(getApplicationContext(), "L'E-mail o la password sono errate.", Toast.LENGTH_SHORT).show();
+              Toast.makeText(getApplicationContext(), "L'E-mail o la password sono errate.",
+                      Toast.LENGTH_SHORT).show();
             }
           }
         });
@@ -114,7 +118,8 @@ public class LoginActivity extends Activity {
 
     Pattern pattern;
     Matcher matcher;
-    final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+    final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
     pattern = Pattern.compile(PASSWORD_PATTERN);
     matcher = pattern.matcher(password);
 

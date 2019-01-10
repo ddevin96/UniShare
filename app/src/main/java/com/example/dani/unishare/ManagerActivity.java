@@ -22,67 +22,68 @@ import java.util.List;
 
 public class ManagerActivity extends Activity {
 
-    Button creaManager;
-    DatabaseReference databaseUtente;
-    ListView listViewUtenti;
-    List<Utente> listaUtenti;
+  Button creaManager;
+  DatabaseReference databaseUtente;
+  ListView listViewUtenti;
+  List<Utente> listaUtenti;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_manager);
 
-        creaManager = (Button) findViewById(R.id.creaManagerButton);
-        listViewUtenti = (ListView) findViewById(R.id.listViewUtenti);
-        listaUtenti = new ArrayList<>();
-        listViewUtenti.setVisibility(View.GONE);
-        databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    creaManager = (Button) findViewById(R.id.creaManagerButton);
+    listViewUtenti = (ListView) findViewById(R.id.listViewUtenti);
+    listaUtenti = new ArrayList<>();
+    listViewUtenti.setVisibility(View.GONE);
+    databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
 
-        creaManager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listViewUtenti.setVisibility(View.VISIBLE);
-            }
-        });
+    creaManager.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        listViewUtenti.setVisibility(View.VISIBLE);
+      }
+    });
 
-        listViewUtenti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Utente utente = listaUtenti.get(position);
-                if (!utente.getRuolo().equals("manager")) {
-                    utente.setRuolo("manager");
-                    databaseUtente.child(utente.getId()).setValue(utente);
-                    Toast.makeText(getApplicationContext(),"Manager aggiunto" ,Toast.LENGTH_SHORT ).show();
-                } else
-                    Toast.makeText(getApplicationContext(), "E' già manager!" ,Toast.LENGTH_SHORT).show();
-            }
-        });
+    listViewUtenti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Utente utente = listaUtenti.get(position);
+        if (!utente.getRuolo().equals("manager")) {
+          utente.setRuolo("manager");
+          databaseUtente.child(utente.getId()).setValue(utente);
+          Toast.makeText(getApplicationContext(), "Manager aggiunto", Toast.LENGTH_SHORT).show();
+        } else {
+          Toast.makeText(getApplicationContext(), "E' già manager!", Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
 
-    }
+  }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        databaseUtente.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listaUtenti.clear();
-                for (DataSnapshot personSnapshot: dataSnapshot.getChildren()) {
-                    Utente utente = personSnapshot.getValue(Utente.class);
-                    listaUtenti.add(utente);
-                }
+  @Override
+  protected void onStart() {
+    super.onStart();
+    databaseUtente.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        listaUtenti.clear();
+        for (DataSnapshot personSnapshot : dataSnapshot.getChildren()) {
+          Utente utente = personSnapshot.getValue(Utente.class);
+          listaUtenti.add(utente);
+        }
 
-                UtenteList adapter = new UtenteList(ManagerActivity.this, listaUtenti);
-                listViewUtenti.setAdapter(adapter);
-            }
+        UtenteList adapter = new UtenteList(ManagerActivity.this, listaUtenti);
+        listViewUtenti.setAdapter(adapter);
+      }
 
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+      }
+    });
 
-    }
+  }
 
 }

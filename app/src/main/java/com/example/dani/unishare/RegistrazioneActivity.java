@@ -38,184 +38,192 @@ import java.util.regex.Pattern;
 
 public class RegistrazioneActivity extends Activity {
 
-    EditText editTextRegNome, editTextRegCognome, editTextRegEmail, editTextRegPassword;
-    EditText editTextRegRipetiPassword;
-    DatePicker editDatePicker;
-    CheckBox checkboxPrivacy;
-    RadioButton radioUomo, radioDonna;
-    RadioGroup radioGroupSesso;
-    Button buttonRegistrazione;
-    Button buttonGiaRegistrato;
-    private FirebaseAuth firebaseAuth;
-    DatabaseReference databaseUtente;
-    List<Utente> listaUtente;
+  EditText editTextRegNome;
+  EditText editTextRegCognome;
+  EditText editTextRegEmail;
+  EditText editTextRegPassword;
+  EditText editTextRegRipetiPassword;
+  DatePicker editDatePicker;
+  CheckBox checkboxPrivacy;
+  RadioButton radioUomo;
+  RadioButton radioDonna;
+  RadioGroup radioGroupSesso;
+  Button buttonRegistrazione;
+  Button buttonGiaRegistrato;
+  private FirebaseAuth firebaseAuth;
+  DatabaseReference databaseUtente;
+  List<Utente> listaUtente;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrazione);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_registrazione);
 
-        editTextRegNome = (EditText) findViewById(R.id.editTextRegNome);
-        editTextRegCognome = (EditText) findViewById(R.id.editTextRegCognome);
-        editTextRegEmail = (EditText) findViewById(R.id.editTextRegEmail);
-        editTextRegPassword = (EditText) findViewById(R.id.editTextRegPassword);
-        editTextRegRipetiPassword = (EditText) findViewById(R.id.editTextRegRipetiPassword);
-        editDatePicker = (DatePicker) findViewById(R.id.editDatePicker);
-        checkboxPrivacy = (CheckBox) findViewById(R.id.checkboxPrivacy);
-        radioGroupSesso = (RadioGroup) findViewById(R.id.radioGroupSesso);
-        radioDonna = (RadioButton) findViewById(R.id.radioDonna);
-        radioUomo = (RadioButton) findViewById(R.id.radioUomo);
-        buttonRegistrazione = (Button) findViewById(R.id.buttonRegistrazione);
-        buttonGiaRegistrato = (Button) findViewById(R.id.buttonGiaRegistrato);
+    editTextRegNome = (EditText) findViewById(R.id.editTextRegNome);
+    editTextRegCognome = (EditText) findViewById(R.id.editTextRegCognome);
+    editTextRegEmail = (EditText) findViewById(R.id.editTextRegEmail);
+    editTextRegPassword = (EditText) findViewById(R.id.editTextRegPassword);
+    editTextRegRipetiPassword = (EditText) findViewById(R.id.editTextRegRipetiPassword);
+    editDatePicker = (DatePicker) findViewById(R.id.editDatePicker);
+    checkboxPrivacy = (CheckBox) findViewById(R.id.checkboxPrivacy);
+    radioGroupSesso = (RadioGroup) findViewById(R.id.radioGroupSesso);
+    radioDonna = (RadioButton) findViewById(R.id.radioDonna);
+    radioUomo = (RadioButton) findViewById(R.id.radioUomo);
+    buttonRegistrazione = (Button) findViewById(R.id.buttonRegistrazione);
+    buttonGiaRegistrato = (Button) findViewById(R.id.buttonGiaRegistrato);
 
-        listaUtente = new ArrayList<>();
-        databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
-        databaseUtente.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listaUtente.clear();
-                for(DataSnapshot utenteSnapshot: dataSnapshot.getChildren()) {
-                    Utente utente = utenteSnapshot.getValue(Utente.class);
-                    listaUtente.add(utente);
-                }
-            }
+    listaUtente = new ArrayList<>();
+    databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    databaseUtente.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        listaUtente.clear();
+        for (DataSnapshot utenteSnapshot : dataSnapshot.getChildren()) {
+          Utente utente = utenteSnapshot.getValue(Utente.class);
+          listaUtente.add(utente);
+        }
+      }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+      }
+    });
 
-        firebaseAuth = FirebaseAuth.getInstance();
+    firebaseAuth = FirebaseAuth.getInstance();
 
-        buttonRegistrazione.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registraUtente();
-            }
-        });
+    buttonRegistrazione.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        registraUtente();
+      }
+    });
 
-        buttonGiaRegistrato.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+    buttonGiaRegistrato.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+      }
+    });
+  }
+
+
+  private void registraUtente() {
+    final String nome = editTextRegNome.getText().toString().trim();
+    final String cognome = editTextRegCognome.getText().toString().trim();
+    final String email = editTextRegEmail.getText().toString().trim();
+    final String password = editTextRegPassword.getText().toString().trim();
+    final String ripPassword = editTextRegRipetiPassword.getText().toString().trim();
+    int year = editDatePicker.getYear();
+    int month = editDatePicker.getMonth() + 1;
+    int day = editDatePicker.getDayOfMonth();
+
+    final String date = day + "/" + month + "/" + year;
+    final String sesso;
+    if (radioDonna.isSelected()) {
+      sesso = "D";
+    } else {
+      sesso = "M";
+    }
+
+    if (nome.isEmpty() || nome.length() > 20) {
+      editTextRegNome.setError("Il nome non può essere vuoto\nMax20Caratteri");
+      editTextRegNome.requestFocus();
+      return;
+    }
+
+    if (TextUtils.isEmpty(cognome) || cognome.length() > 20) {
+      editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
+      editTextRegCognome.requestFocus();
+      return;
+    }
+
+    if (confrontaMail(email)) {
+      editTextRegEmail.setError("L'email è già presente nel sistema");
+      editTextRegEmail.requestFocus();
+      return;
+    }
+
+    if (TextUtils.isEmpty(email) || email.length() < 3
+            || email.length() > 63 || !isValidEmail(email)) {
+      editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
+      editTextRegEmail.requestFocus();
+      return;
+    }
+
+    if (TextUtils.isEmpty(password) || password.length() < 8
+            || password.length() > 23 || !isValidPassword(password)) {
+      editTextRegPassword.setError("La password non può essere vuota\n"
+              + "Min 8 caratteri\nMax 20 caratteri");
+      editTextRegPassword.requestFocus();
+      return;
+    }
+
+    if (TextUtils.isEmpty(ripPassword) || !ripPassword.equals(password)) {
+      editTextRegRipetiPassword.setError("Le password non coincidono");
+      editTextRegRipetiPassword.requestFocus();
+      return;
     }
 
 
-
-    private void registraUtente() {
-        final String nome = editTextRegNome.getText().toString().trim();
-        final String cognome = editTextRegCognome.getText().toString().trim();
-        final String email = editTextRegEmail.getText().toString().trim();
-        final String password = editTextRegPassword.getText().toString().trim();
-        final String ripPassword = editTextRegRipetiPassword.getText().toString().trim();
-        int year = editDatePicker.getYear();
-        int month = editDatePicker.getMonth()+1;
-        int day = editDatePicker.getDayOfMonth();
-
-        final String date = day + "/"+ month + "/" + year;
-        final String sesso;
-        if(radioDonna.isSelected())
-            sesso = "D";
-        else
-            sesso = "M";
-
-        if(nome.isEmpty()||nome.length()>20) {
-            editTextRegNome.setError("Il nome non può essere vuoto\nMax20Caratteri");
-            editTextRegNome.requestFocus();
-            return;
+    firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+      @Override
+      public void onComplete(@NonNull Task<AuthResult> task) {
+        if (task.isSuccessful()) {
+          Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
+          FirebaseUser user = firebaseAuth.getCurrentUser();
+          UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
+                  .Builder().setDisplayName(nome).build();
+          user.updateProfile(profileUpdate);
+          String ruolo = "utente";
+          Utente utente = new Utente(user.getUid(), nome, cognome,
+                  sesso, date, email, password, ruolo);
+          databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
+          startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        } else {
+          Toast.makeText(getApplicationContext(), "Problema con registrazione",
+                  Toast.LENGTH_SHORT).show();
         }
+      }
+    });
+  }
 
-        if(TextUtils.isEmpty(cognome)||cognome.length()>20) {
-            editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
-            editTextRegCognome.requestFocus();
-            return;
-        }
+  private static boolean isValidPassword(String password) {
 
-        if(confrontaMail(email)) {
-            editTextRegEmail.setError("L'email è già presente nel sistema");
-            editTextRegEmail.requestFocus();
-            return;
-        }
+    Pattern pattern;
+    Matcher matcher;
+    final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+    pattern = Pattern.compile(PASSWORD_PATTERN);
+    matcher = pattern.matcher(password);
 
-        if (TextUtils.isEmpty(email)||email.length()<3||email.length()>63||!isValidEmail(email)) {
-            editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
-            editTextRegEmail.requestFocus();
-            return;
-        }
+    return matcher.matches();
 
-        if (TextUtils.isEmpty(password)||password.length()<8||password.length()>23||!isValidPassword(password)) {
-            editTextRegPassword.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
-            editTextRegPassword.requestFocus();
-            return;
-        }
+  }
 
-        if (TextUtils.isEmpty(ripPassword)||!ripPassword.equals(password)) {
-            editTextRegRipetiPassword.setError("Le password non coincidono");
-            editTextRegRipetiPassword.requestFocus();
-            return;
-        }
+  private static boolean isValidEmail(String email) {
+    Pattern pattern;
+    Matcher matcher;
+    final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    pattern = Pattern.compile(EMAIL_PATTERN);
+    matcher = pattern.matcher(email);
 
+    return matcher.matches();
+  }
 
-
-
-            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Utente Aggiunto", Toast.LENGTH_SHORT).show();
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder().setDisplayName(nome).build();
-                        user.updateProfile(profileUpdate);
-                        String ruolo = "utente";
-                        Utente utente = new Utente(user.getUid(), nome, cognome, sesso, date, email, password, ruolo);
-                        databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Problema con registrazione", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+  private boolean confrontaMail(String mail) {
+    boolean value = true;
+    for (Utente utente : listaUtente) {
+      if (utente.getEmail().equals(mail)) {
+        value = true;
+        break;
+      } else {
+        value = false;
+      }
     }
 
-    private static boolean isValidPassword(String password) {
-
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches();
-
-    }
-
-    private static boolean isValidEmail(String email){
-        Pattern pattern;
-        Matcher matcher;
-        final String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(email);
-
-        return matcher.matches();
-    }
-
-    private boolean confrontaMail(String mail) {
-        boolean value= true;
-        for (Utente utente : listaUtente) {
-            if (utente.getEmail().equals(mail)) {
-                value=true;
-                break;
-            }
-            else {
-                value=false;
-            }
-        }
-
-        return value;
-    }
+    return value;
+  }
 }
 

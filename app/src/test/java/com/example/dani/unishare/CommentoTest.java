@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 
 public class CommentoTest {
     private Commento c;
+    private Date d = new Date();
     @Before
     public void setUp() throws Exception {
         try{
@@ -17,17 +18,17 @@ public class CommentoTest {
             System.out.println("Commento assente");
         }
         try{
-            c = new Commento("abc","","Donatella","dcf",new Date());
+            c = new Commento("abc","","Donatella","dcf",d);
         }catch(Exception e){
             System.out.println("Descrizione assente");
         }
         try{
-            c = new Commento("abc","Descrizione","","dcf",new Date());
+            c = new Commento("abc","Descrizione","","dcf",d);
         }catch(Exception e){
             System.out.println("Autore assente");
         }
         try{
-            c = new Commento("abc","Descrizione","Donatella","dcf",new Date());
+            c = new Commento("abc","Descrizione","Donatella","dcf",d);
         }catch(Exception e){
             System.out.println("L'inserimento dovrebbe essere andato a buon fine");
         }
@@ -86,12 +87,12 @@ public class CommentoTest {
 
     @Test
     public void setDate() {
-        Date date = new Date();
-        c.setData(date);
-        assertEquals(date,c.getData());
+
+        c.setData(d);
+        assertEquals(d,c.getData());
     }
     @Test
     public void getDate() {
-        assertEquals("12/10/2010",c.getData());
+        assertEquals(d,c.getData());
     }
 }

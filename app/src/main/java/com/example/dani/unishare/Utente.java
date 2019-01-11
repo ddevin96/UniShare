@@ -32,7 +32,7 @@ public class Utente {
      * @param password Stringa contenente la password dell'utente.
      * <p>E-mail e password sono le credenziali che l'utente userà per accedere al sistema.</p>
      * @param ruolo Parametro che identifica il ruolo dell'utente
-   *                che ha effettuato il login (utene/maager).
+   *                che ha effettuato il login (utente/maager).
      */
 
   public Utente(String id, String nome, String cognome, String sesso, String dataDiNascita,

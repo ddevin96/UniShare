@@ -8,7 +8,7 @@ import java.util.Date;
 import static org.junit.Assert.*;
 
 public class BachecaTest {
-
+    private Date data = new Date();
     private Bacheca b;
     @Before
     public void setUp(){
@@ -19,22 +19,22 @@ public class BachecaTest {
             System.out.println("Bacheca non presente.");
         }
         try{
-            b = new Bacheca("abc","","Descrizione","Daniele","ddv",new Date());
+            b = new Bacheca("abc","","Descrizione","Daniele","ddv",data);
         }catch(Exception e){
             System.out.println("Titolo non presente.");
         }
         try{
-            b = new Bacheca("abc","Germania","","Daniele","ddv",new Date());
+            b = new Bacheca("abc","Germania","","Daniele","ddv",data);
         }catch(Exception e){
             System.out.println("Descrizione non presente.");
         }
         try{
-            b = new Bacheca("abc","Germania","Descrizione","","ddv",new Date());
+            b = new Bacheca("abc","Germania","Descrizione","","ddv",data);
         }catch(Exception e){
             System.out.println("Autore non presente.");
         }
         try{
-            b = new Bacheca("abc","Germania","Descrizione","Daniele","ddv",new Date());
+            b = new Bacheca("abc","Germania","Descrizione","Daniele","ddv",data);
         }catch(Exception e){
             System.out.println("Non dovrebbe lanciare eccezioni");
         }
@@ -59,8 +59,8 @@ public class BachecaTest {
 
     @Test
     public void setTitle() {
-        String title = "Germania";
-        b.setId(title);
+        String title = "Francia";
+        b.setTitle(title);
         assertEquals(title,b.getTitle());
     }
 
@@ -102,12 +102,11 @@ public class BachecaTest {
 
     @Test
     public void setDate() {
-        Date date = new Date();
-        b.setDate(date);
-        assertEquals(date,b.getDate());
+        b.setDate(data);
+        assertEquals(data,b.getDate());
     }
     @Test
     public void getDate() {
-        assertEquals("12/10/2010",b.getDate());
+        assertEquals(data,b.getDate());
     }
 }

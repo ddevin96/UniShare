@@ -115,7 +115,7 @@ public class LoginActivity extends Activity {
     }
   }
 
-  private static boolean isValidPassword(String password) {
+  protected static boolean isValidPassword(String password) {
 
     Pattern pattern;
     Matcher matcher;
@@ -128,7 +128,6 @@ public class LoginActivity extends Activity {
 
   }
 
-  @VisibleForTesting
   protected static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
@@ -139,7 +138,7 @@ public class LoginActivity extends Activity {
     return matcher.matches();
   }
 
-  private boolean confrontaMail(String mail) {
+  protected boolean confrontaMail(String mail) {
     boolean value = true;
     for (Utente utente : listaUtente) {
       if (utente.getEmail().equals(mail)) {

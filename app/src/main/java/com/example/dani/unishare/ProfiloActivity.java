@@ -283,7 +283,7 @@ public class ProfiloActivity extends Activity {
     startActivity(new Intent(getApplicationContext(), MainActivity.class));
   }
 
-  private static boolean isValidPassword(String password) {
+  protected static boolean isValidPassword(String password) {
 
     Pattern pattern;
     Matcher matcher;
@@ -296,7 +296,7 @@ public class ProfiloActivity extends Activity {
 
   }
 
-  private static boolean isValidEmail(String email) {
+  protected static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
     final String Email_Pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";

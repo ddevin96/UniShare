@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class PostTest {
     private Post p;
-
+    private Date d = new Date();
     @Before
     public void setUp() throws Exception {
         try{
@@ -18,22 +18,22 @@ public class PostTest {
             System.out.println("Post assente");
         }
         try{
-            p = new Post("abc","","Descrizione","Daniele","ddv",new Date());
+            p = new Post("abc","","Descrizione","Daniele","ddv",d);
         }catch(Exception e){
             System.out.println("Titolo non presente.");
         }
         try{
-            p = new Post("abc","Residenze","","Daniele","ddv",new Date());
+            p = new Post("abc","Residenze","","Daniele","ddv",d);
         }catch(Exception e){
             System.out.println("Descrizione non presente.");
         }
         try{
-            p = new Post("abc","Residenze","Descrizione","","ddv",new Date());
+            p = new Post("abc","Residenze","Descrizione","","ddv",d);
         }catch(Exception e){
             System.out.println("Autore non presente.");
         }
         try{
-            p = new Post("abc","Residenze","Descrizione","Daniele","ddv",new Date());
+            p = new Post("abc","Residenze","Descrizione","Daniele","ddv",d);
         }catch(Exception e){
             System.out.println("Non dovrebbe lanciare eccezioni");
         }
@@ -56,7 +56,7 @@ public class PostTest {
 
     @Test
     public void getDate() {
-        assertEquals("12/10/2010",p.getDate());
+        assertEquals(d,p.getDate());
     }
 
     @Test
@@ -82,9 +82,8 @@ public class PostTest {
 
     @Test
     public void setDate() {
-        Date date = new Date();
-        p.setDate(date);
-        assertEquals(date,p.getDate());
+        p.setDate(d);
+        assertEquals(d,p.getDate());
     }
 
     @Test
@@ -94,8 +93,8 @@ public class PostTest {
 
     @Test
     public void setTitle() {
-        String title = "Residenze";
-        p.setId(title);
+        String title = "Appartamenti";
+        p.setTitle(title);
         assertEquals(title,p.getTitle());
     }
 

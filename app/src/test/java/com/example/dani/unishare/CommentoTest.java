@@ -12,6 +12,11 @@ public class CommentoTest {
     @Before
     public void setUp() throws Exception {
         try{
+            c = new Commento();
+        }catch(Exception e){
+            System.out.println("Commento assente");
+        }
+        try{
             c = new Commento("abc","","Donatella","dcf",new Date());
         }catch(Exception e){
             System.out.println("Descrizione assente");
@@ -45,6 +50,8 @@ public class CommentoTest {
         assertEquals("Descrizione",c.getDescription());
     }
 
+
+
     @Test
     public void setDescription() {
         String descrizione = "Descr";
@@ -75,5 +82,16 @@ public class CommentoTest {
         String id = "feu";
         c.setAuthorId(id);
         assertEquals(id,c.getAuthorId());
+    }
+
+    @Test
+    public void setDate() {
+        Date date = new Date();
+        c.setData(date);
+        assertEquals(date,c.getData());
+    }
+    @Test
+    public void getDate() {
+        assertEquals("12/10/2010",c.getData());
     }
 }

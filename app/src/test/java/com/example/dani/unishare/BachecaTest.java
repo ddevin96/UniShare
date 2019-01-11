@@ -14,6 +14,11 @@ public class BachecaTest {
     public void setUp(){
 
         try{
+            b = new Bacheca();
+        }catch(Exception e){
+            System.out.println("Bacheca non presente.");
+        }
+        try{
             b = new Bacheca("abc","","Descrizione","Daniele","ddv",new Date());
         }catch(Exception e){
             System.out.println("Titolo non presente.");
@@ -54,7 +59,7 @@ public class BachecaTest {
 
     @Test
     public void setTitle() {
-        String title = "Francia";
+        String title = "Germania";
         b.setId(title);
         assertEquals(title,b.getTitle());
     }
@@ -94,14 +99,15 @@ public class BachecaTest {
     public void getAuthorId() {
         assertEquals("ddv",b.getAuthorId());
     }
-/*
-    @Test
-    public void getDate() {
-
-    }
 
     @Test
     public void setDate() {
+        Date date = new Date();
+        b.setDate(date);
+        assertEquals(date,b.getDate());
     }
-    */
+    @Test
+    public void getDate() {
+        assertEquals("12/10/2010",b.getDate());
+    }
 }

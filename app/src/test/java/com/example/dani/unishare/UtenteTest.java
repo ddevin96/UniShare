@@ -11,12 +11,17 @@ public class UtenteTest {
     @Before
     public void setUp() throws Exception {
         try{
-            u = new Utente("abc","","Cioffi","D","10/12/97","donacio@gmail.com","abCD.123","utente");
+            u = new Utente();
+        }catch(Exception e){
+            System.out.println("Utente assente");
+        }
+        try{
+            u = new Utente("abc","","Cioffi","F","10/12/97","donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Nome assente");
         }
         try{
-            u = new Utente("abc","Donatella","","D","10/12/97","donacio@gmail.com","abCD.123","utente");
+            u = new Utente("abc","Donatella","","F","10/12/97","donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("Cognome assente");
         }
@@ -26,17 +31,17 @@ public class UtenteTest {
             System.out.println("Il sesso è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","D","10/12/97","","abCD.123","utente");
+            u = new Utente("abc","Donatella","Cioffi","F","10/12/97","","abCD.123","utente");
         }catch(Exception e){
             System.out.println("L'email è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","D","10/12/97","donacio@gmail.com","","utente");
+            u = new Utente("abc","Donatella","Cioffi","F","10/12/97","donacio@gmail.com","","utente");
         }catch(Exception e){
             System.out.println("La password è assente");
         }
         try{
-            u = new Utente("abc","Donatella","Cioffi","D","10/12/97","donacio@gmail.com","abCD.123","utente");
+            u = new Utente("abc","Donatella","Cioffi","F","10/12/97","donacio@gmail.com","abCD.123","utente");
         }catch(Exception e){
             System.out.println("L'inserimento dovrebbe andare a buon fine");
         }
@@ -59,7 +64,7 @@ public class UtenteTest {
 
     @Test
     public void getSesso() {
-        assertEquals("D",u.getSesso());
+        assertEquals("F",u.getSesso());
     }
 
     @Test
@@ -100,7 +105,7 @@ public class UtenteTest {
 
     @Test
     public void setSesso() {
-        String sesso = "U";
+        String sesso = "M";
         u.setSesso(sesso);
         assertEquals(sesso,u.getSesso());
     }

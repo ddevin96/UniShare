@@ -159,7 +159,7 @@ public class RicercaProfiloActivity extends Activity {
 
   }
 
-  private List<String> trovaParole(String stringa) {
+  protected List<String> trovaParole(String stringa) {
     String parola = "";
     List<String> listaParole = new ArrayList<>();
     for (int i = 0; i < stringa.length(); i++) {

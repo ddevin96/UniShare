@@ -12,6 +12,7 @@
         android:textSize="35dp"
         android:fontFamily="@font/pacifico"
         android:text="@string/modify_post"
+        android:textColor="@color/nero"
         android:layout_marginTop="20dp"
         android:gravity="center"/>
 
@@ -50,18 +51,20 @@
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:layout_marginRight="10dp"
-        android:text="Modifica"
+        android:text="@string/modify"
         android:textSize="20dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/acme"/>
 
     <Button
         android:id="@+id/cancellaPostButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancella"
+        android:text="@string/delete"
         style="@style/buttonStyle"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
         android:fontFamily="@font/acme"/>

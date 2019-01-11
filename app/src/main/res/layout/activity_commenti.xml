@@ -45,6 +45,7 @@
             android:layout_height="23dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="@font/acme"
             android:text="cerca" />
 
     </LinearLayout>
@@ -76,7 +77,7 @@
     <TextView
         android:layout_marginTop="25sp"
         android:layout_marginLeft="20sp"
-        android:layout_marginRight="15sp"
+        android:layout_marginRight="20sp"
         android:layout_marginBottom="20sp"
         android:id="@+id/textViewPostAuthor"
         android:layout_width="match_parent"

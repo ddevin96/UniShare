@@ -118,7 +118,7 @@ public class RegistrazioneActivity extends Activity {
   }
 
 
-  private void registraUtente() {
+  protected void registraUtente() {
     final String nome = editTextRegNome.getText().toString().trim();
     final String cognome = editTextRegCognome.getText().toString().trim();
     final String email = editTextRegEmail.getText().toString().trim();
@@ -260,4 +260,3 @@ public class RegistrazioneActivity extends Activity {
     return value;
   }
 }
-

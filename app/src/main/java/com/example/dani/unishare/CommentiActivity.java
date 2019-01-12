@@ -190,7 +190,7 @@ public class CommentiActivity extends Activity {
     String idAuthor = cUser.getUid();
     Date date = new Date();
 
-    if (description.isEmpty() || description.length() >= 65535) {
+    if (controlloDescrizione(description)) {
       editTextCommentDescription.setError("Il commento non può essere vuoto\nMax 65535 caratteri");
       editTextCommentDescription.requestFocus();
       return;
@@ -231,10 +231,10 @@ public class CommentiActivity extends Activity {
       public void onClick(View v) {
         String description = editTextDescriptionCommento.getText().toString();
 
-        if (description.isEmpty() || description.length() >= 65535) {
-          editTextCommentDescription
+        if (controlloDescrizione(description)) {
+          editTextDescriptionCommento
                   .setError("Il commento non può essere vuoto\nMax 65535 caratteri");
-          editTextCommentDescription.requestFocus();
+          editTextDescriptionCommento.requestFocus();
           return;
         }
 
@@ -273,6 +273,15 @@ public class CommentiActivity extends Activity {
     if (cUser.getUid().equals(id)) {
       return true;
     } else {
+      return false;
+    }
+  }
+
+  protected boolean controlloDescrizione(String descrizione){
+    if (descrizione.isEmpty() || descrizione.length() >= 65535){
+      return true;
+    }
+    else {
       return false;
     }
   }

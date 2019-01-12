@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
  *  <p>All'interno del metodo privato RegistraUtente vengono effettuati tutti
  *  i controlli per l'accettazione dei parametri inseriti dall'Utente (riga 139).</p>
  */
-public class RegistrazioneActivity extends Activity {
+public class RegistrazioneActivity extends Activity implements FirebaseInterface{
 
   EditText editTextRegNome;
   EditText editTextRegCognome;
@@ -61,6 +61,7 @@ public class RegistrazioneActivity extends Activity {
   Button buttonGiaRegistrato;
   private FirebaseAuth firebaseAuth;
   DatabaseReference databaseUtente;
+  FirebaseUser user;
   List<Utente> listaUtente;
 
   @Override
@@ -99,7 +100,7 @@ public class RegistrazioneActivity extends Activity {
       }
     });
 
-    firebaseAuth = FirebaseAuth.getInstance();
+    istance();
 
     buttonRegistrazione.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -187,14 +188,14 @@ public class RegistrazioneActivity extends Activity {
                   if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Utente Aggiunto",
                             Toast.LENGTH_SHORT).show();
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    getUser();
                     UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
                             .Builder().setDisplayName(nome).build();
                     user.updateProfile(profileUpdate);
                     String ruolo = "utente";
-                    Utente utente = new Utente(user.getUid(), nome, cognome,
+                    Utente utente = new Utente(getUserId(), nome, cognome,
                             sesso, date, email, password, ruolo);
-                    databaseUtente.child(firebaseAuth.getCurrentUser().getUid()).setValue(utente);
+                    databaseUtente.child(getUserId()).setValue(utente);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                   } else {
                     Toast.makeText(getApplicationContext(), "Problema con registrazione",
@@ -300,5 +301,25 @@ public class RegistrazioneActivity extends Activity {
     else{
       return false;
     }
+  }
+
+  public void istance(){
+    firebaseAuth = FirebaseAuth.getInstance();
+  }
+
+  public void getUser(){
+    user = firebaseAuth.getCurrentUser();
+  }
+
+  public String getUserId(){
+    return user.getUid();
+  }
+
+  public String getUserName(){
+    return user.getDisplayName();
+  }
+
+  public void logout(){
+    FirebaseAuth.getInstance().signOut();
   }
 }

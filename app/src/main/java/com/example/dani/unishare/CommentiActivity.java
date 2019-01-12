@@ -151,6 +151,7 @@ public class CommentiActivity extends Activity {
           }
 
         }
+        lista = listaCommentiTrovati;
         CommentiList adapter1 = new CommentiList(CommentiActivity.this, listaCommentiTrovati);
         listViewCommenti.setAdapter(adapter1);
 

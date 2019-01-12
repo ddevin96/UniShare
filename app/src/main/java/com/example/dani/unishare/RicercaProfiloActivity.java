@@ -128,6 +128,7 @@ public class RicercaProfiloActivity extends Activity {
           }
         }
 
+        listaUtenti = listaUtentiTrovati;
         UtenteList adapter2 = new UtenteList(RicercaProfiloActivity.this, listaUtentiTrovati);
         listViewUtenti.setAdapter(adapter2);
       }

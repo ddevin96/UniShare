@@ -240,9 +240,6 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
 
         user.updateEmail(email);
         user.updatePassword(password);
-        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
-                .Builder().setDisplayName(nome).build();
-        user.updateProfile(profileUpdate);
         Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
         databesaProfilo.setValue(utente);
         Toast.makeText(getApplicationContext(), "La modifica ha avuto successo",

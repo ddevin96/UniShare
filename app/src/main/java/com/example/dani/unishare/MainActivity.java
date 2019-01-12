@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements FirebaseInterface {
 
   //final for intent
   public static final String BACHECA_ID = "bachecaid";
@@ -67,11 +67,12 @@ public class MainActivity extends Activity {
     listaBacheca = new ArrayList<>();
     listaPost = new ArrayList<>();
 
-    bUser = DatabaseId.getInstance().getCurrentUser();
+    istance();
+    getUser();
 
     if (bUser != null) {
       addButton.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(bUser.getUid());
+      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -191,7 +192,7 @@ public class MainActivity extends Activity {
         Date data = new Date();
 
         Bacheca bacheca = new Bacheca(id, title, description,
-                bUser.getDisplayName(), bUser.getUid(), data);
+                getUserName(), getUserId(), data);
         databaseBacheca.child(bacheca.getId()).setValue(bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
@@ -249,7 +250,7 @@ public class MainActivity extends Activity {
         Date data = new Date();
         String id = bacheca.getId();
         Bacheca bacheca = new Bacheca(id, title, description,
-                bUser.getDisplayName(), bUser.getUid(), data);
+                getUserName(), getUserId(), data);
         databaseBacheca.child(bacheca.getId()).setValue(bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca Modificata",
                 Toast.LENGTH_SHORT).show();
@@ -390,7 +391,7 @@ public class MainActivity extends Activity {
         startActivity(intent);
         break;
       case R.id.logoutMenu:
-        FirebaseAuth.getInstance().signOut();
+        logout();
         Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent1);
         finish();
@@ -416,5 +417,25 @@ public class MainActivity extends Activity {
     }
 
     return true;
+  }
+
+  public void istance(){
+    DatabaseId = FirebaseAuth.getInstance();
+  }
+
+  public void getUser(){
+    bUser = DatabaseId.getCurrentUser();
+  }
+
+  public String getUserId(){
+    return bUser.getUid();
+  }
+
+  public String getUserName(){
+    return bUser.getDisplayName();
+  }
+
+  public void logout(){
+    FirebaseAuth.getInstance().signOut();
   }
 }

@@ -353,6 +353,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface {
         startActivity(intent);
         break;
       case R.id.logoutMenu:
+          logout();
           Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
           startActivity(intent1);
           finish();

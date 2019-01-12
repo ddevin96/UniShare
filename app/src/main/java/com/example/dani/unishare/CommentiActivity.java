@@ -202,7 +202,7 @@ public class CommentiActivity extends Activity {
     Toast.makeText(this, "Commento Inserito", Toast.LENGTH_SHORT).show();
   }
 
-  private void modificaCommentoDialog(Commento commento) {
+  private synchronized void modificaCommentoDialog(Commento commento) {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     LayoutInflater inflater = getLayoutInflater();
     final View dialogView = inflater.inflate(R.layout.modifica_commento_dialog, null);

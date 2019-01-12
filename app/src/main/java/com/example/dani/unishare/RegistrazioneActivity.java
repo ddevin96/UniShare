@@ -136,7 +136,7 @@ public class RegistrazioneActivity extends Activity {
       sesso = "U";
     }
 
-    if (!checkboxPrivacy.isSelected()) {
+    if (!checkboxPrivacy.isChecked()) {
       checkboxPrivacy.setError("Le condizioni sulla privacy devono essere accettate");
       checkboxPrivacy.requestFocus();
       return;

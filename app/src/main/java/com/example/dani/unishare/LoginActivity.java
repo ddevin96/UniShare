@@ -151,7 +151,7 @@ public class LoginActivity extends Activity {
   }
 
   protected boolean controlloMail(String mail){
-    if (TextUtils.isEmpty(mail) || mail.length() < 3
+    if (mail.isEmpty() || mail.length() < 3
             || mail.length() > 63 || !isValidEmail(mail)){
       return false;
     }
@@ -161,7 +161,7 @@ public class LoginActivity extends Activity {
   }
 
   protected boolean controlloPassword(String password){
-    if (TextUtils.isEmpty(password) || password.length() < 8
+    if (password.isEmpty() || password.length() < 8
             || password.length() > 23 || !isValidPassword(password)){
       return false;
     }

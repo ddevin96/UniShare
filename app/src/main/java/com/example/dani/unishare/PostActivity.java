@@ -52,6 +52,7 @@ public class PostActivity extends Activity implements FirebaseInterface{
   FirebaseAuth databaseId;
   FirebaseUser pUser;
   String ruoloUser;
+  String nomeUser;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,7 @@ public class PostActivity extends Activity implements FirebaseInterface{
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
           ruoloUser = dataSnapshot.child("ruolo").getValue(String.class);
+          nomeUser = dataSnapshot.child("nome").getValue(String.class);
         }
 
         @Override
@@ -276,10 +278,9 @@ public class PostActivity extends Activity implements FirebaseInterface{
           return;
         }
         Date data = new Date();
-        String author = getUserName();
         String idAuthor = getUserId();
         String id = databasePost.push().getKey();
-        Post post = new Post(id, title, description, author, idAuthor, data);
+        Post post = new Post(id, title, description, nomeUser, idAuthor, data);
         databasePost.child(post.getId()).setValue(post);
         Toast.makeText(getApplicationContext(), "Post aggiunto", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();

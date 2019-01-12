@@ -46,9 +46,7 @@ public class ProfiloActivity extends Activity {
   Button modificaProfila;
   Button cancellaProfilo;
   DatabaseReference databesaProfilo;
-  DatabaseReference databaseBacheche;
-  DatabaseReference databasePost;
-  DatabaseReference databaseCommento;
+  DatabaseReference databaseUtente;
   FirebaseAuth databaseId;
   FirebaseUser user;
   String nomeEdit;
@@ -58,10 +56,7 @@ public class ProfiloActivity extends Activity {
   String passwordEdit;
   String ruolo;
   String data;
-  List<Bacheca> listaBacheche;
-  List<Post> listaPost;
-  List<Commento> listaCommenti;
-
+  List<Utente> listaUtente;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +74,23 @@ public class ProfiloActivity extends Activity {
 
     user = databaseId.getInstance().getCurrentUser();
     databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
-    databaseBacheche = FirebaseDatabase.getInstance().getReference("bacheca");
-    databasePost = FirebaseDatabase.getInstance().getReference("post");
-    databaseCommento = FirebaseDatabase.getInstance().getReference("commento");
 
-    listaBacheche = new ArrayList<>();
-    listaPost = new ArrayList<>();
-    listaCommenti = new ArrayList<>();
+    listaUtente = new ArrayList<>();
+    databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    databaseUtente.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        listaUtente.clear();
+        for (DataSnapshot utenteSnapshot : dataSnapshot.getChildren()) {
+          Utente utente = utenteSnapshot.getValue(Utente.class);
+          listaUtente.add(utente);
+        }
+      }
+      @Override
+      public void onCancelled(@NonNull DatabaseError databaseError) {
 
+      }
+    });
 
     modificaProfila.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -175,6 +179,7 @@ public class ProfiloActivity extends Activity {
 
       @Override
       public void onClick(View v) {
+        String id = user.getUid();
         String nome = editTextNome.getText().toString();
         String sesso;
         if (radioButtonUomo.isSelected()) {
@@ -183,7 +188,7 @@ public class ProfiloActivity extends Activity {
           sesso = "D";
         }
 
-        if (TextUtils.isEmpty(nome) || nome.length() > 20) {
+        if (controllaParametri(nome)) {
           editTextNome.setError("Il campo Nome non può essere vuoto.\n "
                   + "Deve avere al massimo 20 caratteri");
           editTextNome.requestFocus();
@@ -192,8 +197,7 @@ public class ProfiloActivity extends Activity {
 
         String cognome = editTextCognome.getText().toString();
 
-        if (TextUtils.isEmpty(cognome)
-                || cognome.length() > 20) {
+        if (controllaParametri(cognome)) {
           editTextCognome.setError("Il campo Cognome non può essere vuoto.\n"
                   + " Deve avere al massimo 20 caratteri");
           editTextCognome.requestFocus();
@@ -202,9 +206,13 @@ public class ProfiloActivity extends Activity {
 
         String email = editTextEmail.getText().toString();
 
-        if (TextUtils.isEmpty(email)
-                || email.length() < 3
-                || email.length() > 63 || !isValidEmail(email)) {
+        if (confrontaMail(email, id)) {
+          editTextEmail.setError("L'email è già presente nel sistema");
+          editTextEmail.requestFocus();
+          return;
+        }
+
+        if (controllaMail(email)) {
           editTextEmail.setError("il campo E-mail non può essere vuoto.\n "
                   + "min:3 max:63 caratteri.\nL'E-mail deve rispettare il formato.");
           editTextEmail.requestFocus();
@@ -213,21 +221,19 @@ public class ProfiloActivity extends Activity {
 
         String password = editTextPassword.getText().toString();
 
-        if (TextUtils.isEmpty(password)
-                || password.length() < 8
-                || password.length() > 20
-                || !isValidPassword(password)) {
+        if (controllaPassword(password)) {
           editTextPassword.setError("Il campo password non può essere vuoto."
                   + " \n Deve essere compposto dal almeno 8 caratteri e massimo 20. "
                   + "\n La password deve rispettare il formato.");
           editTextPassword.requestFocus();
           return;
         }
+
         int year = dataPicker.getYear();
         int month = dataPicker.getMonth() + 1;
         int day = dataPicker.getDayOfMonth();
         String date = day + "/" + month + "/" + year;
-        String id = user.getUid();
+
         user.updateEmail(email);
         user.updatePassword(password);
         Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
@@ -253,6 +259,60 @@ public class ProfiloActivity extends Activity {
     databesaProfilo.removeValue();
     Toast.makeText(this, "Il profilo è stato cancellato", Toast.LENGTH_SHORT).show();
     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+  }
+
+  /**
+   * Metodo private usato per verificare che l'e-mail
+   * inserita dall'utente non sia già presente nel database.
+   * @param mail  Stringa contenente l'e-mail inserita dall'utente.
+   * @return  Valore boolean.
+   * <p>Se il valore restituito è true, l'e-mail non è presente nel database.
+   * Sarà dunque valida per l'utente che l'ha inserita.</p>
+   */
+  private boolean confrontaMail(String mail, String id) {
+    boolean value = true;
+    for (Utente utente : listaUtente) {
+      if (utente.getEmail().equals(mail) && !utente.getId().equals(id)) {
+        value = true;
+        break;
+      } else {
+        value = false;
+      }
+    }
+
+    return value;
+  }
+
+  protected boolean controllaParametri(String parametro){
+    if (parametro.isEmpty() || parametro.length() > 20){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  protected boolean controllaMail(String mail){
+    if (mail.isEmpty()
+            || mail.length() < 3
+            || mail.length() > 63 || !isValidEmail(mail)){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  protected boolean controllaPassword(String password){
+    if (password.isEmpty()
+            || password.length() < 8
+            || password.length() > 20
+            || !isValidPassword(password)){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
 

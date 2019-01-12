@@ -299,7 +299,7 @@ public class MainActivity extends Activity implements FirebaseInterface {
     Toast.makeText(this, "Bacheca eliminata", Toast.LENGTH_SHORT).show();
   }
 
-  private boolean isManager() {
+  protected boolean isManager() {
     if (ruoloManager.equals("manager")) {
       return true;
     } else {
@@ -307,7 +307,7 @@ public class MainActivity extends Activity implements FirebaseInterface {
     }
   }
 
-  private boolean confrontaBacheche(String titolo, String id) {
+  protected boolean confrontaBacheche(String titolo, String id) {
     boolean value = true;
     if (!listaBacheca.isEmpty()) {
       for (Bacheca bacheca : listaBacheca) {

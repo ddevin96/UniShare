@@ -307,7 +307,7 @@ public class PostActivity extends Activity implements FirebaseInterface{
     }
   }
 
-  private boolean isManager() {
+  protected boolean isManager() {
     if (ruoloUser.equals("manager")) {
       return true;
     } else {
@@ -315,7 +315,7 @@ public class PostActivity extends Activity implements FirebaseInterface{
     }
   }
 
-  private boolean isCreator(String id) {
+  protected boolean isCreator(String id) {
     if (getUserId().equals(id)) {
       return true;
     } else {

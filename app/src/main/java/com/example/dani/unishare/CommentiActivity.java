@@ -250,7 +250,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface {
     Toast.makeText(getApplicationContext(), "Commento Eliminato", Toast.LENGTH_SHORT).show();
   }
 
-  private boolean isManager() {
+  protected boolean isManager() {
     if (ruolo.equals("manager")) {
       return true;
     } else {
@@ -258,7 +258,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface {
     }
   }
 
-  private boolean isCreator(String id) {
+  protected boolean isCreator(String id) {
     if (getUserId().equals(id)) {
       return true;
     } else {

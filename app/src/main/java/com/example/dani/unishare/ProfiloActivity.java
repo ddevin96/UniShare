@@ -276,7 +276,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
    * <p>Se il valore restituito è true, l'e-mail non è presente nel database.
    * Sarà dunque valida per l'utente che l'ha inserita.</p>
    */
-  private boolean confrontaMail(String mail, String id) {
+  protected boolean confrontaMail(String mail, String id) {
     boolean value = true;
     for (Utente utente : listaUtente) {
       if (utente.getEmail().equals(mail) && !utente.getId().equals(id)) {
@@ -329,7 +329,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
    * @return  Valore boolean.
    * <p>Se il valore restituito è ture, il formato richiesto è stato rispettato.</p>
    */
-  private static boolean isValidPassword(String password) {
+  protected static boolean isValidPassword(String password) {
 
     Pattern pattern;
     Matcher matcher;
@@ -349,7 +349,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
    * @return  Valore boolean.
    * <p>Se il valore restituito è true, il formato richiesto è stato rispettato.</p>
    */
-  private static boolean isValidEmail(String email) {
+  protected static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
     final String Email_Pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -365,7 +365,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
    * @param data1 parametro di tipo DatePicker in cui viene selezionata la data
    *             desiderata dall'utente.
    */
-  private void aggiornaData(DatePicker data1) {
+  protected void aggiornaData(DatePicker data1) {
     int year = 0;
     int month = 0;
     int day = 0;

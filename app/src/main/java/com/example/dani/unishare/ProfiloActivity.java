@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +37,7 @@ import java.util.regex.Pattern;
 /**
  * 
  */
-public class ProfiloActivity extends Activity {
+public class ProfiloActivity extends Activity implements FirebaseInterface {
 
   TextView textViewNome;
   TextView textViewCognome;
@@ -72,8 +73,10 @@ public class ProfiloActivity extends Activity {
     modificaProfila = (Button) findViewById(R.id.modificaProfiloButton);
     cancellaProfilo = (Button) findViewById(R.id.cancellaProfiloButton);
 
-    user = databaseId.getInstance().getCurrentUser();
-    databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
+    //user = databaseId.getInstance().getCurrentUser();
+      istance();
+      getUser();
+    databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
 
     listaUtente = new ArrayList<>();
     databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
@@ -179,7 +182,8 @@ public class ProfiloActivity extends Activity {
 
       @Override
       public void onClick(View v) {
-        String id = user.getUid();
+          //changed
+        String id = getUserId();
         String nome = editTextNome.getText().toString();
         String sesso;
         if (radioButtonUomo.isSelected()) {
@@ -236,6 +240,9 @@ public class ProfiloActivity extends Activity {
 
         user.updateEmail(email);
         user.updatePassword(password);
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
+                .Builder().setDisplayName(nome).build();
+        user.updateProfile(profileUpdate);
         Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
         databesaProfilo.setValue(utente);
         Toast.makeText(getApplicationContext(), "La modifica ha avuto successo",
@@ -254,7 +261,7 @@ public class ProfiloActivity extends Activity {
    * del profilo che si desidera eliminare.</p>
    */
   private void deleteProfilo() {
-    FirebaseAuth.getInstance().signOut();
+    logout();
     user.delete();
     databesaProfilo.removeValue();
     Toast.makeText(this, "Il profilo è stato cancellato", Toast.LENGTH_SHORT).show();
@@ -269,7 +276,7 @@ public class ProfiloActivity extends Activity {
    * <p>Se il valore restituito è true, l'e-mail non è presente nel database.
    * Sarà dunque valida per l'utente che l'ha inserita.</p>
    */
-  private boolean confrontaMail(String mail, String id) {
+  protected boolean confrontaMail(String mail, String id) {
     boolean value = true;
     for (Utente utente : listaUtente) {
       if (utente.getEmail().equals(mail) && !utente.getId().equals(id)) {
@@ -322,7 +329,7 @@ public class ProfiloActivity extends Activity {
    * @return  Valore boolean.
    * <p>Se il valore restituito è ture, il formato richiesto è stato rispettato.</p>
    */
-  private static boolean isValidPassword(String password) {
+  protected static boolean isValidPassword(String password) {
 
     Pattern pattern;
     Matcher matcher;
@@ -342,7 +349,7 @@ public class ProfiloActivity extends Activity {
    * @return  Valore boolean.
    * <p>Se il valore restituito è true, il formato richiesto è stato rispettato.</p>
    */
-  private static boolean isValidEmail(String email) {
+  protected static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
     final String Email_Pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -358,7 +365,7 @@ public class ProfiloActivity extends Activity {
    * @param data1 parametro di tipo DatePicker in cui viene selezionata la data
    *             desiderata dall'utente.
    */
-  private void aggiornaData(DatePicker data1) {
+  protected void aggiornaData(DatePicker data1) {
     int year = 0;
     int month = 0;
     int day = 0;
@@ -383,4 +390,23 @@ public class ProfiloActivity extends Activity {
     data1.updateDate(year, month + 1, day);
   }
 
+  public void istance(){
+      databaseId = FirebaseAuth.getInstance();
+  }
+
+  public void getUser(){
+      user = databaseId.getCurrentUser();
+  }
+
+  public String getUserId(){
+      return user.getUid();
+  }
+
+  public String getUserName(){
+      return user.getDisplayName();
+  }
+
+    public void logout(){
+        FirebaseAuth.getInstance().signOut();
+    }
 }

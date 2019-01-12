@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,11 +28,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements FirebaseInterface{
 
   EditText email;
   EditText password;
   Button accedi;
+  FirebaseUser user;
   FirebaseAuth databaseLogin;
   DatabaseReference databaseUtente;
   List<Utente> listaUtente;
@@ -47,7 +49,7 @@ public class LoginActivity extends Activity {
 
     listaUtente = new ArrayList<>();
 
-    databaseLogin = FirebaseAuth.getInstance();
+    istance();
     databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
 
     databaseUtente.addValueEventListener(new ValueEventListener() {
@@ -107,8 +109,8 @@ public class LoginActivity extends Activity {
                 });
       }
     });
-
-    if (databaseLogin.getCurrentUser() != null) {
+    getUser();
+    if (user!= null) {
       startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
   }
@@ -168,6 +170,26 @@ public class LoginActivity extends Activity {
     else {
       return true;
     }
+  }
+
+  public void istance(){
+    databaseLogin = FirebaseAuth.getInstance();
+  }
+
+  public void getUser(){
+    user = databaseLogin.getCurrentUser();
+  }
+
+  public String getUserId(){
+    return user.getUid();
+  }
+
+  public String getUserName(){
+    return user.getDisplayName();
+  }
+
+  public void logout(){
+    FirebaseAuth.getInstance().signOut();
   }
 
 }

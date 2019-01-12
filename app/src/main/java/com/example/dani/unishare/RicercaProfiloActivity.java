@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RicercaProfiloActivity extends Activity {
+public class RicercaProfiloActivity extends Activity implements FirebaseInterface{
 
   Button searchUtenteButton;
   TextView searchbarUtente;
@@ -78,7 +78,8 @@ public class RicercaProfiloActivity extends Activity {
 
     listaUtenti = new ArrayList<>();
 
-    mUser = databaseId.getInstance().getCurrentUser();
+    istance();
+    getUser();
 
     databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
 
@@ -172,5 +173,25 @@ public class RicercaProfiloActivity extends Activity {
     }
     listaParole.add(parola);
     return listaParole;
+  }
+
+  public void istance(){
+    databaseId = FirebaseAuth.getInstance();
+  }
+
+  public void getUser(){
+    mUser = databaseId.getCurrentUser();
+  }
+
+  public String getUserId(){
+    return mUser.getUid();
+  }
+
+  public String getUserName(){
+    return mUser.getDisplayName();
+  }
+
+  public void logout(){
+    FirebaseAuth.getInstance().signOut();
   }
 }

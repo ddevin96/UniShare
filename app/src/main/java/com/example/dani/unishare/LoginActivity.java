@@ -72,9 +72,8 @@ public class LoginActivity extends Activity {
         String eMail = email.getText().toString();
         String password1 = password.getText().toString();
 
-        if (TextUtils.isEmpty(eMail) || eMail.length() < 3
-                || eMail.length() > 63 || !isValidEmail(eMail)) {
-          email.setError("L'email non può essere vuota.");
+        if (!controlloMail(eMail)) {
+          email.setError("L'email non può essere vuota.\nDeve rispettare il formato.\n può avere al massimo 63 caratteri.");
           email.requestFocus();
           return;
         }
@@ -85,8 +84,7 @@ public class LoginActivity extends Activity {
           return;
         }
 
-        if (TextUtils.isEmpty(password1) || password1.length() < 8
-                || password1.length() > 23 || !isValidPassword(password1)) {
+        if (!controlloPassword(password1)) {
           password.setError("La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri");
           password.requestFocus();
           return;
@@ -150,6 +148,26 @@ public class LoginActivity extends Activity {
     }
 
     return value;
+  }
+
+  protected boolean controlloMail(String mail){
+    if (TextUtils.isEmpty(mail) || mail.length() < 3
+            || mail.length() > 63 || !isValidEmail(mail)){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+  protected boolean controlloPassword(String password){
+    if (TextUtils.isEmpty(password) || password.length() < 8
+            || password.length() > 23 || !isValidPassword(password)){
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
 }

@@ -72,8 +72,10 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
     modificaProfila = (Button) findViewById(R.id.modificaProfiloButton);
     cancellaProfilo = (Button) findViewById(R.id.cancellaProfiloButton);
 
-    user = databaseId.getInstance().getCurrentUser();
-    databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
+    //user = databaseId.getInstance().getCurrentUser();
+      istance();
+      getUser();
+    databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
 
     listaUtente = new ArrayList<>();
     databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
@@ -179,7 +181,8 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
 
       @Override
       public void onClick(View v) {
-        String id = user.getUid();
+          //changed
+        String id = getUserId();
         String nome = editTextNome.getText().toString();
         String sesso;
         if (radioButtonUomo.isSelected()) {
@@ -254,7 +257,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
    * del profilo che si desidera eliminare.</p>
    */
   private void deleteProfilo() {
-    FirebaseAuth.getInstance().signOut();
+    logout();
     user.delete();
     databesaProfilo.removeValue();
     Toast.makeText(this, "Il profilo è stato cancellato", Toast.LENGTH_SHORT).show();
@@ -399,4 +402,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
       return user.getDisplayName();
   }
 
+    public void logout(){
+        FirebaseAuth.getInstance().signOut();
+    }
 }

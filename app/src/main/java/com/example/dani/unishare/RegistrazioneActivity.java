@@ -142,13 +142,13 @@ public class RegistrazioneActivity extends Activity {
       return;
     }
 
-    if (nome.isEmpty() || nome.length() > 20) {
+    if (controlloParametro(nome)) {
       editTextRegNome.setError("Il nome non può essere vuoto\nMax20Caratteri");
       editTextRegNome.requestFocus();
       return;
     }
 
-    if (TextUtils.isEmpty(cognome) || cognome.length() > 20) {
+    if (controlloParametro(cognome)) {
       editTextRegCognome.setError("Il cognome non può essere vuoto\nMax 20 caratteri");
       editTextRegCognome.requestFocus();
       return;
@@ -160,22 +160,20 @@ public class RegistrazioneActivity extends Activity {
       return;
     }
 
-    if (TextUtils.isEmpty(email) || email.length() < 3
-            || email.length() > 63 || !isValidEmail(email)) {
-      editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri");
+    if (controlloMail(email)) {
+      editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri\nDeve rispettare il formato.");
       editTextRegEmail.requestFocus();
       return;
     }
 
-    if (TextUtils.isEmpty(password) || password.length() < 8
-            || password.length() > 23 || !isValidPassword(password)) {
+    if (controlloPassword(password)) {
       editTextRegPassword.setError("La password non può essere vuota\n"
               + "Min 8 caratteri\nMax 20 caratteri");
       editTextRegPassword.requestFocus();
       return;
     }
 
-    if (TextUtils.isEmpty(ripPassword) || !ripPassword.equals(password)) {
+    if (controlloConfermaPassword(password, ripPassword)) {
       editTextRegRipetiPassword.setError("Le password non coincidono");
       editTextRegRipetiPassword.requestFocus();
       return;
@@ -264,5 +262,43 @@ public class RegistrazioneActivity extends Activity {
     }
 
     return value;
+  }
+
+  protected boolean controlloParametro(String parametro){
+    if(parametro.isEmpty() || parametro.length() > 20){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  protected boolean controlloMail(String mail){
+    if (TextUtils.isEmpty(mail) || mail.length() < 3
+            || mail.length() > 63 || !isValidEmail(mail)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  protected boolean controlloPassword(String password){
+    if (TextUtils.isEmpty(password) || password.length() < 8
+            || password.length() > 23 || !isValidPassword(password)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  protected boolean controlloConfermaPassword(String password, String conferma){
+    if (TextUtils.isEmpty(conferma) || !conferma.equals(password)){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

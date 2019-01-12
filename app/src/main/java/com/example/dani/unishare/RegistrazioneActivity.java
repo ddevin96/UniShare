@@ -136,6 +136,12 @@ public class RegistrazioneActivity extends Activity {
       sesso = "U";
     }
 
+    if (!checkboxPrivacy.isSelected()) {
+      checkboxPrivacy.setError("Le condizioni sulla privacy devono essere accettate");
+      checkboxPrivacy.requestFocus();
+      return;
+    }
+
     if (nome.isEmpty() || nome.length() > 20) {
       editTextRegNome.setError("Il nome non può essere vuoto\nMax20Caratteri");
       editTextRegNome.requestFocus();

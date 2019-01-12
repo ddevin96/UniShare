@@ -37,6 +37,7 @@ public class PostActivity extends Activity {
   public static final String POST_TITLE = "posttitle";
   public static final String POST_DESCRIZIONE = "postdescrizione";
   public static final String POST_AUTORE = "postautore";
+  public static final String ID_AUTORE= "idautore";
   //commento
   EditText searchbarPost;
   Button searchButton;
@@ -131,6 +132,7 @@ public class PostActivity extends Activity {
         intent.putExtra(POST_TITLE, post.getTitle());
         intent.putExtra(POST_DESCRIZIONE, post.getDescription());
         intent.putExtra(POST_AUTORE, post.getAuthor());
+        intent.putExtra(ID_AUTORE, post.getAuthorId());
         startActivity(intent);
 
       }
@@ -193,6 +195,7 @@ public class PostActivity extends Activity {
     editTextDescriptionPost.setText(post.getDescription());
     final String id = post.getId();
 
+
     dialogBuilder.setTitle("Modifica Post");
     final AlertDialog alertDialog = dialogBuilder.create();
     alertDialog.show();
@@ -216,7 +219,7 @@ public class PostActivity extends Activity {
         }
         Date date = new Date();
         Post postUpdate = new Post(id, title, description,
-                mUser.getDisplayName(), mUser.getUid(), date);
+                POST_AUTORE, ID_AUTORE, date);
         databasePost.child(postUpdate.getId()).setValue(postUpdate);
         Toast.makeText(getApplicationContext(), "Post Modificato",
                 Toast.LENGTH_SHORT).show();

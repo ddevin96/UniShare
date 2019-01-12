@@ -33,6 +33,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ */
 public class ProfiloActivity extends Activity {
 
   TextView textViewNome;
@@ -126,51 +129,17 @@ public class ProfiloActivity extends Activity {
 
       }
     });
-    databaseBacheche.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        for (DataSnapshot bachecaSnapshot : dataSnapshot.getChildren()) {
-          Bacheca bacheca = bachecaSnapshot.getValue(Bacheca.class);
-          listaBacheche.add(bacheca);
-        }
-      }
-
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-
-      }
-    });
-    databasePost.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-          Post post = postSnapshot.getValue(Post.class);
-          listaPost.add(post);
-        }
-      }
-
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-
-      }
-    });
-
-    databaseCommento.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        for (DataSnapshot commentoSnapshot : dataSnapshot.getChildren()) {
-          Commento commento = commentoSnapshot.getValue(Commento.class);
-          listaCommenti.add(commento);
-        }
-      }
-
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-
-      }
-    });
   }
 
+  /**
+   * <p>Activity del Dialog usato per modificare il profilo di un utente.</p>
+   * <p>I campi richiesti sono quelli che compongono il costruttore della classe Utente</p>
+   * @see Utente
+   * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
+   * <p>Viene gestita l'evento legato al "Click" del bottone conferma.</p>
+   * <p>Vengono implementate tutte le condizioni secondo le quali i parametri
+   * inseriti verranno dichiarati idonei o non idonei.</p>
+   */
   private void modificaProfiloDialog() {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     LayoutInflater inflater = getLayoutInflater();
@@ -274,7 +243,10 @@ public class ProfiloActivity extends Activity {
     });
   }
 
-
+  /**
+   * <p>Metodo privato usato per eliminare ogni riferimento dal database
+   * del profilo che si desidera eliminare.</p>
+   */
   private void deleteProfilo() {
     FirebaseAuth.getInstance().signOut();
     user.delete();
@@ -283,7 +255,14 @@ public class ProfiloActivity extends Activity {
     startActivity(new Intent(getApplicationContext(), MainActivity.class));
   }
 
-  protected static boolean isValidPassword(String password) {
+
+  /**
+   * Metodo private usato per confrontare la password inserita dall'utente con il formato richiesto.
+   * @param password  Stringa contenente la password inserita dall'utente.
+   * @return  Valore boolean.
+   * <p>Se il valore restituito è ture, il formato richiesto è stato rispettato.</p>
+   */
+  private static boolean isValidPassword(String password) {
 
     Pattern pattern;
     Matcher matcher;
@@ -296,7 +275,14 @@ public class ProfiloActivity extends Activity {
 
   }
 
-  protected static boolean isValidEmail(String email) {
+
+  /**
+   * Metodo private usato per confrontare l'e-mail inserita dall'utente con il formato richiesto.
+   * @param email  Stringa contenente l'e-mail inserita dall'utente.
+   * @return  Valore boolean.
+   * <p>Se il valore restituito è true, il formato richiesto è stato rispettato.</p>
+   */
+  private static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
     final String Email_Pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -306,7 +292,12 @@ public class ProfiloActivity extends Activity {
     return matcher.matches();
   }
 
-  //aggiorna data
+  /**
+   * Metodo privato usato per modificare la data di nascita selezionata in precedenza
+   * alla modifica del profilo.
+   * @param data1 parametro di tipo DatePicker in cui viene selezionata la data
+   *             desiderata dall'utente.
+   */
   private void aggiornaData(DatePicker data1) {
     int year = 0;
     int month = 0;

@@ -340,12 +340,11 @@ public class CommentiActivity extends Activity {
         startActivity(intent);
         break;
       case R.id.logoutMenu:
-        if(cUser== null){
+        if (cUser== null) {
           Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
           startActivity(intent1);
           finish();
-        }
-        else {
+        } else {
           Toast.makeText(this, "Logout non effetuato con successo.", Toast.LENGTH_SHORT).show();
         }
         break;

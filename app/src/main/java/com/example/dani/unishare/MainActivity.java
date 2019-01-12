@@ -377,13 +377,12 @@ public class MainActivity extends Activity {
         break;
       case R.id.logoutMenu:
         FirebaseAuth.getInstance().signOut();
-        if(bUser== null){
+        if (bUser == null) {
           Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
           startActivity(intent1);
           finish();
-        }
-        else {
-          Toast.makeText(this, "Logout non effetuato con successo.", Toast.LENGTH_SHORT).show();
+        } else {
+          Toast.makeText(this, "Logout non effettuato con successo.", Toast.LENGTH_SHORT).show();
         }
         break;
       case R.id.registrazioneMenu:

@@ -394,12 +394,11 @@ public class PostActivity extends Activity {
         startActivity(intent);
         break;
       case R.id.logoutMenu:
-        if(mUser== null){
+        if (mUser == null) {
           Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
           startActivity(intent1);
           finish();
-        }
-        else {
+        } else {
           Toast.makeText(this, "Logout non effetuato con successo.", Toast.LENGTH_SHORT).show();
         }
         break;

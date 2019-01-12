@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 /**
  * 
  */
-public class ProfiloActivity extends Activity {
+public class ProfiloActivity extends Activity implements FirebaseInterface {
 
   TextView textViewNome;
   TextView textViewCognome;
@@ -381,6 +381,22 @@ public class ProfiloActivity extends Activity {
       }
     }
     data1.updateDate(year, month + 1, day);
+  }
+
+  public void istance(){
+      databaseId = FirebaseAuth.getInstance();
+  }
+
+  public void getUser(){
+      user = databaseId.getCurrentUser();
+  }
+
+  public String getUserId(){
+      return user.getUid();
+  }
+
+  public String getUserName(){
+      return user.getDisplayName();
   }
 
 }

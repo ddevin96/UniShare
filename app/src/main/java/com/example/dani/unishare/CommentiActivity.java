@@ -86,6 +86,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface {
       databaseAuthor.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+          ruolo = dataSnapshot.child("ruolo").getValue(String.class);
           author = dataSnapshot.child("nome").getValue().toString();
         }
 
@@ -95,21 +96,8 @@ public class CommentiActivity extends Activity implements FirebaseInterface {
         }
       });
 
-
       addCommentButton.setVisibility(View.VISIBLE);
       editTextCommentDescription.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
-      databaseUtente.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-          ruolo = dataSnapshot.child("ruolo").getValue(String.class);
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-      });
     }
     addCommentButton.setOnClickListener(new View.OnClickListener() {
       @Override

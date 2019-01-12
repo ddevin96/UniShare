@@ -111,6 +111,7 @@ public class PostActivity extends Activity {
           }
 
         }
+        listaPost = listaPostTrovati;
         PostList adapter1 = new PostList(PostActivity.this, listaPostTrovati);
         listViewPost.setAdapter(adapter1);
       }

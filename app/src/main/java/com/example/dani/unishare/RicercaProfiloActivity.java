@@ -103,10 +103,6 @@ public class RicercaProfiloActivity extends Activity {
         textViewCognomeUtenteCercato.setText(utente.getCognome());
         textViewEmailUtenteCercato.setText(utente.getEmail());
         textViewSessoUtenteCercato.setText(utente.getSesso());
-        //int year = utente.getDataDiNascita().getYear();
-        //int month = utente.getDataDiNascita().getMonth();
-        //int day = utente.getDataDiNascita().getDay();
-        //String data = day + "/" + month + "/" + year;
         textViewDataUtenteCercato.setText(utente.getDataDiNascita());
       }
     });

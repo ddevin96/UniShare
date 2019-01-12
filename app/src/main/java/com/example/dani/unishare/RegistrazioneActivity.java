@@ -211,7 +211,7 @@ public class RegistrazioneActivity extends Activity {
    * @return  Valore boolean.
    * <p>Se il valore restituito è ture, il formato richiesto è stato rispettato.</p>
    */
-  private static boolean isValidPassword(String password) {
+  protected static boolean isValidPassword(String password) {
 
     Pattern pattern;
     Matcher matcher;
@@ -231,7 +231,7 @@ public class RegistrazioneActivity extends Activity {
    * @return  Valore boolean.
    * <p>Se il valore restituito è true, il formato richiesto è stato rispettato.</p>
    */
-  private static boolean isValidEmail(String email) {
+  protected static boolean isValidEmail(String email) {
     Pattern pattern;
     Matcher matcher;
     final String Email_Pattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -250,7 +250,7 @@ public class RegistrazioneActivity extends Activity {
    * <p>Se il valore restituito è true, l'e-mail non è presente nel database.
    * Sarà dunque valida per l'utente che l'ha inserita.</p>
    */
-  private boolean confrontaMail(String mail) {
+  protected boolean confrontaMail(String mail) {
     boolean value = true;
     for (Utente utente : listaUtente) {
       if (utente.getEmail().equals(mail)) {
@@ -274,7 +274,7 @@ public class RegistrazioneActivity extends Activity {
   }
 
   protected boolean controlloMail(String mail){
-    if (TextUtils.isEmpty(mail) || mail.length() < 3
+    if (mail.isEmpty() || mail.length() < 3
             || mail.length() > 63 || !isValidEmail(mail)){
       return true;
     }
@@ -284,7 +284,7 @@ public class RegistrazioneActivity extends Activity {
   }
 
   protected boolean controlloPassword(String password){
-    if (TextUtils.isEmpty(password) || password.length() < 8
+    if (password.isEmpty() || password.length() < 8
             || password.length() > 23 || !isValidPassword(password)){
       return true;
     }
@@ -294,7 +294,7 @@ public class RegistrazioneActivity extends Activity {
   }
 
   protected boolean controlloConfermaPassword(String password, String conferma){
-    if (TextUtils.isEmpty(conferma) || !conferma.equals(password)){
+    if (conferma.isEmpty() || !conferma.equals(password)){
       return true;
     }
     else{

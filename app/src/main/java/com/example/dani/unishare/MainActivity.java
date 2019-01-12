@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends Activity implements FirebaseInterface {
+public class MainActivity extends Activity {
 
   //final for intent
   public static final String BACHECA_ID = "bachecaid";
@@ -67,12 +67,11 @@ public class MainActivity extends Activity implements FirebaseInterface {
     listaBacheca = new ArrayList<>();
     listaPost = new ArrayList<>();
 
-    istance();
-    getUser();
+    bUser = DatabaseId.getInstance().getCurrentUser();
 
     if (bUser != null) {
       addButton.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(bUser.getUid());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -192,7 +191,7 @@ public class MainActivity extends Activity implements FirebaseInterface {
         Date data = new Date();
 
         Bacheca bacheca = new Bacheca(id, title, description,
-                getUserName(), getUserId(), data);
+                bUser.getDisplayName(), bUser.getUid(), data);
         databaseBacheca.child(bacheca.getId()).setValue(bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
@@ -250,7 +249,7 @@ public class MainActivity extends Activity implements FirebaseInterface {
         Date data = new Date();
         String id = bacheca.getId();
         Bacheca bacheca = new Bacheca(id, title, description,
-                getUserName(), getUserId(), data);
+                bUser.getDisplayName(), bUser.getUid(), data);
         databaseBacheca.child(bacheca.getId()).setValue(bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca Modificata",
                 Toast.LENGTH_SHORT).show();
@@ -391,7 +390,7 @@ public class MainActivity extends Activity implements FirebaseInterface {
         startActivity(intent);
         break;
       case R.id.logoutMenu:
-        logout();
+        FirebaseAuth.getInstance().signOut();
         Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent1);
         finish();
@@ -417,25 +416,5 @@ public class MainActivity extends Activity implements FirebaseInterface {
     }
 
     return true;
-  }
-
-  public void istance(){
-    DatabaseId = FirebaseAuth.getInstance();
-  }
-
-  public void getUser(){
-    bUser = DatabaseId.getCurrentUser();
-  }
-
-  public String getUserId(){
-    return bUser.getUid();
-  }
-
-  public String getUserName(){
-    return bUser.getDisplayName();
-  }
-
-  public void logout(){
-    FirebaseAuth.getInstance().signOut();
   }
 }

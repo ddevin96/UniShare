@@ -92,6 +92,7 @@ public class RegistrazioneActivityTest {
     assertTrue(act.confrontaMail(lista.get(1).getEmail()));
     assertFalse(act.confrontaMail("ciao@mail.com"));
   }
+
   @Test
   public void isValidPassword() {
     //Caso 1 : password nel formato scorretto
@@ -124,7 +125,6 @@ public class RegistrazioneActivityTest {
     act.editDatePicker.init(1994,10,10,null);
     act.registraUtente();
     //aspettare firebase
-
   }
   */
 }

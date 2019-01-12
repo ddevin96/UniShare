@@ -31,13 +31,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PostActivity extends Activity implements FirebaseInterface{
+public class PostActivity extends Activity {
 
   public static final String POST_ID = "postid";
   public static final String POST_TITLE = "posttitle";
   public static final String POST_DESCRIZIONE = "postdescrizione";
   public static final String POST_AUTORE = "postautore";
-
+  //commento
   EditText searchbarPost;
   Button searchButton;
   TextView textViewTitolo;
@@ -50,17 +50,15 @@ public class PostActivity extends Activity implements FirebaseInterface{
   EditText editTextTitle;
   EditText editTextDescription;
   FirebaseAuth databaseId;
-  FirebaseUser pUser;
+  FirebaseUser mUser;
   String ruoloUser;
-  String nomeUser;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_post);
 
-    istance();
-    getUser();
+    mUser = databaseId.getInstance().getCurrentUser();
     searchbarPost = (EditText) this.findViewById(R.id.searchbarPost);
     searchButton = (Button) this.findViewById(R.id.searchButton);
     textViewTitolo = (TextView) this.findViewById(R.id.textViewTitolo);
@@ -79,14 +77,13 @@ public class PostActivity extends Activity implements FirebaseInterface{
 
     databasePost = FirebaseDatabase.getInstance().getReference("post").child(idBacheca);
 
-    if (pUser != null) {
+    if (mUser != null) {
       addPost.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(mUser.getUid());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
           ruoloUser = dataSnapshot.child("ruolo").getValue(String.class);
-          nomeUser = dataSnapshot.child("nome").getValue(String.class);
         }
 
         @Override
@@ -144,7 +141,7 @@ public class PostActivity extends Activity implements FirebaseInterface{
       @Override
       public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Post post = listaPost.get(position);
-        if (pUser != null && (isCreator(post.getAuthorId()) || isManager())) {
+        if (mUser != null && (isCreator(post.getAuthorId()) || isManager())) {
           modificaPostDialog(post);
         } else {
           Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare",
@@ -278,9 +275,10 @@ public class PostActivity extends Activity implements FirebaseInterface{
           return;
         }
         Date data = new Date();
-        String idAuthor = getUserId();
+        String author = mUser.getDisplayName();
+        String idAuthor = mUser.getUid();
         String id = databasePost.push().getKey();
-        Post post = new Post(id, title, description, nomeUser, idAuthor, data);
+        Post post = new Post(id, title, description, author, idAuthor, data);
         databasePost.child(post.getId()).setValue(post);
         Toast.makeText(getApplicationContext(), "Post aggiunto", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
@@ -315,8 +313,8 @@ public class PostActivity extends Activity implements FirebaseInterface{
     }
   }
 
-  protected boolean isCreator(String id) {
-    if (getUserId().equals(id)) {
+  private boolean isCreator(String id) {
+    if (mUser.getUid().equals(id)) {
       return true;
     } else {
       return false;
@@ -356,24 +354,24 @@ public class PostActivity extends Activity implements FirebaseInterface{
   public boolean onPrepareOptionsMenu(Menu menu) {
     super.onPrepareOptionsMenu(menu);
     MenuItem itemLogin = menu.getItem(0);
-    if (pUser != null) {
+    if (mUser != null) {
       itemLogin.setVisible(false);
     }
     MenuItem itemLogout = menu.getItem(1);
-    if (pUser == null) {
+    if (mUser == null) {
       itemLogout.setVisible(false);
     }
     MenuItem itemRegistrazione = menu.getItem(2);
-    if (pUser != null) {
+    if (mUser != null) {
       itemRegistrazione.setVisible(false);
     }
     MenuItem itemProfilo = menu.getItem(4);
-    if (pUser == null) {
+    if (mUser == null) {
       itemProfilo.setVisible(false);
     }
     MenuItem itemManager = menu.getItem(5);
     itemManager.setVisible(false);
-    if (pUser != null) {
+    if (mUser != null) {
       if (isManager()) {
         itemManager.setVisible(true);
       }
@@ -392,7 +390,6 @@ public class PostActivity extends Activity implements FirebaseInterface{
         startActivity(intent);
         break;
       case R.id.logoutMenu:
-          logout();
           Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
           startActivity(intent1);
           finish();
@@ -421,24 +418,5 @@ public class PostActivity extends Activity implements FirebaseInterface{
     return true;
   }
 
-  public void istance(){
-    databaseId = FirebaseAuth.getInstance();
-  }
-
-  public void getUser(){
-    pUser = databaseId.getCurrentUser();
-  }
-
-  public String getUserId(){
-    return pUser.getUid();
-  }
-
-  public String getUserName(){
-    return pUser.getDisplayName();
-  }
-
-  public void logout(){
-    FirebaseAuth.getInstance().signOut();
-  }
 }
 

@@ -172,18 +172,16 @@ public class MainActivity extends Activity {
       public void onClick(View v) {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
+        String id = databaseBacheca.push().getKey();
 
-
-        if (TextUtils.isEmpty(editTextTitle.getText()) || editTextTitle.getText().length() > 20
-                || confrontaBacheche(editTextTitle.getText().toString())) {
+        if (controlloTitolo(editTextTitle.getText().toString(), id)) {
           editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un "
                   + "massimo di 20 caratteri.\n Non possono esistere "
                   + "due Bacheche di uno stesso paese.");
           editTextTitle.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextDescription.getText())
-                || editTextDescription.getText().length() > 200) {
+        if (controlloDescrizione(editTextDescription.getText().toString())) {
           editTextDescription.setError("La descrizione non può essere vuota.\n Deve "
                   + "avere un massimo di 200 caratteri.");
           editTextDescription.requestFocus();
@@ -191,7 +189,7 @@ public class MainActivity extends Activity {
         }
 
         Date data = new Date();
-        String id = databaseBacheca.push().getKey();
+
         Bacheca bacheca = new Bacheca(id, title, description,
                 bUser.getDisplayName(), bUser.getUid(), data);
         databaseBacheca.child(bacheca.getId()).setValue(bacheca);
@@ -234,17 +232,14 @@ public class MainActivity extends Activity {
         String description = editTextDescriptionModifica.getText().toString();
 
 
-        if (TextUtils.isEmpty(editTextTitleModifica.getText())
-                || editTextTitleModifica.getText().length() > 20
-                || confrontaBacheche(editTextTitleModifica.getText().toString())) {
+        if (controlloTitolo(editTextTitleModifica.getText().toString(), bacheca.getId())) {
           editTextTitleModifica.setError("Il titolo non può essere vuoto."
                   + "\n Deve avere un massimo di 20 caratteri.\n Non possono "
                   + "esistere due Bacheche di uno stesso paese.");
           editTextTitleModifica.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(editTextDescriptionModifica.getText())
-                || editTextDescriptionModifica.getText().length() > 200) {
+        if (controlloDescrizione(editTextDescriptionModifica.getText().toString())) {
           editTextDescriptionModifica.setError("La descrizione non può essere "
                   + "vuota.\n Deve avere un massimo di 200 caratteri.");
           editTextDescriptionModifica.requestFocus();
@@ -303,11 +298,19 @@ public class MainActivity extends Activity {
     Toast.makeText(this, "Bacheca eliminata", Toast.LENGTH_SHORT).show();
   }
 
-  private boolean confrontaBacheche(String titolo) {
+  private boolean isManager() {
+    if (ruoloManager.equals("manager")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private boolean confrontaBacheche(String titolo, String id) {
     boolean value = true;
     if (!listaBacheca.isEmpty()) {
       for (Bacheca bacheca : listaBacheca) {
-        if (bacheca.getTitle().equals(titolo)) {
+        if (bacheca.getTitle().equals(titolo) && !bacheca.getId().equals(id)) {
           value = true;
           break;
         } else {
@@ -320,10 +323,21 @@ public class MainActivity extends Activity {
     return value;
   }
 
-  private boolean isManager() {
-    if (ruoloManager.equals("manager")) {
+  protected boolean controlloTitolo(String titolo, String id) {
+    if (titolo.isEmpty() || titolo.length() > 20
+            || confrontaBacheche(titolo, id)){
       return true;
-    } else {
+    }
+    else{
+      return false;
+    }
+  }
+
+  protected boolean controlloDescrizione(String descrizione) {
+    if (descrizione.isEmpty() || descrizione.length() > 200){
+      return true;
+    }
+    else{
       return false;
     }
   }

@@ -174,7 +174,7 @@ public class PostActivity extends Activity {
     });
   }
 
-  private void modificaPostDialog(Post post) {
+  private synchronized void modificaPostDialog(Post post) {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     LayoutInflater inflater = getLayoutInflater();
     final View dialogView = inflater.inflate(R.layout.modifica_post_dialog, null);

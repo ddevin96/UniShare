@@ -218,6 +218,8 @@ public class CommentiActivity extends Activity {
     cancellaCommentoButton = (Button) dialogView.findViewById(R.id.cancellaCommentoButton);
     editTextDescriptionCommento.setText(commento.getDescription());
     final String id = commento.getId();
+    final String idAuthor = commento.getAuthorId();
+    final String author = commento.getAuthor();
 
     dialogBuilder.setTitle("Modifica Commento");
     final AlertDialog alertDialog = dialogBuilder.create();
@@ -237,7 +239,7 @@ public class CommentiActivity extends Activity {
 
         Date date = new Date();
         Commento commento = new Commento(id, description,
-                cUser.getDisplayName(), cUser.getUid(), date);
+                author, idAuthor, date);
         databaseCommenti.child(commento.getId()).setValue(commento);
         Toast.makeText(getApplicationContext(), "Commento modificato", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();

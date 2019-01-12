@@ -202,7 +202,7 @@ public class MainActivity extends Activity {
 
   }
 
-  private void showModificaBachecaDialog(final Bacheca bacheca) {
+  private synchronized void showModificaBachecaDialog(final Bacheca bacheca) {
 
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     LayoutInflater inflater = getLayoutInflater();

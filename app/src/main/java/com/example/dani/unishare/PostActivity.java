@@ -31,13 +31,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PostActivity extends Activity {
+public class PostActivity extends Activity implements FirebaseInterface{
 
   public static final String POST_ID = "postid";
   public static final String POST_TITLE = "posttitle";
   public static final String POST_DESCRIZIONE = "postdescrizione";
   public static final String POST_AUTORE = "postautore";
-  //commento
+
   EditText searchbarPost;
   Button searchButton;
   TextView textViewTitolo;
@@ -50,7 +50,7 @@ public class PostActivity extends Activity {
   EditText editTextTitle;
   EditText editTextDescription;
   FirebaseAuth databaseId;
-  FirebaseUser mUser;
+  FirebaseUser pUser;
   String ruoloUser;
 
   @Override
@@ -58,7 +58,8 @@ public class PostActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_post);
 
-    mUser = databaseId.getInstance().getCurrentUser();
+    istance();
+    getUser();
     searchbarPost = (EditText) this.findViewById(R.id.searchbarPost);
     searchButton = (Button) this.findViewById(R.id.searchButton);
     textViewTitolo = (TextView) this.findViewById(R.id.textViewTitolo);
@@ -77,9 +78,9 @@ public class PostActivity extends Activity {
 
     databasePost = FirebaseDatabase.getInstance().getReference("post").child(idBacheca);
 
-    if (mUser != null) {
+    if (pUser != null) {
       addPost.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(mUser.getUid());
+      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -141,7 +142,7 @@ public class PostActivity extends Activity {
       @Override
       public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         Post post = listaPost.get(position);
-        if (mUser != null && (isCreator(post.getAuthorId()) || isManager())) {
+        if (pUser != null && (isCreator(post.getAuthorId()) || isManager())) {
           modificaPostDialog(post);
         } else {
           Toast.makeText(getApplicationContext(), "Non sei autorizzato a modificare",
@@ -275,8 +276,8 @@ public class PostActivity extends Activity {
           return;
         }
         Date data = new Date();
-        String author = mUser.getDisplayName();
-        String idAuthor = mUser.getUid();
+        String author = getUserName();
+        String idAuthor = getUserId();
         String id = databasePost.push().getKey();
         Post post = new Post(id, title, description, author, idAuthor, data);
         databasePost.child(post.getId()).setValue(post);
@@ -314,7 +315,7 @@ public class PostActivity extends Activity {
   }
 
   private boolean isCreator(String id) {
-    if (mUser.getUid().equals(id)) {
+    if (getUserId().equals(id)) {
       return true;
     } else {
       return false;
@@ -354,24 +355,24 @@ public class PostActivity extends Activity {
   public boolean onPrepareOptionsMenu(Menu menu) {
     super.onPrepareOptionsMenu(menu);
     MenuItem itemLogin = menu.getItem(0);
-    if (mUser != null) {
+    if (pUser != null) {
       itemLogin.setVisible(false);
     }
     MenuItem itemLogout = menu.getItem(1);
-    if (mUser == null) {
+    if (pUser == null) {
       itemLogout.setVisible(false);
     }
     MenuItem itemRegistrazione = menu.getItem(2);
-    if (mUser != null) {
+    if (pUser != null) {
       itemRegistrazione.setVisible(false);
     }
     MenuItem itemProfilo = menu.getItem(4);
-    if (mUser == null) {
+    if (pUser == null) {
       itemProfilo.setVisible(false);
     }
     MenuItem itemManager = menu.getItem(5);
     itemManager.setVisible(false);
-    if (mUser != null) {
+    if (pUser != null) {
       if (isManager()) {
         itemManager.setVisible(true);
       }
@@ -390,6 +391,7 @@ public class PostActivity extends Activity {
         startActivity(intent);
         break;
       case R.id.logoutMenu:
+          logout();
           Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
           startActivity(intent1);
           finish();
@@ -418,5 +420,24 @@ public class PostActivity extends Activity {
     return true;
   }
 
+  public void istance(){
+    databaseId = FirebaseAuth.getInstance();
+  }
+
+  public void getUser(){
+    pUser = databaseId.getCurrentUser();
+  }
+
+  public String getUserId(){
+    return pUser.getUid();
+  }
+
+  public String getUserName(){
+    return pUser.getDisplayName();
+  }
+
+  public void logout(){
+    FirebaseAuth.getInstance().signOut();
+  }
 }
 

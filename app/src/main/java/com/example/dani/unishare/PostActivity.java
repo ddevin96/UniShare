@@ -206,13 +206,13 @@ public class PostActivity extends Activity {
       public void onClick(View v) {
         String title = editTextTitlePost.getText().toString();
         String description = editTextDescriptionPost.getText().toString();
-        if (TextUtils.isEmpty(title) || title.length() > 65534 || confrontaPost(title)) {
+        if (controllaParametro(editTextTitlePost.getText().toString())) {
           editTextTitlePost.setError("Il titolo non può essere vuoto.\n "
                   + "Deve avere un massimo di 65534 caratteri.");
           editTextTitlePost.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(description) || description.length() > 65534) {
+        if (controllaParametro(editTextDescriptionPost.getText().toString())) {
           editTextDescriptionPost.setError("La descrizione non può essere vuota."
                   + "\n Deve avere un massimo di 65534 caratteri.");
           editTextDescriptionPost.requestFocus();
@@ -262,13 +262,13 @@ public class PostActivity extends Activity {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
 
-        if (TextUtils.isEmpty(title) || title.length() > 65534 || confrontaPost(title)) {
+        if (controllaParametro(editTextTitle.getText().toString())) {
           editTextTitle.setError("Il titolo non può essere vuoto.\n "
                   + "Deve avere un massimo di 65534 caratteri.");
           editTextTitle.requestFocus();
           return;
         }
-        if (TextUtils.isEmpty(description) || description.length() > 65534) {
+        if (controllaParametro(editTextDescription.getText().toString())) {
           editTextDescription.setError("La descrizione non può essere vuota.\n "
                   + "Deve avere un massimo di 65534 caratteri.");
           editTextDescription.requestFocus();
@@ -296,21 +296,13 @@ public class PostActivity extends Activity {
     Toast.makeText(getApplicationContext(), "Post Eliminato", Toast.LENGTH_SHORT).show();
   }
 
-  private boolean confrontaPost(String titolo) {
-    boolean value = true;
-    if (!listaPost.isEmpty()) {
-      for (Post post : listaPost) {
-        if (post.getTitle().equals(titolo)) {
-          value = true;
-          break;
-        } else {
-          value = false;
-        }
-      }
-    } else {
+  protected boolean controllaParametro(String parametro){
+    if (parametro.isEmpty() || parametro.length() > 65534){
+      return true;
+    }
+    else{
       return false;
     }
-    return value;
   }
 
   private boolean isManager() {

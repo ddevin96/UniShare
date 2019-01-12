@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CommentiActivity extends Activity {
+public class CommentiActivity extends Activity implements FirebaseInterface {
 
   EditText searchbar;
   Button searcButton;
@@ -65,7 +65,8 @@ public class CommentiActivity extends Activity {
     addCommentButton.setVisibility(View.GONE);
     listViewCommenti = (ListView) findViewById(R.id.listViewCommenti);
 
-    cUser = databaseId.getInstance().getCurrentUser();
+    istance();
+    getUser();
 
     lista = new ArrayList<>();
 
@@ -81,7 +82,7 @@ public class CommentiActivity extends Activity {
 
     databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
     if (cUser != null) {
-      databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
+      databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
       databaseAuthor.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -97,7 +98,7 @@ public class CommentiActivity extends Activity {
 
       addCommentButton.setVisibility(View.VISIBLE);
       editTextCommentDescription.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
+      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -187,7 +188,7 @@ public class CommentiActivity extends Activity {
 
   private void addCommento() {
     String description = editTextCommentDescription.getText().toString();
-    String idAuthor = cUser.getUid();
+    String idAuthor = getUserId();
     Date date = new Date();
 
     if (controlloDescrizione(description)) {
@@ -270,7 +271,7 @@ public class CommentiActivity extends Activity {
   }
 
   private boolean isCreator(String id) {
-    if (cUser.getUid().equals(id)) {
+    if (getUserId().equals(id)) {
       return true;
     } else {
       return false;
@@ -378,6 +379,26 @@ public class CommentiActivity extends Activity {
     }
 
     return true;
+  }
+
+  public void istance(){
+    databaseId = FirebaseAuth.getInstance();
+  }
+
+  public void getUser(){
+    cUser = databaseId.getCurrentUser();
+  }
+
+  public String getUserId(){
+    return cUser.getUid();
+  }
+
+  public String getUserName(){
+    return cUser.getDisplayName();
+  }
+
+  public void logout(){
+    FirebaseAuth.getInstance().signOut();
   }
 
 }

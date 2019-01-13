@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,10 +22,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagerActivity extends Activity {
+public class ManagerActivity extends Activity implements FirebaseInterface{
 
   Button creaManager;
   DatabaseReference databaseUtente;
+  FirebaseAuth databaseId;
+  FirebaseUser user;
   ListView listViewUtenti;
   List<Utente> listaUtenti;
 
@@ -36,7 +40,8 @@ public class ManagerActivity extends Activity {
     listViewUtenti = (ListView) findViewById(R.id.listViewUtenti);
     listaUtenti = new ArrayList<>();
     listViewUtenti.setVisibility(View.GONE);
-    databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    //databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    databaseUtente = istanceReference("utente");
 
     creaManager.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -86,4 +91,51 @@ public class ManagerActivity extends Activity {
 
   }
 
+  public void istance(){
+    databaseId = FirebaseAuth.getInstance();
+  }
+
+  @Override
+  public void getUser() {
+    user = databaseId.getCurrentUser();
+  }
+
+  @Override
+  public String getUserId() {
+    return user.getUid();
+  }
+
+  @Override
+  public String getUserName() {
+    return user.getDisplayName();
+  }
+
+  @Override
+  public void logout() {
+    FirebaseAuth.getInstance().signOut();
+  }
+
+  public DatabaseReference istanceReference(String reference){
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
+    return temp;
+  }
+
+  public DatabaseReference getChild(String reference, String childId){
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
+    return temp;
+  }
+
+  public String getIdObject(DatabaseReference data){
+    return data.push().getKey();
+  }
+
+  @Override
+  public void addValue(DatabaseReference data, String idChild, Object object) {
+    data.child(idChild).setValue((Commento)object);
+  }
+
+  @Override
+  public void deleteVlaue(DatabaseReference data,String idChild) {
+    data.child(idChild).removeValue();
+  }
 }

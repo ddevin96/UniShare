@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 /**
  * 
  */
-public class ProfiloActivity extends Activity {
+public class ProfiloActivity extends Activity implements FirebaseInterface{
 
   TextView textViewNome;
   TextView textViewCognome;
@@ -72,8 +72,9 @@ public class ProfiloActivity extends Activity {
     modificaProfila = (Button) findViewById(R.id.modificaProfiloButton);
     cancellaProfilo = (Button) findViewById(R.id.cancellaProfiloButton);
 
-    user = databaseId.getInstance().getCurrentUser();
-    databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(user.getUid());
+    istance();
+    getUser();
+    databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
 
     listaUtente = new ArrayList<>();
     databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
@@ -179,7 +180,7 @@ public class ProfiloActivity extends Activity {
 
       @Override
       public void onClick(View v) {
-        String id = user.getUid();
+        String id = getUserId();
         String nome = editTextNome.getText().toString();
         String sesso;
         if (radioButtonUomo.isSelected()) {
@@ -254,7 +255,7 @@ public class ProfiloActivity extends Activity {
    * del profilo che si desidera eliminare.</p>
    */
   private void deleteProfilo() {
-    FirebaseAuth.getInstance().signOut();
+    logout();
     user.delete();
     databesaProfilo.removeValue();
     Toast.makeText(this, "Il profilo è stato cancellato", Toast.LENGTH_SHORT).show();
@@ -383,4 +384,27 @@ public class ProfiloActivity extends Activity {
     data1.updateDate(year, month + 1, day);
   }
 
+  public void istance(){
+    databaseId = FirebaseAuth.getInstance();
+  }
+
+  @Override
+  public void getUser() {
+    user = databaseId.getCurrentUser();
+  }
+
+  @Override
+  public String getUserId() {
+    return user.getUid();
+  }
+
+  @Override
+  public String getUserName() {
+    return user.getDisplayName();
+  }
+
+  @Override
+  public void logout() {
+    FirebaseAuth.getInstance().signOut();
+  }
 }

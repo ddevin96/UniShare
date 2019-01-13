@@ -59,10 +59,17 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
   RadioGroup radioGroupSesso;
   Button buttonRegistrazione;
   Button buttonGiaRegistrato;
-  private FirebaseAuth firebaseAuth;
+  FirebaseAuth firebaseAuth;
   DatabaseReference databaseUtente;
   FirebaseUser user;
   List<Utente> listaUtente;
+  String nome;
+  String cognome;
+  String email;
+  String password;
+  String ripPassword;
+  String date;
+  String sesso;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -121,17 +128,16 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
 
 
   protected void registraUtente() {
-    final String nome = editTextRegNome.getText().toString().trim();
-    final String cognome = editTextRegCognome.getText().toString().trim();
-    final String email = editTextRegEmail.getText().toString().trim();
-    final String password = editTextRegPassword.getText().toString().trim();
-    final String ripPassword = editTextRegRipetiPassword.getText().toString().trim();
+    nome = editTextRegNome.getText().toString().trim();
+    cognome = editTextRegCognome.getText().toString().trim();
+    email = editTextRegEmail.getText().toString().trim();
+    password = editTextRegPassword.getText().toString().trim();
+    ripPassword = editTextRegRipetiPassword.getText().toString().trim();
     int year = editDatePicker.getYear();
     int month = editDatePicker.getMonth() + 1;
     int day = editDatePicker.getDayOfMonth();
 
-    final String date = day + "/" + month + "/" + year;
-    final String sesso;
+    date = day + "/" + month + "/" + year;
     if (radioDonna.isSelected()) {
       sesso = "D";
     } else {
@@ -181,30 +187,8 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
       return;
     }
 
+    createUser();
 
-    firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                  if (task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Utente Aggiunto",
-                            Toast.LENGTH_SHORT).show();
-                    getUser();
-                    UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
-                            .Builder().setDisplayName(nome).build();
-                    user.updateProfile(profileUpdate);
-                    String ruolo = "utente";
-                    Utente utente = new Utente(getUserId(), nome, cognome,
-                            sesso, date, email, password, ruolo);
-                    //databaseUtente.child(getUserId()).setValue(utente);
-                    addValue(databaseUtente, getUserId(), utente);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                  } else {
-                    Toast.makeText(getApplicationContext(), "Problema con registrazione",
-                            Toast.LENGTH_SHORT).show();
-                  }
-                }
-              });
   }
 
 
@@ -227,6 +211,30 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
 
   }
 
+  public void createUser(){
+    firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+              @Override
+              public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                  Toast.makeText(getApplicationContext(), "Utente Aggiunto",
+                          Toast.LENGTH_SHORT).show();
+                  getUser();
+                  UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest
+                          .Builder().setDisplayName(nome).build();
+                  user.updateProfile(profileUpdate);
+                  String ruolo = "utente";
+                  Utente utente = new Utente(getUserId(), nome, cognome,
+                          sesso, date, email, password, ruolo);
+                  addValue(databaseUtente, getUserId(), utente);
+                  startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                } else {
+                  Toast.makeText(getApplicationContext(), "Problema con registrazione",
+                          Toast.LENGTH_SHORT).show();
+                }
+              }
+            });
+  }
 
   /**
    * Metodo private usato per confrontare l'e-mail inserita dall'utente con il formato richiesto.

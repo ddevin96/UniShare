@@ -29,10 +29,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/**
+ *  <p>Activity usata per la gestione delle attività legate alle bacheche.</p>
+ *  <p>Inserimento bacheca:</p>
+ *  <p>Si userà una finestra di dialogo spiegata in seguito.</p>
+ *
+ *  <p>Modifica bacheca:</p>
+ *  <p>Si userà una finestra di dialogo spiegata in seguito.</p>
+ *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni e i longPress.</p>
+ *  <p>Verranno gestiti i permessi per gli utenti non loggati(ospiti),
+ *  gli utenti loggati e i manager</p>
+ */
 public class MainActivity extends Activity implements FirebaseInterface{
 
-  //final for intent
   public static final String BACHECA_ID = "bachecaid";
   public static final String BACHECA_TITLE = "bachecatitle";
   public static final String BACHECA_DESCRIPTION = "bachecadescription";
@@ -74,7 +83,6 @@ public class MainActivity extends Activity implements FirebaseInterface{
 
     if (bUser != null) {
       addButton.setVisibility(View.VISIBLE);
-      //databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
       databaseUtente = getChild("utente", getUserId());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
@@ -155,6 +163,15 @@ public class MainActivity extends Activity implements FirebaseInterface{
 
   }
 
+  /**
+   * <p>Activity del Dialog usato per creare una bacheca.</p>
+   * <p>I campi richiesti sono quelli che compongono il costruttore della classe Bacheca.</p>
+   * @see Bacheca
+   * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
+   * <p>Viene gestito l'evento legato al "Click" del bottone
+   * addBachecaButton.</p>
+   * <p>Vengono chiamati tutti i metodi di controllo dei parametri inseriti.</p>
+   */
   private void showCreaBachecaDialog() {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     LayoutInflater inflater = getLayoutInflater();
@@ -196,7 +213,6 @@ public class MainActivity extends Activity implements FirebaseInterface{
 
         Bacheca bacheca = new Bacheca(id, title, description,
                 getUserName(), getUserId(), data);
-        //databaseBacheca.child(bacheca.getId()).setValue(bacheca);
         addValue(databaseBacheca, bacheca.getId(), bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
@@ -204,7 +220,15 @@ public class MainActivity extends Activity implements FirebaseInterface{
     });
 
   }
-
+  /**
+   * <p>Activity del Dialog usato per modificare una bacheca creata in precedenza.</p>
+   * <p>I campi richiesti sono quelli che compongono il costruttore della classe Bacheca.</p>
+   * @see Bacheca
+   * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
+   * <p>Viengono gestiti gli eventi legati al "Click" dei bottoni
+   * modificaBachecaButton e cancellaBachecaButton.</p>
+   * <p>Vengono chiamati tutti i metodi di controllo dei parametri inseriti.</p>
+   */
   private synchronized void showModificaBachecaDialog(final Bacheca bacheca) {
 
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -255,7 +279,6 @@ public class MainActivity extends Activity implements FirebaseInterface{
         String id = bacheca.getId();
         Bacheca bacheca = new Bacheca(id, title, description,
                 getUserName(), getUserId(), data);
-        //databaseBacheca.child(bacheca.getId()).setValue(bacheca);
         addValue(databaseBacheca, bacheca.getId(), bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca Modificata",
                 Toast.LENGTH_SHORT).show();
@@ -263,7 +286,6 @@ public class MainActivity extends Activity implements FirebaseInterface{
       }
     });
 
-    //databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
     databasePost = getChild("post", id);
     databasePost.addValueEventListener(new ValueEventListener() {
       @Override
@@ -290,17 +312,14 @@ public class MainActivity extends Activity implements FirebaseInterface{
 
   }
 
+  /**
+   * metodo private usato per cancellare una bacheca dal database.
+   * @param id codice univoco che identifica la bacheca
+   */
   private void cancellaBacheca(String id) {
-    //databaseBacheca.child(id).removeValue();
     deleteValue(databaseBacheca, id);
     for (Post elemento : listaPost) {
       String idPost = elemento.getId();
-     /* DatabaseReference commenti = FirebaseDatabase.getInstance()
-              .getReference("commento").child(idPost);
-      DatabaseReference postDaEliminare = FirebaseDatabase.getInstance()
-              .getReference("post").child(id).child(idPost);
-      postDaEliminare.removeValue();
-      commenti.removeValue();*/
      DatabaseReference commenti = istanceReference("commento");
      DatabaseReference postDaEliminare = getChild("post", id);
      deleteValue(postDaEliminare,idPost);
@@ -310,6 +329,11 @@ public class MainActivity extends Activity implements FirebaseInterface{
     Toast.makeText(this, "Bacheca eliminata", Toast.LENGTH_SHORT).show();
   }
 
+  /**
+   * Metodo protected usato per verificare se un utente loggato è manager.
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, l'utente loggato è  Manager.</p>
+   */
   protected boolean isManager() {
     if (ruoloManager.equals("manager")) {
       return true;
@@ -318,6 +342,17 @@ public class MainActivity extends Activity implements FirebaseInterface{
     }
   }
 
+  /**
+   * Metodo protected usato per confrontare una bacheca
+   * con le altre già presenti all'interno del databaase.
+   * Il controllo viene adoperato allo scopo di inserire
+   * bacheche che abbiano tutti titolii diversi.
+   * @param titolo Stringa contenente il titolo della bacheca da confrontare
+   * @param id Stringa contenente il codice univoco della bacheca da confrontare
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, non esiste nessuna bacheca
+   * con lo stesso titolo di quella che è stata confrontata.</p>
+   */
   protected boolean confrontaBacheche(String titolo, String id) {
     boolean value = true;
     if (!listaBacheca.isEmpty()) {
@@ -335,6 +370,13 @@ public class MainActivity extends Activity implements FirebaseInterface{
     return value;
   }
 
+  /**
+   * Metodo protected usato per controllare se il titolo rispetti le precondizioni stabilite.
+   * @param titolo Stringa contenente il titolo inserito dall'utente
+   * @param id Stringa contenente il codice univoco della bacheca presa in considerazione.
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, il titolo non rispatta le precondizioni.</p>
+   */
   protected boolean controlloTitolo(String titolo, String id) {
     if (titolo.isEmpty() || titolo.length() > 20
             || confrontaBacheche(titolo, id)){
@@ -344,7 +386,13 @@ public class MainActivity extends Activity implements FirebaseInterface{
       return false;
     }
   }
-
+  /**
+   * Metodo protected utilizzato per verificare che la descrizione
+   * di un commento rispetti le precondizioni stabilite.
+   * @param descrizione Stringa che contiene la descriione da controllare.
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, la descrizione NON rispetta le caratteristice.</p>
+   */
   protected boolean controlloDescrizione(String descrizione) {
     if (descrizione.isEmpty() || descrizione.length() > 200){
       return true;
@@ -354,6 +402,11 @@ public class MainActivity extends Activity implements FirebaseInterface{
     }
   }
 
+  /**
+   * Metodo public utilizzato per la creazione di un option menu.
+   * @param menu Oggetto contenente il menu
+   * @return valore boolean.
+   */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater menuInflater = getMenuInflater();
@@ -362,6 +415,11 @@ public class MainActivity extends Activity implements FirebaseInterface{
     return true;
   }
 
+  /**
+   * Metodo public usato per la visualizzazione delle voci del menu in base al ruolo dell'utente.
+   * @param menu Oggetto contenente il menu
+   * @return valore boolean.
+   */
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
     super.onPrepareOptionsMenu(menu);
@@ -392,6 +450,12 @@ public class MainActivity extends Activity implements FirebaseInterface{
     return true;
   }
 
+  /**
+   * Metodo public usato per il reindirizzamento alle pagine
+   * desiderato al momento del click di ogni voce del menu
+   * @param item Oggetto contenente l'oggetto che rappresenta la voce singola dell'optionMenu
+   * @return valore boolean.
+   */
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -430,58 +494,125 @@ public class MainActivity extends Activity implements FirebaseInterface{
     return true;
   }
 
+
+  /**
+   * <p>Implementazione delle firme dei metodi dell'interfaccia</p>
+   * @see FirebaseInterface
+   */
+  /**
+   * <p>Metodi per FirebaseAuth.</p>
+   */
+  /**
+   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication)</p>
+   */
   public void istance(){
     DatabaseId = FirebaseAuth.getInstance();
   }
 
+  /**
+   * <p>Metdo public usato per creare un istanza dell'Utente che
+   * ha effettuato un accesso al database</p>
+   */
   @Override
   public void getUser() {
     bUser = DatabaseId.getCurrentUser();
   }
 
+  /**
+   * Metodo public utilizzato per prelevare l'id dell'utente corrente.
+   * @return Stringa contenente l'id.
+   */
   @Override
   public String getUserId() {
     return bUser.getUid();
   }
 
+  /**
+   * Metodo public utilizzato per prelevare il nome dell'utente corrente.
+   * @return Stringa contenente il nome.
+   */
   @Override
   public String getUserName() {
     return bUser.getDisplayName();
   }
 
+  /**
+   * <p>Metodo utilizzato per effettuare il logout dal database.</p>
+   */
   @Override
   public void logout() {
     FirebaseAuth.getInstance().signOut();
   }
 
+  /**
+   * <p>Metodi per DatabaseReference.</p>
+   */
+  /**
+   * Metodo public usato per avere un riferimento ad una certa tabella del database.
+   * @param reference Stringa contenente il nome della tabella a cui si vuole accedere.
+   * @return DatabaseReference riferimento alla tabella desiderata del database.
+   */
   public DatabaseReference istanceReference(String reference){
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
+  /**
+   * Metodo public usato per accedere ad un certo campo di una tabella specifica del database.
+   * @param reference Stringa contenenente il nome dall tabella a cui si vuole accedere.
+   * @param childId Stringa contenente il nome del campo della tabella a cui si vuole accedere.
+   * @return DatabaseReference riferimento al campo della tabella del database desiderato.
+   */
   public DatabaseReference getChild(String reference, String childId){
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
+  /**
+   * Metodo usato per generare un nuovo id all'interno di un certo riferimento al database.
+   * @param data Oggeto contenente il riferimento al database desiderato.
+   * @return Stringa contenente il nuovo id.
+   */
   public String getIdObject(DatabaseReference data){
     return data.push().getKey();
   }
 
+  /**
+   * Metodo usato per inserire un oggetto all'interno del database.
+   * @param data Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'inserimento.
+   * @param object Oggetto che si vuole inserire nel database.
+   */
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
     data.child(idChild).setValue((Bacheca)object);
   }
 
+  /**
+   * Metodo usato per inserire un oggetto all'interno del database.
+   *(Seconda versione del metodo precedente)
+   * @param data Oggetto contenente il riferimento al database.
+   * @param object Oggetto che si vuole inserire nel database.
+   */
   public void addValue(DatabaseReference data, Object object){
     data.setValue(object);
   }
 
+  /**
+   * Metodo usato per eliminare un oggetto dal database.
+   * @param data Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'eliminazione.
+   */
   @Override
   public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
   }
 
+  /**
+   * Metodo usato per eliminare un oggetto dal database.
+   * (Seconda versione del metodo precedente)
+   * @param data Oggetto contenente il riferimento al database.
+   */
   public void deleteValue(DatabaseReference data){
     data.removeValue();
   }

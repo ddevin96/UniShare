@@ -40,7 +40,6 @@ public class ManagerActivity extends Activity implements FirebaseInterface{
     listViewUtenti = (ListView) findViewById(R.id.listViewUtenti);
     listaUtenti = new ArrayList<>();
     listViewUtenti.setVisibility(View.GONE);
-    //databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
     databaseUtente = istanceReference("utente");
 
     creaManager.setOnClickListener(new View.OnClickListener() {

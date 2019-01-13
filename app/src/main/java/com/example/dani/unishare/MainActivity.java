@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements FirebaseInterface{
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    databaseBacheca = FirebaseDatabase.getInstance().getReference("bacheca");
+    databaseBacheca = istanceReference("bacheca");
 
     editTextTitle = (EditText) this.findViewById(R.id.editTextTitle);
     editTextDescription = (EditText) this.findViewById(R.id.editTextDescription);
@@ -72,7 +72,8 @@ public class MainActivity extends Activity implements FirebaseInterface{
 
     if (bUser != null) {
       addButton.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+      //databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+      databaseUtente = getChild("utente", getUserId());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -173,7 +174,7 @@ public class MainActivity extends Activity implements FirebaseInterface{
       public void onClick(View v) {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
-        String id = databaseBacheca.push().getKey();
+        String id = getIdObject(databaseBacheca);
 
         if (controlloTitolo(editTextTitle.getText().toString(), id)) {
           editTextTitle.setError("Il titolo non può essere vuoto.\n Deve avere un "
@@ -193,7 +194,8 @@ public class MainActivity extends Activity implements FirebaseInterface{
 
         Bacheca bacheca = new Bacheca(id, title, description,
                 getUserName(), getUserId(), data);
-        databaseBacheca.child(bacheca.getId()).setValue(bacheca);
+        //databaseBacheca.child(bacheca.getId()).setValue(bacheca);
+        addValue(databaseBacheca, bacheca.getId(), bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca aggiunta", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
       }
@@ -251,14 +253,16 @@ public class MainActivity extends Activity implements FirebaseInterface{
         String id = bacheca.getId();
         Bacheca bacheca = new Bacheca(id, title, description,
                 getUserName(), getUserId(), data);
-        databaseBacheca.child(bacheca.getId()).setValue(bacheca);
+        //databaseBacheca.child(bacheca.getId()).setValue(bacheca);
+        addValue(databaseBacheca, bacheca.getId(), bacheca);
         Toast.makeText(getApplicationContext(), "Bacheca Modificata",
                 Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
       }
     });
 
-    databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
+    //databasePost = FirebaseDatabase.getInstance().getReference("post").child(id);
+    databasePost = getChild("post", id);
     databasePost.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -285,15 +289,20 @@ public class MainActivity extends Activity implements FirebaseInterface{
   }
 
   private void cancellaBacheca(String id) {
-    databaseBacheca.child(id).removeValue();
+    //databaseBacheca.child(id).removeValue();
+    deleteVlaue(databaseBacheca, id);
     for (Post elemento : listaPost) {
       String idPost = elemento.getId();
-      DatabaseReference commenti = FirebaseDatabase.getInstance()
+     /* DatabaseReference commenti = FirebaseDatabase.getInstance()
               .getReference("commento").child(idPost);
       DatabaseReference postDaEliminare = FirebaseDatabase.getInstance()
               .getReference("post").child(id).child(idPost);
       postDaEliminare.removeValue();
-      commenti.removeValue();
+      commenti.removeValue();*/
+     DatabaseReference commenti = istanceReference("commento");
+     DatabaseReference postDaEliminare = getChild("post", id);
+     deleteVlaue(postDaEliminare,idPost);
+     deleteVlaue(commenti, idPost);
     }
 
     Toast.makeText(this, "Bacheca eliminata", Toast.LENGTH_SHORT).show();
@@ -444,12 +453,12 @@ public class MainActivity extends Activity implements FirebaseInterface{
   }
 
   public DatabaseReference istanceReference(String reference){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference");
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   public DatabaseReference getChild(String reference, String childId){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference").child(childId);
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
@@ -459,7 +468,7 @@ public class MainActivity extends Activity implements FirebaseInterface{
 
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
-    data.child(idChild).setValue((Commento)object);
+    data.child(idChild).setValue((Bacheca)object);
   }
 
   @Override

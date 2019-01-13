@@ -31,7 +31,6 @@ public class CommentiActivityTest {
   @Test
   public void trovaParole() {
     String stringa = "Ciao mondo";
-    RicercaProfiloActivity act = new RicercaProfiloActivity();
     assertEquals(lista,act.trovaParole(stringa));
   }
 

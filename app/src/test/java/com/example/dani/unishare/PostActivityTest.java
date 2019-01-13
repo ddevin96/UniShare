@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class PostActivityTest {
   private List<String> lista;
   private ArrayList<Post> listaPost;
-  private String ruolo1, ruolo2;
+  private String ruolo1, ruolo2, stringaLunga;
   @Before
   public void setUp(){
     //Inizializza dati testing trovaParole
@@ -27,23 +27,36 @@ public class PostActivityTest {
     listaPost.add(new Post("FRC","Info","Descrizione","Luigi","LDP",new Date()));
     listaPost.add(new Post("SPA","Appartamenti","Descrizione","Luigi","LDP",new Date()));
     listaPost.add(new Post("SVI","Residenze","Descrizione","Federica","FUN",new Date()));
+
+    stringaLunga = "";
+    for(int i=0;i<65535;i++){
+      stringaLunga = stringaLunga.concat("a");
+    }
   }
 
   @Test
   public void trovaParole() {
     String stringa = "Ciao mondo";
-    RicercaProfiloActivity act = new RicercaProfiloActivity();
+    PostActivity act = new PostActivity();
     assertEquals(lista,act.trovaParole(stringa));
   }
 
   @Test
   public void isManagerTest(){
-    MainActivity act = new MainActivity();
-    act.ruoloManager = ruolo1;
+    PostActivity act = new PostActivity();
+    act.ruoloUser = ruolo1;
     assertTrue(act.isManager());
-    act.ruoloManager = ruolo2;
+    act.ruoloUser = ruolo2;
     assertFalse(act.isManager());
   }
+
+  @Test
+  public void controllaParametroTest(){
+    PostActivity act = new PostActivity();
+    assertFalse(act.controllaParametro("abc"));
+    assertTrue(act.controllaParametro(stringaLunga));
+  }
+
 
 
 }

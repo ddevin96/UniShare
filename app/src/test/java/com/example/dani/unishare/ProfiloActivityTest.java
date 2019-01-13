@@ -1,10 +1,18 @@
 package com.example.dani.unishare;
+import android.widget.DatePicker;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+
 import static org.junit.Assert.*;
 
+@RunWith(RobolectricTestRunner.class)
 public class ProfiloActivityTest {
   private ProfiloActivity act;
+  private DatePicker data;
   private String emailCorretta, emailCorta, emailLunga, passwordCorretta, passwordLunga,
           passwordCorta,passwordErrata, emailErrata;
   @Before
@@ -34,5 +42,13 @@ public class ProfiloActivityTest {
     assertTrue(act.isValidEmail(emailCorretta));
   }
 
+  @Test
+  public void aggiornaDataTest(){
+    ProfiloActivity act = Robolectric.setupActivity(ProfiloActivity.class);
+    data.init(2018,1,12,null);
+    int month = 2;
+    act.aggiornaData(data);
+    assertTrue(month==data.getMonth());
+  }
 
 }

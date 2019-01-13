@@ -7,4 +7,5 @@ public interface FirebaseInterface {
     String getUserId();
     String getUserName();
     void logout();
+
 }

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CommentiActivity extends Activity {
+public class CommentiActivity extends Activity implements FirebaseInterface{
 
   EditText searchbar;
   Button searcButton;
@@ -41,7 +41,6 @@ public class CommentiActivity extends Activity {
   Button addCommentButton;
   ListView listViewCommenti;
   DatabaseReference databaseCommenti;
-  DatabaseReference databaseUtente;
   FirebaseAuth databaseId;
   FirebaseUser cUser;
   DatabaseReference databaseAuthor;
@@ -65,8 +64,8 @@ public class CommentiActivity extends Activity {
     addCommentButton.setVisibility(View.GONE);
     listViewCommenti = (ListView) findViewById(R.id.listViewCommenti);
 
-    cUser = databaseId.getInstance().getCurrentUser();
-
+    istance();
+    getUser();
     lista = new ArrayList<>();
 
     Intent intent = getIntent();
@@ -81,11 +80,12 @@ public class CommentiActivity extends Activity {
 
     databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
     if (cUser != null) {
-      databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
+      databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
       databaseAuthor.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
           author = dataSnapshot.child("nome").getValue().toString();
+          ruolo = dataSnapshot.child("ruolo").getValue(String.class);
         }
 
         @Override
@@ -97,18 +97,6 @@ public class CommentiActivity extends Activity {
 
       addCommentButton.setVisibility(View.VISIBLE);
       editTextCommentDescription.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(cUser.getUid());
-      databaseUtente.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-          ruolo = dataSnapshot.child("ruolo").getValue(String.class);
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-      });
     }
     addCommentButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -187,7 +175,7 @@ public class CommentiActivity extends Activity {
 
   private void addCommento() {
     String description = editTextCommentDescription.getText().toString();
-    String idAuthor = cUser.getUid();
+    String idAuthor = getUserId();
     Date date = new Date();
 
     if (controlloDescrizione(description)) {
@@ -270,7 +258,7 @@ public class CommentiActivity extends Activity {
   }
 
   private boolean isCreator(String id) {
-    if (cUser.getUid().equals(id)) {
+    if (getUserId().equals(id)) {
       return true;
     } else {
       return false;
@@ -352,6 +340,7 @@ public class CommentiActivity extends Activity {
         startActivity(intent);
         break;
       case R.id.logoutMenu:
+          logout();
           Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
           startActivity(intent1);
           finish();
@@ -380,4 +369,27 @@ public class CommentiActivity extends Activity {
     return true;
   }
 
+  public void istance(){
+    databaseId = FirebaseAuth.getInstance();
+  }
+
+  @Override
+  public void getUser() {
+    cUser = databaseId.getCurrentUser();
+  }
+
+  @Override
+  public String getUserId() {
+    return cUser.getUid();
+  }
+
+  @Override
+  public String getUserName() {
+    return cUser.getDisplayName();
+  }
+
+  @Override
+  public void logout() {
+    FirebaseAuth.getInstance().signOut();
+  }
 }

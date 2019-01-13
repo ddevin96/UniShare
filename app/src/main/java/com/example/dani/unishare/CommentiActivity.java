@@ -78,9 +78,11 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
     String idPost = intent.getStringExtra(PostActivity.POST_ID);
 
-    databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
+    //databaseCommenti = FirebaseDatabase.getInstance().getReference("commento").child(idPost);
+    databaseCommenti = getChild("commento", idPost);
     if (cUser != null) {
-      databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+      //databaseAuthor = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+      databaseAuthor = getChild("utente", getUserId());
       databaseAuthor.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -184,9 +186,10 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
       return;
     }
 
-    String id = databaseCommenti.push().getKey();
+    String id = getIdObject(databaseCommenti);
     Commento comment = new Commento(id, description, author, idAuthor, date);
-    databaseCommenti.child(id).setValue(comment);
+    //databaseCommenti.child(id).setValue(comment);
+    addValue(databaseCommenti, id, comment);
     editTextCommentDescription.setText("");
     Toast.makeText(this, "Commento Inserito", Toast.LENGTH_SHORT).show();
   }
@@ -229,7 +232,8 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
         Date date = new Date();
         Commento commento = new Commento(id, description,
                 author, idAuthor, date);
-        databaseCommenti.child(commento.getId()).setValue(commento);
+        //databaseCommenti.child(commento.getId()).setValue(commento);
+        addValue(databaseCommenti, commento.getId(), commento);
         Toast.makeText(getApplicationContext(), "Commento modificato", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
       }
@@ -245,7 +249,8 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
   }
 
   private void cancellaCommento(String id) {
-    databaseCommenti.child(id).removeValue();
+    //databaseCommenti.child(id).removeValue();
+    deleteVlaue(databaseCommenti, id);
     Toast.makeText(getApplicationContext(), "Commento Eliminato", Toast.LENGTH_SHORT).show();
   }
 
@@ -391,5 +396,29 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
   @Override
   public void logout() {
     FirebaseAuth.getInstance().signOut();
+  }
+
+  public DatabaseReference istanceReference(String reference){
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference");
+    return temp;
+  }
+
+  public DatabaseReference getChild(String reference, String childId){
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference").child(childId);
+    return temp;
+  }
+
+  public String getIdObject(DatabaseReference data){
+    return data.push().getKey();
+  }
+
+  @Override
+  public void addValue(DatabaseReference data, String idChild, Object object) {
+    data.child(idChild).setValue((Commento)object);
+  }
+
+  @Override
+  public void deleteVlaue(DatabaseReference data,String idChild) {
+    data.child(idChild).removeValue();
   }
 }

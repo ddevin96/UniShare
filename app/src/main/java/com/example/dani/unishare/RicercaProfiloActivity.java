@@ -197,12 +197,12 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
   }
 
   public DatabaseReference istanceReference(String reference){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference");
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   public DatabaseReference getChild(String reference, String childId){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference").child(childId);
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 

@@ -322,7 +322,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
 
 
   /**
-   * Metodo private usato per confrontare la password inserita dall'utente con il formato richiesto.
+   * Metodo protected usato per confrontare la password inserita dall'utente con il formato richiesto.
    * @param password  Stringa contenente la password inserita dall'utente.
    * @return  Valore boolean.
    * <p>Se il valore restituito è ture, il formato richiesto è stato rispettato.</p>

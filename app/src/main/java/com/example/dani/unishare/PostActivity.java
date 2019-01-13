@@ -295,12 +295,12 @@ public class PostActivity extends Activity implements FirebaseInterface{
 
   private void deletePost(String id) {
     //databasePost.child(id).removeValue();
-    deleteVlaue(databasePost, id);
+    deleteValue(databasePost, id);
     /*DatabaseReference postCommenti = FirebaseDatabase.getInstance()
             .getReference("commento").child(id);
     postCommenti.removeValue();*/
     DatabaseReference postCommenti = istanceReference("commento");
-    deleteVlaue(postCommenti, id);
+    deleteValue(postCommenti, id);
     Toast.makeText(getApplicationContext(), "Post Eliminato", Toast.LENGTH_SHORT).show();
   }
 
@@ -470,8 +470,18 @@ public class PostActivity extends Activity implements FirebaseInterface{
   }
 
   @Override
-  public void deleteVlaue(DatabaseReference data,String idChild) {
+  public void addValue(DatabaseReference data, Object object) {
+    data.setValue(object);
+  }
+
+  @Override
+  public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
+  }
+
+  @Override
+  public void deleteValue(DatabaseReference data) {
+    data.removeValue();
   }
 }
 

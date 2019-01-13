@@ -215,7 +215,16 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
   }
 
   @Override
-  public void deleteVlaue(DatabaseReference data,String idChild) {
+  public void addValue(DatabaseReference data, Object object) {
+    data.setValue(object);
+  }
+
+  @Override
+  public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
+  }
+
+  public void deleteValue(DatabaseReference data){
+
   }
 }

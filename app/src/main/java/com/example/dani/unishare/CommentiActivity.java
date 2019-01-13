@@ -250,7 +250,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
   private void cancellaCommento(String id) {
     //databaseCommenti.child(id).removeValue();
-    deleteVlaue(databaseCommenti, id);
+    deleteValue(databaseCommenti, id);
     Toast.makeText(getApplicationContext(), "Commento Eliminato", Toast.LENGTH_SHORT).show();
   }
 
@@ -417,8 +417,16 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
     data.child(idChild).setValue((Commento)object);
   }
 
+  public void addValue(DatabaseReference data, Object object){
+    data.setValue((Commento)object);
+  }
+
   @Override
-  public void deleteVlaue(DatabaseReference data,String idChild) {
+  public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
+  }
+
+  public void deleteValue(DatabaseReference data){
+    data.removeValue();
   }
 }

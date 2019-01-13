@@ -15,5 +15,7 @@ public interface FirebaseInterface {
     DatabaseReference getChild(String reference, String childId);
     String getIdObject( DatabaseReference data);
     void addValue(DatabaseReference data, String idChild, Object object);
-    void deleteVlaue(DatabaseReference data, String idChild);
+    void addValue(DatabaseReference data, Object object);
+    void deleteValue(DatabaseReference data, String idChild);
+    void deleteValue(DatabaseReference data);
 }

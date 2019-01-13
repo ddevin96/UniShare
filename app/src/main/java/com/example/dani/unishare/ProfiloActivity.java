@@ -45,7 +45,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
   TextView textViewData;
   Button modificaProfila;
   Button cancellaProfilo;
-  DatabaseReference databesaProfilo;
+  DatabaseReference databaseProfilo;
   DatabaseReference databaseUtente;
   FirebaseAuth databaseId;
   FirebaseUser user;
@@ -74,10 +74,12 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
 
     istance();
     getUser();
-    databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+    //databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+    databaseProfilo = getChild("utente", getUserId());
 
     listaUtente = new ArrayList<>();
-    databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    //databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    databaseUtente = istanceReference("utente");
     databaseUtente.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -112,7 +114,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
   @Override
   protected void onStart() {
     super.onStart();
-    databesaProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
+    databaseProfilo.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         nomeEdit = dataSnapshot.child("nome").getValue(String.class);
@@ -238,7 +240,8 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
         user.updateEmail(email);
         user.updatePassword(password);
         Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
-        databesaProfilo.setValue(utente);
+        //databaseProfilo.setValue(utente);
+        addValue(databaseProfilo, utente);
         Toast.makeText(getApplicationContext(), "La modifica ha avuto successo",
                 Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
@@ -257,7 +260,8 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
   private void deleteProfilo() {
     logout();
     user.delete();
-    databesaProfilo.removeValue();
+    //databesaProfilo.removeValue();
+    deleteValue(databaseProfilo);
     Toast.makeText(this, "Il profilo è stato cancellato", Toast.LENGTH_SHORT).show();
     startActivity(new Intent(getApplicationContext(), MainActivity.class));
   }
@@ -409,12 +413,12 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
   }
 
   public DatabaseReference istanceReference(String reference){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference");
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   public DatabaseReference getChild(String reference, String childId){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference").child(childId);
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
@@ -424,11 +428,20 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
 
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
-    data.child(idChild).setValue((Commento)object);
+    data.child(idChild).setValue((Utente)object);
+  }
+
+  public void addValue(DatabaseReference data, Object object){
+    data.setValue((Utente)object);
   }
 
   @Override
-  public void deleteVlaue(DatabaseReference data,String idChild) {
+  public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
+  }
+
+  @Override
+  public void deleteValue(DatabaseReference data) {
+    data.removeValue();
   }
 }

@@ -211,8 +211,16 @@ public class LoginActivity extends Activity implements FirebaseInterface{
     data.child(idChild).setValue(object);
   }
 
+  public void addValue (DatabaseReference data, Object object){
+    data.setValue(object);
+  }
+
   @Override
-  public void deleteVlaue(DatabaseReference data,String idChild) {
+  public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
+  }
+
+  public void deleteValue(DatabaseReference data){
+    data.removeValue();
   }
 }

@@ -290,7 +290,7 @@ public class MainActivity extends Activity implements FirebaseInterface{
 
   private void cancellaBacheca(String id) {
     //databaseBacheca.child(id).removeValue();
-    deleteVlaue(databaseBacheca, id);
+    deleteValue(databaseBacheca, id);
     for (Post elemento : listaPost) {
       String idPost = elemento.getId();
      /* DatabaseReference commenti = FirebaseDatabase.getInstance()
@@ -301,8 +301,8 @@ public class MainActivity extends Activity implements FirebaseInterface{
       commenti.removeValue();*/
      DatabaseReference commenti = istanceReference("commento");
      DatabaseReference postDaEliminare = getChild("post", id);
-     deleteVlaue(postDaEliminare,idPost);
-     deleteVlaue(commenti, idPost);
+     deleteValue(postDaEliminare,idPost);
+     deleteValue(commenti, idPost);
     }
 
     Toast.makeText(this, "Bacheca eliminata", Toast.LENGTH_SHORT).show();
@@ -471,8 +471,16 @@ public class MainActivity extends Activity implements FirebaseInterface{
     data.child(idChild).setValue((Bacheca)object);
   }
 
+  public void addValue(DatabaseReference data, Object object){
+    data.setValue(object);
+  }
+
   @Override
-  public void deleteVlaue(DatabaseReference data,String idChild) {
+  public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
+  }
+
+  public void deleteValue(DatabaseReference data){
+    data.removeValue();
   }
 }

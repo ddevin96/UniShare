@@ -77,11 +77,12 @@ public class PostActivity extends Activity implements FirebaseInterface{
     textViewTitolo.setText(title);
     textViewDescrizione.setText(description);
 
-    databasePost = FirebaseDatabase.getInstance().getReference("post").child(idBacheca);
-
+    //databasePost = FirebaseDatabase.getInstance().getReference("post").child(idBacheca);
+    databasePost= getChild("post", idBacheca);
     if (pUser != null) {
       addPost.setVisibility(View.VISIBLE);
-      databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+      //databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
+      databaseUtente = getChild("utente", getUserId());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -224,7 +225,8 @@ public class PostActivity extends Activity implements FirebaseInterface{
         Date date = new Date();
         Post postUpdate = new Post(id, title, description,
                 Author, idAuthor, date);
-        databasePost.child(postUpdate.getId()).setValue(postUpdate);
+        //databasePost.child(postUpdate.getId()).setValue(postUpdate);
+        addValue(databasePost, postUpdate.getId(), postUpdate);
         Toast.makeText(getApplicationContext(), "Post Modificato",
                 Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
@@ -279,9 +281,10 @@ public class PostActivity extends Activity implements FirebaseInterface{
         }
         Date data = new Date();
         String idAuthor = getUserId();
-        String id = databasePost.push().getKey();
+        String id = getIdObject(databasePost);
         Post post = new Post(id, title, description, nomeUser, idAuthor, data);
-        databasePost.child(post.getId()).setValue(post);
+        //databasePost.child(post.getId()).setValue(post);
+        addValue(databasePost, post.getId(), post);
         Toast.makeText(getApplicationContext(), "Post aggiunto", Toast.LENGTH_SHORT).show();
         alertDialog.dismiss();
 
@@ -291,10 +294,13 @@ public class PostActivity extends Activity implements FirebaseInterface{
 
 
   private void deletePost(String id) {
-    databasePost.child(id).removeValue();
-    DatabaseReference postCommenti = FirebaseDatabase.getInstance()
+    //databasePost.child(id).removeValue();
+    deleteVlaue(databasePost, id);
+    /*DatabaseReference postCommenti = FirebaseDatabase.getInstance()
             .getReference("commento").child(id);
-    postCommenti.removeValue();
+    postCommenti.removeValue();*/
+    DatabaseReference postCommenti = istanceReference("commento");
+    deleteVlaue(postCommenti, id);
     Toast.makeText(getApplicationContext(), "Post Eliminato", Toast.LENGTH_SHORT).show();
   }
 
@@ -445,12 +451,12 @@ public class PostActivity extends Activity implements FirebaseInterface{
   }
 
   public DatabaseReference istanceReference(String reference){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference");
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   public DatabaseReference getChild(String reference, String childId){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference").child(childId);
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
@@ -460,7 +466,7 @@ public class PostActivity extends Activity implements FirebaseInterface{
 
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
-    data.child(idChild).setValue((Commento)object);
+    data.child(idChild).setValue((Post)object);
   }
 
   @Override

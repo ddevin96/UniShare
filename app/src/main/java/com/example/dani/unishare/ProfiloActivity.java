@@ -363,7 +363,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
    * @param data1 parametro di tipo DatePicker in cui viene selezionata la data
    *             desiderata dall'utente.
    */
-  private void aggiornaData(DatePicker data1) {
+  protected void aggiornaData(DatePicker data1) {
     int year = 0;
     int month = 0;
     int day = 0;

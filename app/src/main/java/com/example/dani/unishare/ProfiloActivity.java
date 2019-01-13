@@ -173,7 +173,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
     editTextEmail.setText(emailEdit);
     editTextPassword.setText(passwordEdit);
 
-    aggiornaData(dataPicker);
+    /*aggiornaData(dataPicker);*/
     dialogBuilder.setTitle("Modifica profilo");
     final AlertDialog alertDialog = dialogBuilder.create();
     alertDialog.show();
@@ -357,7 +357,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
     return matcher.matches();
   }
 
-  /**
+ /* /**
    * Metodo privato usato per modificare la data di nascita selezionata in precedenza
    * alla modifica del profilo.
    * @param data1 parametro di tipo DatePicker in cui viene selezionata la data

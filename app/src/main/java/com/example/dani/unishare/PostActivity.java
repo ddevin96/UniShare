@@ -37,7 +37,7 @@ public class PostActivity extends Activity {
   public static final String POST_TITLE = "posttitle";
   public static final String POST_DESCRIZIONE = "postdescrizione";
   public static final String POST_AUTORE = "postautore";
-  //commento
+
   EditText searchbarPost;
   Button searchButton;
   TextView textViewTitolo;

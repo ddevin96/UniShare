@@ -194,4 +194,28 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
   public void logout(){
     FirebaseAuth.getInstance().signOut();
   }
+
+  public DatabaseReference istanceReference(String reference){
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference");
+    return temp;
+  }
+
+  public DatabaseReference getChild(String reference, String childId){
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference").child(childId);
+    return temp;
+  }
+
+  public String getIdObject(DatabaseReference data){
+    return data.push().getKey();
+  }
+
+  @Override
+  public void addValue(DatabaseReference data, String idChild, Object object) {
+    data.child(idChild).setValue((Commento)object);
+  }
+
+  @Override
+  public void deleteVlaue(DatabaseReference data,String idChild) {
+    data.child(idChild).removeValue();
+  }
 }

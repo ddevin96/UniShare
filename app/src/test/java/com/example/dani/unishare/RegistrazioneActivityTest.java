@@ -1,8 +1,13 @@
 package com.example.dani.unishare;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
@@ -10,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class RegistrazioneActivityTest {
     private String emailCorretta, emailCorta, emailLunga, passwordCorretta, passwordLunga,
-            passwordCorta,passwordErrata, emailErrata;
+            passwordCorta,passwordErrata, emailErrata, nome, cognome;
     ArrayList<Utente> lista;
     RegistrazioneActivity act;
 
@@ -110,7 +115,28 @@ public class RegistrazioneActivityTest {
     assertTrue(act.isValidEmail(emailCorretta));
   }
 
+  @Mock
+  DatabaseReference databaseUser;
 
+  @Mock
+  FirebaseAuth mFirebaseAuth;
+
+/*
+  @Test
+  public void createUserTest(){
+    act.email = emailCorretta;
+    act.password = passwordCorretta;
+    act.nome = "Maria";
+    act.cognome = "Verdi";
+    act.sesso="D";
+    act.date = "12/12/1996";
+    act.databaseUtente = act.istanceReference("utente");
+    act.firebaseAuth = FirebaseAuth.getInstance();
+    act.createUser();
+    assertTrue(act.user.getDisplayName().equals("Maria"));
+
+
+  }
 
 
 
@@ -120,13 +146,15 @@ public class RegistrazioneActivityTest {
     RegistrazioneActivity act = new RegistrazioneActivity();
     act.editTextRegNome.setText(nome);
     act.editTextRegCognome.setText(cognome);
-    act.editTextRegPassword.setText(password);
-    act.editTextRegRipetiPassword.setText(password);
+    act.editTextRegPassword.setText(passwordCorretta);
+    act.editTextRegRipetiPassword.setText(passwordCorretta);
     act.radioDonna.setSelected(true);
-    act.editTextRegEmail.setText(email);
+    act.checkboxPrivacy.setSelected(true);
+    act.editTextRegEmail.setText(emailCorretta);
     act.editDatePicker.init(1994,10,10,null);
+    act.istance();
+
     act.registraUtente();
-    //aspettare firebase
   }
-  */
+*/
 }

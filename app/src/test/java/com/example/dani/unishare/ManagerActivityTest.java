@@ -19,9 +19,5 @@ public class ManagerActivityTest extends ManagerActivity{
   public void onStart() {
   }
 
-  @Test
-  public void istance() {
-    if (databaseId != null)
-      assertTrue(true);
-  }
+
 }

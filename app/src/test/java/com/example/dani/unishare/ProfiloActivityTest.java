@@ -9,10 +9,9 @@ import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.*;
 
-@RunWith(RobolectricTestRunner.class)
 public class ProfiloActivityTest {
   private ProfiloActivity act;
-  private DatePicker data;
+  private DatePicker dataP;
   private String emailCorretta, emailCorta, emailLunga, passwordCorretta, passwordLunga,
           passwordCorta,passwordErrata, emailErrata;
   @Before
@@ -44,11 +43,13 @@ public class ProfiloActivityTest {
 /*
   @Test
   public void aggiornaDataTest(){
-    ProfiloActivity act = Robolectric.setupActivity(ProfiloActivity.class);
-    data.init(2018,1,12,null);
+    dataP = new DatePicker(act);
+   // data = act.findViewById(R.id.editDatePicker);
+    dataP.init(2018,1,12,null);
     int month = 2;
-    act.aggiornaData(data);
-    assertTrue(month==data.getMonth());
+    act.data = "1/1/1997";
+    act.aggiornaData(dataP);
+    assertEquals("1/2/1997",act.data);
   }
 */
 }

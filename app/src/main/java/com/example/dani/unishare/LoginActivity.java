@@ -50,7 +50,7 @@ public class LoginActivity extends Activity implements FirebaseInterface{
     listaUtente = new ArrayList<>();
 
     istance();
-    databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    databaseUtente = istanceReference("utente");
 
     databaseUtente.addValueEventListener(new ValueEventListener() {
       @Override
@@ -193,12 +193,12 @@ public class LoginActivity extends Activity implements FirebaseInterface{
   }
 
   public DatabaseReference istanceReference(String reference){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference");
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   public DatabaseReference getChild(String reference, String childId){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference").child(childId);
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
@@ -208,7 +208,7 @@ public class LoginActivity extends Activity implements FirebaseInterface{
 
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
-    data.child(idChild).setValue((Commento)object);
+    data.child(idChild).setValue(object);
   }
 
   @Override

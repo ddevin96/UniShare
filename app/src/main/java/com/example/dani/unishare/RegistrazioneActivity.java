@@ -83,7 +83,8 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
     buttonGiaRegistrato = (Button) findViewById(R.id.buttonGiaRegistrato);
 
     listaUtente = new ArrayList<>();
-    databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    //databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    databaseUtente = istanceReference("utente");
     databaseUtente.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -195,7 +196,8 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
                     String ruolo = "utente";
                     Utente utente = new Utente(getUserId(), nome, cognome,
                             sesso, date, email, password, ruolo);
-                    databaseUtente.child(getUserId()).setValue(utente);
+                    //databaseUtente.child(getUserId()).setValue(utente);
+                    addValue(databaseUtente, getUserId(), utente);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                   } else {
                     Toast.makeText(getApplicationContext(), "Problema con registrazione",
@@ -324,12 +326,12 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
   }
 
   public DatabaseReference istanceReference(String reference){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference");
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   public DatabaseReference getChild(String reference, String childId){
-    DatabaseReference temp = FirebaseDatabase.getInstance().getReference("reference").child(childId);
+    DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
@@ -339,7 +341,7 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
 
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
-    data.child(idChild).setValue((Commento)object);
+    data.child(idChild).setValue((Utente)object);
   }
 
   @Override

@@ -81,7 +81,8 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
     istance();
     getUser();
 
-    databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    //databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
+    databaseUtente = istanceReference("utente");
 
     listViewUtenti.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override

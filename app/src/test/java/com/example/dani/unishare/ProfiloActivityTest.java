@@ -41,7 +41,7 @@ public class ProfiloActivityTest {
     //Caso 2 : e-mail corretta
     assertTrue(act.isValidEmail(emailCorretta));
   }
-
+/*
   @Test
   public void aggiornaDataTest(){
     ProfiloActivity act = Robolectric.setupActivity(ProfiloActivity.class);
@@ -50,5 +50,5 @@ public class ProfiloActivityTest {
     act.aggiornaData(data);
     assertTrue(month==data.getMonth());
   }
-
+*/
 }

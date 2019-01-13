@@ -2,9 +2,10 @@ package com.example.dani.unishare;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 public class RegistrazioneActivityTest {
@@ -108,6 +109,7 @@ public class RegistrazioneActivityTest {
     //Caso 2 : e-mail corretta
     assertTrue(act.isValidEmail(emailCorretta));
   }
+
 
 
 

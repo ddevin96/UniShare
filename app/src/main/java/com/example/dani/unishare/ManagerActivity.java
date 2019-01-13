@@ -22,6 +22,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>Activity usata per la gestione dell'attività di nomina dei manager.</p>
+ * <p>Questa classe è attiva solo per gli utenti che sono già manager.</p>
+ */
 public class ManagerActivity extends Activity implements FirebaseInterface{
 
   Button creaManager;
@@ -90,59 +94,126 @@ public class ManagerActivity extends Activity implements FirebaseInterface{
 
   }
 
+  /**
+   * <p>Implementazione delle firme dei metodi dell'interfaccia</p>
+   * @see FirebaseInterface
+   */
+  /**
+   * <p>Metodi per FirebaseAuth.</p>
+   */
+  /**
+   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication)</p>
+   */
   public void istance(){
     databaseId = FirebaseAuth.getInstance();
   }
 
+  /**
+   * <p>Metdo public usato per creare un istanza dell'Utente che
+   * ha effettuato un accesso al database</p>
+   */
   @Override
   public void getUser() {
     user = databaseId.getCurrentUser();
   }
 
+  /**
+   * Metodo public utilizzato per prelevare l'id dell'utente corrente.
+   * @return Stringa contenente l'id.
+   */
   @Override
   public String getUserId() {
     return user.getUid();
   }
 
+  /**
+   * Metodo public utilizzato per prelevare il nome dell'utente corrente.
+   * @return Stringa contenente il nome.
+   */
   @Override
   public String getUserName() {
     return user.getDisplayName();
   }
 
+  /**
+   * <p>Metodo utilizzato per effettuare il logout dal database.</p>
+   */
   @Override
   public void logout() {
     FirebaseAuth.getInstance().signOut();
   }
 
+  /**
+   * <p>Metodi per DatabaseReference.</p>
+   */
+  /**
+   * Metodo public usato per avere un riferimento ad una certa tabella del database.
+   * @param reference Stringa contenente il nome della tabella a cui si vuole accedere.
+   * @return DatabaseReference riferimento alla tabella desiderata del database.
+   */
   public DatabaseReference istanceReference(String reference){
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
+  /**
+   * Metodo public usato per accedere ad un certo campo di una tabella specifica del database.
+   * @param reference Stringa contenenente il nome dall tabella a cui si vuole accedere.
+   * @param childId Stringa contenente il nome del campo della tabella a cui si vuole accedere.
+   * @return DatabaseReference riferimento al campo della tabella del database desiderato.
+   */
   public DatabaseReference getChild(String reference, String childId){
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
+  /**
+   * Metodo usato per generare un nuovo id all'interno di un certo riferimento al database.
+   * @param data Oggeto contenente il riferimento al database desiderato.
+   * @return Stringa contenente il nuovo id.
+   */
   public String getIdObject(DatabaseReference data){
     return data.push().getKey();
   }
 
+  /**
+   * Metodo usato per inserire un oggetto all'interno del database.
+   * @param data Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'inserimento.
+   * @param object Oggetto che si vuole inserire nel database.
+   */
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
     data.child(idChild).setValue((Commento)object);
   }
 
+  /**
+   * Metodo usato per inserire un oggetto all'interno del database.
+   *(Seconda versione del metodo precedente)
+   * @param data Oggetto contenente il riferimento al database.
+   * @param object Oggetto che si vuole inserire nel database.
+   */
   @Override
   public void addValue(DatabaseReference data, Object object) {
     data.setValue(object);
   }
 
+  /**
+   * Metodo usato per eliminare un oggetto dal database.
+   * (Seconda versione del metodo precedente)
+   * @param data Oggetto contenente il riferimento al database.
+   */
   @Override
   public void deleteValue(DatabaseReference data) {
     data.removeValue();
   }
 
+
+  /**
+   * Metodo usato per eliminare un oggetto dal database.
+   * @param data Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'eliminazione.
+   */
   @Override
   public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();

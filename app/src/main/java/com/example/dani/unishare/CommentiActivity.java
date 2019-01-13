@@ -279,7 +279,6 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
    * @param id codice univoco che identifica il commento
    */
   private void cancellaCommento(String id) {
-    //databaseCommenti.child(id).removeValue();
     deleteValue(databaseCommenti, id);
     Toast.makeText(getApplicationContext(), "Commento Eliminato", Toast.LENGTH_SHORT).show();
   }

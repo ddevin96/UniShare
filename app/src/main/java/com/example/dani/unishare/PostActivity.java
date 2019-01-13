@@ -77,11 +77,9 @@ public class PostActivity extends Activity implements FirebaseInterface{
     textViewTitolo.setText(title);
     textViewDescrizione.setText(description);
 
-    //databasePost = FirebaseDatabase.getInstance().getReference("post").child(idBacheca);
     databasePost= getChild("post", idBacheca);
     if (pUser != null) {
       addPost.setVisibility(View.VISIBLE);
-      //databaseUtente = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
       databaseUtente = getChild("utente", getUserId());
       databaseUtente.addValueEventListener(new ValueEventListener() {
         @Override
@@ -179,6 +177,56 @@ public class PostActivity extends Activity implements FirebaseInterface{
     });
   }
 
+  @SuppressLint("WrongViewCast")
+  private void showCreateDialog() {
+    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+    LayoutInflater inflater = getLayoutInflater();
+    final View dialogView = inflater.inflate(R.layout.activity_add_post_form, null);
+    dialogBuilder.setView(dialogView);
+
+    final EditText editTextTitle;
+    final EditText editTextDescription;
+    final Button pubblica;
+
+    editTextTitle = (EditText) dialogView.findViewById(R.id.titlePost);
+    editTextDescription = (EditText) dialogView.findViewById(R.id.descrizionePost);
+    pubblica = (Button) dialogView.findViewById(R.id.addPostButton);
+    dialogBuilder.setTitle("post");
+    final AlertDialog alertDialog = dialogBuilder.create();
+    alertDialog.show();
+
+    pubblica.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String title = editTextTitle.getText().toString();
+        String description = editTextDescription.getText().toString();
+
+        if (controllaParametro(editTextTitle.getText().toString())) {
+          editTextTitle.setError("Il titolo non può essere vuoto.\n "
+                  + "Deve avere un massimo di 65534 caratteri.");
+          editTextTitle.requestFocus();
+          return;
+        }
+        if (controllaParametro(editTextDescription.getText().toString())) {
+          editTextDescription.setError("La descrizione non può essere vuota.\n "
+                  + "Deve avere un massimo di 65534 caratteri.");
+          editTextDescription.requestFocus();
+          return;
+        }
+        Date data = new Date();
+        String idAuthor = getUserId();
+        String id = getIdObject(databasePost);
+        Post post = new Post(id, title, description, nomeUser, idAuthor, data);
+        //databasePost.child(post.getId()).setValue(post);
+        addValue(databasePost, post.getId(), post);
+        Toast.makeText(getApplicationContext(), "Post aggiunto", Toast.LENGTH_SHORT).show();
+        alertDialog.dismiss();
+
+      }
+    });
+  }
+
+
   private synchronized void modificaPostDialog(Post post) {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     LayoutInflater inflater = getLayoutInflater();
@@ -225,7 +273,6 @@ public class PostActivity extends Activity implements FirebaseInterface{
         Date date = new Date();
         Post postUpdate = new Post(id, title, description,
                 Author, idAuthor, date);
-        //databasePost.child(postUpdate.getId()).setValue(postUpdate);
         addValue(databasePost, postUpdate.getId(), postUpdate);
         Toast.makeText(getApplicationContext(), "Post Modificato",
                 Toast.LENGTH_SHORT).show();
@@ -242,68 +289,24 @@ public class PostActivity extends Activity implements FirebaseInterface{
     });
   }
 
-  @SuppressLint("WrongViewCast")
-  private void showCreateDialog() {
-    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-    LayoutInflater inflater = getLayoutInflater();
-    final View dialogView = inflater.inflate(R.layout.activity_add_post_form, null);
-    dialogBuilder.setView(dialogView);
-
-    final EditText editTextTitle;
-    final EditText editTextDescription;
-    final Button pubblica;
-
-    editTextTitle = (EditText) dialogView.findViewById(R.id.titlePost);
-    editTextDescription = (EditText) dialogView.findViewById(R.id.descrizionePost);
-    pubblica = (Button) dialogView.findViewById(R.id.addPostButton);
-    //titolo dialog
-    dialogBuilder.setTitle("post");
-    final AlertDialog alertDialog = dialogBuilder.create();
-    alertDialog.show();
-
-    pubblica.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        String title = editTextTitle.getText().toString();
-        String description = editTextDescription.getText().toString();
-
-        if (controllaParametro(editTextTitle.getText().toString())) {
-          editTextTitle.setError("Il titolo non può essere vuoto.\n "
-                  + "Deve avere un massimo di 65534 caratteri.");
-          editTextTitle.requestFocus();
-          return;
-        }
-        if (controllaParametro(editTextDescription.getText().toString())) {
-          editTextDescription.setError("La descrizione non può essere vuota.\n "
-                  + "Deve avere un massimo di 65534 caratteri.");
-          editTextDescription.requestFocus();
-          return;
-        }
-        Date data = new Date();
-        String idAuthor = getUserId();
-        String id = getIdObject(databasePost);
-        Post post = new Post(id, title, description, nomeUser, idAuthor, data);
-        //databasePost.child(post.getId()).setValue(post);
-        addValue(databasePost, post.getId(), post);
-        Toast.makeText(getApplicationContext(), "Post aggiunto", Toast.LENGTH_SHORT).show();
-        alertDialog.dismiss();
-
-      }
-    });
-  }
-
-
+  /**
+   *
+   * @param id
+   */
   private void deletePost(String id) {
-    //databasePost.child(id).removeValue();
     deleteValue(databasePost, id);
-    /*DatabaseReference postCommenti = FirebaseDatabase.getInstance()
-            .getReference("commento").child(id);
-    postCommenti.removeValue();*/
     DatabaseReference postCommenti = istanceReference("commento");
     deleteValue(postCommenti, id);
     Toast.makeText(getApplicationContext(), "Post Eliminato", Toast.LENGTH_SHORT).show();
   }
 
+  /**
+   * Metodo protected utilizzato per verificare che il parametro
+   * di un post (Titolo o Descrizione) rispetti le precondizioni stabilite.
+   * @param parametro Stringa che contiene il parametro da controllare.
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, il parametro NON rispetta le caratteristice.</p>
+   */
   protected boolean controllaParametro(String parametro){
     if (parametro.isEmpty() || parametro.length() > 65534){
       return true;
@@ -313,6 +316,11 @@ public class PostActivity extends Activity implements FirebaseInterface{
     }
   }
 
+  /**
+   * Metodo protected usato per verificare se un utente loggato è manager.
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, l'utente loggato è  Manager.</p>
+   */
   protected boolean isManager() {
     if (ruoloUser.equals("manager")) {
       return true;
@@ -321,6 +329,13 @@ public class PostActivity extends Activity implements FirebaseInterface{
     }
   }
 
+  /**
+   * Metodo protected usato per verificare se l'utente corrente è l'autore di un certo post.
+   * @param id codice univoco che identifica l'utente.
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, l'utente associato all'id (parametro)
+   * è l'autore del post.</p>
+   */
   private boolean isCreator(String id) {
     if (getUserId().equals(id)) {
       return true;
@@ -329,6 +344,12 @@ public class PostActivity extends Activity implements FirebaseInterface{
     }
   }
 
+  /**
+   * Metodo protected utilizzato per prelevare tutte le parole inserite in una stringa di ricerca (frase).
+   * @param stringa Stringa di ricerca.
+   * @return listaParole Lista di Stringhe che contiene le parole
+   * contenute nella frase digitata nella barra di ricerca.
+   */
   protected List<String> trovaParole(String stringa) {
     String parola = "";
     List<String> listaParole = new ArrayList<>();
@@ -349,15 +370,24 @@ public class PostActivity extends Activity implements FirebaseInterface{
     return listaParole;
   }
 
+  /**
+   * Metodo public utilizzato per la creazione di un option menu.
+   * @param menu Oggetto contenente il menu
+   * @return valore boolean.
+   */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater menuInflater = getMenuInflater();
     menuInflater.inflate(R.menu.menu_generale, menu);
-    //return super.onCreateOptionsMenu(menu);
 
     return true;
   }
 
+  /**
+   * Metodo public usato per la visualizzazione delle voci del menu in base al ruolo dell'utente.
+   * @param menu Oggetto contenente il menu
+   * @return valore boolean.
+   */
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
     super.onPrepareOptionsMenu(menu);
@@ -388,9 +418,14 @@ public class PostActivity extends Activity implements FirebaseInterface{
     return true;
   }
 
+  /**
+   * Metodo public usato per il reindirizzamento alle pagine
+   * desiderato al momento del click di ogni voce del menu
+   * @param item Oggetto contenente l'oggetto che rappresenta la voce singola dell'optionMenu
+   * @return valore boolean.
+   */
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    //return super.onOptionsItemSelected(item);
     switch (item.getItemId()) {
       case R.id.loginMenu:
         finish();
@@ -426,59 +461,126 @@ public class PostActivity extends Activity implements FirebaseInterface{
 
     return true;
   }
+
+  /**
+   * <p>Implementazione delle firme dei metodi dell'interfaccia</p>
+   * @see FirebaseInterface
+   */
+  /**
+   * <p>Metodi per FirebaseAuth.</p>
+   */
+  /**
+   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication)</p>
+   */
   public void istance(){
     databaseId = FirebaseAuth.getInstance();
   }
 
+  /**
+   * <p>Metdo public usato per creare un istanza dell'Utente che
+   * ha effettuato un accesso al database</p>
+   */
   @Override
   public void getUser() {
     pUser = databaseId.getCurrentUser();
   }
 
+  /**
+   * Metodo public utilizzato per prelevare l'id dell'utente corrente.
+   * @return Stringa contenente l'id.
+   */
   @Override
   public String getUserId() {
     return pUser.getUid();
   }
 
+  /**
+   * Metodo public utilizzato per prelevare il nome dell'utente corrente.
+   * @return Stringa contenente il nome.
+   */
   @Override
   public String getUserName() {
     return pUser.getDisplayName();
   }
 
+  /**
+   * <p>Metodo utilizzato per effettuare il logout dal database.</p>
+   */
   @Override
   public void logout() {
     FirebaseAuth.getInstance().signOut();
   }
 
+  /**
+   * <p>Metodi per DatabaseReference.</p>
+   */
+  /**
+   * Metodo public usato per avere un riferimento ad una certa tabella del database.
+   * @param reference Stringa contenente il nome della tabella a cui si vuole accedere.
+   * @return DatabaseReference riferimento alla tabella desiderata del database.
+   */
   public DatabaseReference istanceReference(String reference){
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
+  /**
+   * Metodo public usato per accedere ad un certo campo di una tabella specifica del database.
+   * @param reference Stringa contenenente il nome dall tabella a cui si vuole accedere.
+   * @param childId Stringa contenente il nome del campo della tabella a cui si vuole accedere.
+   * @return DatabaseReference riferimento al campo della tabella del database desiderato.
+   */
   public DatabaseReference getChild(String reference, String childId){
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
+  /**
+   * Metodo usato per generare un nuovo id all'interno di un certo riferimento al database.
+   * @param data Oggeto contenente il riferimento al database desiderato.
+   * @return Stringa contenente il nuovo id.
+   */
   public String getIdObject(DatabaseReference data){
     return data.push().getKey();
   }
 
+  /**
+   * Metodo usato per inserire un oggetto all'interno del database.
+   * @param data Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'inserimento.
+   * @param object Oggetto che si vuole inserire nel database.
+   */
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
     data.child(idChild).setValue((Post)object);
   }
 
+  /**
+   * Metodo usato per inserire un oggetto all'interno del database.
+   *(Seconda versione del metodo precedente)
+   * @param data Oggetto contenente il riferimento al database.
+   * @param object Oggetto che si vuole inserire nel database.
+   */
   @Override
   public void addValue(DatabaseReference data, Object object) {
     data.setValue(object);
   }
 
+  /**
+   * Metodo usato per eliminare un oggetto dal database.
+   * @param data Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'eliminazione.
+   */
   @Override
   public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
   }
 
+  /**
+   * Metodo usato per eliminare un oggetto dal database.
+   * (Seconda versione del metodo precedente)
+   * @param data Oggetto contenente il riferimento al database.
+   */
   @Override
   public void deleteValue(DatabaseReference data) {
     data.removeValue();

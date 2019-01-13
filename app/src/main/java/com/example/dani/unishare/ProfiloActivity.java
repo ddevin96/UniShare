@@ -145,7 +145,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
    * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
    * <p>Viene gestita l'evento legato al "Click" del bottone conferma.</p>
    * <p>Vengono implementate tutte le condizioni secondo le quali i parametri
-   * inseriti verranno dichiarati idonei o non idonei.</p>
+   * inseriti verranno dichiarati idon8ei o non idonei.</p>
    */
   private void modificaProfiloDialog() {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -363,7 +363,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
    * @param data1 parametro di tipo DatePicker in cui viene selezionata la data
    *             desiderata dall'utente.
    */
-  protected void aggiornaData(DatePicker data1) {
+  /*protected void aggiornaData(DatePicker data1) {
     int year = 0;
     int month = 0;
     int day = 0;
@@ -386,7 +386,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
       }
     }
     data1.updateDate(year, month + 1, day);
-  }
+  }*/
 
   public void istance(){
     databaseId = FirebaseAuth.getInstance();

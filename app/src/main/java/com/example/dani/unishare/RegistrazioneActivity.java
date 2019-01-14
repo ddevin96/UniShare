@@ -39,11 +39,12 @@ import java.util.regex.Pattern;
 /**
  * <p>Activity usata per registrare un nuovo utente all'interno del database del sistema.</p>
  * <p>Verranno inseriti tramite EditText tutti i dati richiesti nella classe utente.</p>
- *  @see Utente
  *
- *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni.</p>
+ * @see Utente
+ *
+ * <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni.</p>
  */
-public class RegistrazioneActivity extends Activity implements FirebaseInterface{
+public class RegistrazioneActivity extends Activity implements FirebaseInterface {
 
   EditText editTextRegNome;
   EditText editTextRegCognome;
@@ -172,7 +173,8 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
     }
 
     if (controlloMail(email)) {
-      editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri\nDeve rispettare il formato.");
+      editTextRegEmail.setError("L'email non può essere vuota\nMax 63 caratteri"
+              + "\nDeve rispettare il formato.");
       editTextRegEmail.requestFocus();
       return;
     }
@@ -197,8 +199,9 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
 
   /**
    * Metodo private usato per confrontare la password inserita dall'utente con il formato richiesto.
-   * @param password  Stringa contenente la password inserita dall'utente.
-   * @return  Valore boolean.
+   *
+   * @param password Stringa contenente la password inserita dall'utente.
+   * @return Valore boolean.
    * <p>Se il valore restituito è ture, il formato richiesto è stato rispettato.</p>
    */
   protected static boolean isValidPassword(String password) {
@@ -219,7 +222,7 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
    * <p>Per l'inserimento viene usato il riferimento al database "FirebaseAuth"
    * con l'ausilio di metodi già esistenti.</p>
    */
-  public void createUser(){
+  public void createUser() {
     firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
               @Override
@@ -246,8 +249,9 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
 
   /**
    * Metodo private usato per confrontare l'e-mail inserita dall'utente con il formato richiesto.
-   * @param email  Stringa contenente l'e-mail inserita dall'utente.
-   * @return  Valore boolean.
+   *
+   * @param email Stringa contenente l'e-mail inserita dall'utente.
+   * @return Valore boolean.
    * <p>Se il valore restituito è true, il formato richiesto è stato rispettato.</p>
    */
   protected static boolean isValidEmail(String email) {
@@ -264,8 +268,9 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
   /**
    * Metodo private usato per verificare che l'e-mail
    * inserita dall'utente non sia già presente nel database.
-   * @param mail  Stringa contenente l'e-mail inserita dall'utente.
-   * @return  Valore boolean.
+   *
+   * @param mail Stringa contenente l'e-mail inserita dall'utente.
+   * @return Valore boolean.
    * <p>Se il valore restituito è true, l'e-mail non è presente nel database.
    * Sarà dunque valida per l'utente che l'ha inserita.</p>
    */
@@ -286,65 +291,65 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
   /**
    * Metodo protected utilizzato per verificare che il parametro
    * di un post (Nome o Cognome) rispetti le precondizioni stabilite.
+   *
    * @param parametro Stringa che contiene il parametro da controllare.
    * @return valore boolean.
    * <p>Se il valore di ritorno è true, il parametro NON rispetta le caratteristice.</p>
    */
-  protected boolean controlloParametro(String parametro){
-    if(parametro.isEmpty() || parametro.length() > 20){
+  protected boolean controlloParametro(String parametro) {
+    if (parametro.isEmpty() || parametro.length() > 20) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
 
   /**
-   * Metodo protected usato per verificare che l' e-mail
+   * Metodo protected usato per verificare che l' e-mail.
    * inserita rispetti le precondizioni stabilite
+   *
    * @param mail Stringa contenente l'e-mail inserita dall'utente
    * @return valore boolean.
    * <p>Se il valore di ritorno è true, il parametro NON rispetta le precondizioni.</p>
    */
-  protected boolean controlloMail(String mail){
+  protected boolean controlloMail(String mail) {
     if (mail.isEmpty() || mail.length() < 3
-            || mail.length() > 63 || !isValidEmail(mail)){
+            || mail.length() > 63 || !isValidEmail(mail)) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
 
   /**
-   * Metodo protected usato per verificare che la password
+   * Metodo protected usato per verificare che la password.
    * inserita rispetti le precondizioni stabilite
+   *
    * @param password Stringa contenente la password inserita dall'utente
    * @return valore boolean.
    * <p>Se il valore di ritorno è true, il parametro NON rispetta le precondizioni.</p>
    */
-  protected boolean controlloPassword(String password){
+  protected boolean controlloPassword(String password) {
     if (password.isEmpty() || password.length() < 8
-            || password.length() > 23 || !isValidPassword(password)){
+            || password.length() > 23 || !isValidPassword(password)) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
 
   /**
    * Metodo protected usato per verificare che password e conferma password inserite siano uguali.
+   *
    * @param password Striinga contenente la password inserita
    * @param conferma Stringa contenente la password ripetuta per la conferma
    * @return valore boolean.
    * <p>Se il valore di ritorno è true, i due parametri NON sono uguali.</p>
    */
-  protected boolean controlloConfermaPassword(String password, String conferma){
-    if (conferma.isEmpty() || !conferma.equals(password)){
+  protected boolean controlloConfermaPassword(String password, String conferma) {
+    if (conferma.isEmpty() || !conferma.equals(password)) {
       return true;
-    }
-    else{
+    } else {
       return false;
     }
   }
@@ -357,40 +362,42 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
    * <p>Metodi per FirebaseAuth.</p>
    */
   /**
-   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication)</p>
+   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication).</p>
    */
-  public void istance(){
+  public void istance() {
     firebaseAuth = FirebaseAuth.getInstance();
   }
 
   /**
-   * <p>Metdo public usato per creare un istanza dell'Utente che
+   * <p>Metdo public usato per creare un istanza dell'Utente che.
    * ha effettuato un accesso al database</p>
    */
-  public void getUser(){
+  public void getUser() {
     user = firebaseAuth.getCurrentUser();
   }
 
   /**
    * Metodo public utilizzato per prelevare l'id dell'utente corrente.
+   *
    * @return Stringa contenente l'id.
    */
-  public String getUserId(){
+  public String getUserId() {
     return user.getUid();
   }
 
   /**
    * Metodo public utilizzato per prelevare il nome dell'utente corrente.
+   *
    * @return Stringa contenente il nome.
    */
-  public String getUserName(){
+  public String getUserName() {
     return user.getDisplayName();
   }
 
   /**
    * <p>Metodo utilizzato per effettuare il logout dal database.</p>
    */
-  public void logout(){
+  public void logout() {
     FirebaseAuth.getInstance().signOut();
   }
 
@@ -399,49 +406,55 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
    */
   /**
    * Metodo public usato per avere un riferimento ad una certa tabella del database.
+   *
    * @param reference Stringa contenente il nome della tabella a cui si vuole accedere.
    * @return DatabaseReference riferimento alla tabella desiderata del database.
    */
-  public DatabaseReference istanceReference(String reference){
+  public DatabaseReference istanceReference(String reference) {
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   /**
    * Metodo public usato per accedere ad un certo campo di una tabella specifica del database.
+   *
    * @param reference Stringa contenenente il nome dall tabella a cui si vuole accedere.
-   * @param childId Stringa contenente il nome del campo della tabella a cui si vuole accedere.
+   * @param childId   Stringa contenente il nome del campo della tabella a cui si vuole accedere.
    * @return DatabaseReference riferimento al campo della tabella del database desiderato.
    */
-  public DatabaseReference getChild(String reference, String childId){
+  public DatabaseReference getChild(String reference, String childId) {
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
   /**
    * Metodo usato per generare un nuovo id all'interno di un certo riferimento al database.
+   *
    * @param data Oggeto contenente il riferimento al database desiderato.
    * @return Stringa contenente il nuovo id.
    */
-  public String getIdObject(DatabaseReference data){
+  public String getIdObject(DatabaseReference data) {
     return data.push().getKey();
   }
 
   /**
    * Metodo usato per inserire un oggetto all'interno del database.
-   * @param data Oggetto contenente il riferimento al database.
-   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'inserimento.
-   * @param object Oggetto che si vuole inserire nel database.
+   *
+   * @param data    Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere
+   *                per effettuare l'inserimento.
+   * @param object  Oggetto che si vuole inserire nel database.
    */
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
-    data.child(idChild).setValue((Utente)object);
+    data.child(idChild).setValue((Utente) object);
   }
 
   /**
    * Metodo usato per inserire un oggetto all'interno del database.
-   *(Seconda versione del metodo precedente)
-   * @param data Oggetto contenente il riferimento al database.
+   * (Seconda versione del metodo precedente)
+   *
+   * @param data   Oggetto contenente il riferimento al database.
    * @param object Oggetto che si vuole inserire nel database.
    */
   @Override
@@ -451,17 +464,20 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
 
   /**
    * Metodo usato per eliminare un oggetto dal database.
-   * @param data Oggetto contenente il riferimento al database.
-   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'eliminazione.
+   *
+   * @param data    Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere
+   *                per effettuare l'eliminazione.
    */
   @Override
-  public void deleteValue(DatabaseReference data,String idChild) {
+  public void deleteValue(DatabaseReference data, String idChild) {
     data.child(idChild).removeValue();
   }
 
   /**
    * Metodo usato per eliminare un oggetto dal database.
    * (Seconda versione del metodo precedente)
+   *
    * @param data Oggetto contenente il riferimento al database.
    */
   @Override

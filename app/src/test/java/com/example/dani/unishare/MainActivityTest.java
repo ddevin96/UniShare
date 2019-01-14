@@ -51,9 +51,4 @@ public class MainActivityTest {
     act.ruoloManager = ruolo2;
     assertFalse(act.isManager());
   }
-
-
-
-
-
 }

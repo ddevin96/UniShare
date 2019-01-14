@@ -12,10 +12,21 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * <p>Classe usata per la visualizzazione della ListView delle bacheche.</p>
+ */
 public class BachecaList extends ArrayAdapter<Bacheca> {
   private Activity context;
   private List<Bacheca> listaBacheca;
 
+  /**
+   * Classe BachecaList.
+   *
+   * @see BachecaList
+   *
+   * @param context oggetto di tipo Activity in cui è utilizzata la listView
+   * @param listaBacheca Oggetto di tipo List che contiene le bacheche presenti nel database
+   */
   public BachecaList(Activity context, List<Bacheca> listaBacheca) {
     super(context, R.layout.list_view_bacheca, listaBacheca);
     this.context = context;

@@ -11,10 +11,21 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * <p>Classe usata per la visualizzazione della ListView dei post.</p>
+ */
 public class PostList extends ArrayAdapter<Post> {
   private Activity context;
   private List<Post> listaPost;
 
+  /**
+   * Classe PostList.
+   *
+   * @see PostList
+   *
+   * @param context oggetto di tipo Activity in cui è utilizzata la listView
+   * @param listaPost Oggetto di tipo List che contiene i post presenti nel database
+   */
   public PostList(Activity context, List<Post> listaPost) {
     super(context, R.layout.list_vew_post, listaPost);
     this.context = context;

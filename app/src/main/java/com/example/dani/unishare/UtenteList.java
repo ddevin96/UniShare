@@ -11,10 +11,21 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * <p>Classe usata per la visualizzazione della ListView degli utenti.</p>
+ */
 public class UtenteList extends ArrayAdapter<Utente> {
   private Activity context;
   private List<Utente> listaUtente;
 
+  /**
+   * Classe UtenteList.
+   *
+   * @see UtenteList
+   *
+   * @param context oggetto di tipo Activity in cui è utilizzata la listView
+   * @param listaUtente Oggetto di tipo List che contiene gli utenti presenti nel database
+   */
   public UtenteList(Activity context, List<Utente> listaUtente) {
     super(context, R.layout.list_view_utente, listaUtente);
     this.context = context;

@@ -9,10 +9,21 @@ import android.widget.TextView;
 
 import java.util.List;
 
+/**
+ * <p>Classe usata per la visualizzazione della ListView dei commenti.</p>
+ */
 public class CommentiList extends ArrayAdapter<Commento> {
   Activity context;
   List<Commento> lista;
 
+  /**
+   * Classe CommentiList
+   *
+   * @see CommentiList
+   *
+   * @param context oggetto di tipo Activity in cui è utilizzata la listView
+   * @param lista Oggetto di tipo List che contiene i commenti presenti nel database
+   */
   public CommentiList(Activity context, List<Commento> lista) {
     super(context, R.layout.list_view_commenti, lista);
     this.context = context;

@@ -22,10 +22,9 @@ public class BachecaList extends ArrayAdapter<Bacheca> {
   /**
    * Classe BachecaList.
    *
-   * @see BachecaList
-   *
-   * @param context oggetto di tipo Activity in cui è utilizzata la listView
+   * @param context      oggetto di tipo Activity in cui è utilizzata la listView
    * @param listaBacheca Oggetto di tipo List che contiene le bacheche presenti nel database
+   * @see BachecaList
    */
   public BachecaList(Activity context, List<Bacheca> listaBacheca) {
     super(context, R.layout.list_view_bacheca, listaBacheca);

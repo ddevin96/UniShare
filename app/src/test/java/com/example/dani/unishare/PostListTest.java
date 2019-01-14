@@ -1,5 +1,8 @@
 package com.example.dani.unishare;
 
+import android.view.View;
+import android.widget.ListView;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,6 +14,7 @@ import static org.junit.Assert.*;
 public class PostListTest {
   ArrayList<Post> listaPost;
   PostActivity act;
+  PostList lista;
   @Before
   public void setUp(){
     act = new PostActivity();
@@ -18,10 +22,15 @@ public class PostListTest {
     listaPost.add(new Post("abc","Residenze","Descrizione","Daniele","ddv",new Date()));
     listaPost.add(new Post("ade","Appartamenti","Descrizione","Donatella","dcf",new Date()));
     act.listaPost = listaPost;
-    PostList lista = new PostList(act,listaPost);
+    lista = new PostList(act,listaPost);
   }
 
   @Test
   public void getView() {
+    act.listaPost = listaPost;
+    ListView listView = act.listViewPost;
+    View v = null;
+    v = lista.getView(0,null,listView);
+    assertNotNull(v);
   }
 }

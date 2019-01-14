@@ -5,13 +5,15 @@ import android.widget.ListView;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
-
+@RunWith(MockitoJUnitRunner.class)
 public class CommentiListTest {
   private List<Commento> lista;
   CommentiList mCommentiList;
@@ -28,7 +30,8 @@ public class CommentiListTest {
   @Test
   public void getViewTest(){
     act.lista = lista;
-    ListView listView = new ListView(act);
+
+    ListView listView = act.listViewCommenti;
     mCommentiList.getView(0,null,listView);
   }
 }

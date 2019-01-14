@@ -14,7 +14,8 @@ import org.junit.runners.Suite;
         ProfiloActivityTest.class,
         RegistrazioneActivityTest.class,
         RicercaProfiloActivityTest.class,
-        UtenteTest.class
+        UtenteTest.class,
+        ManagerActivityTest.class
 })
 
 public class UnitTestSuite {}

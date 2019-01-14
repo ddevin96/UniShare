@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -105,6 +106,7 @@ public class ManagerActivity extends Activity implements FirebaseInterface{
    * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication)</p>
    */
   public void istance(){
+    FirebaseApp.initializeApp(this);
     databaseId = FirebaseAuth.getInstance();
   }
 

@@ -1,16 +1,24 @@
 package com.example.dani.unishare;
 
+import android.widget.RadioButton;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 public class RegistrazioneActivityTest {
     private String emailCorretta, emailCorta, emailLunga, passwordCorretta, passwordLunga,
-            passwordCorta,passwordErrata, emailErrata;
+            passwordCorta,passwordErrata, emailErrata, nome, cognome;
     ArrayList<Utente> lista;
     RegistrazioneActivity act;
 
@@ -27,7 +35,6 @@ public class RegistrazioneActivityTest {
     lista.add(new Utente("DCF","Donatella","Cioffi","F",
             "27/06/1997","donaciof@live.com","passW@456789","utente"));
 
-
     //E-mail
     emailCorretta = lista.get(0).getEmail();
     emailCorta = "a@b";
@@ -39,7 +46,6 @@ public class RegistrazioneActivityTest {
     passwordCorta = "Ab12!";
     passwordLunga = "Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!Ab1!ababababababababababa";
     passwordErrata = "ciao123.";
-
   }
 
   @Test
@@ -69,7 +75,6 @@ public class RegistrazioneActivityTest {
 
   @Test
   public void controlloPasswordTest(){
-
     //Caso 1: password vuota
     assertTrue(act.controlloPassword(""));
     //Caso 2: password < 8 caratteri
@@ -83,14 +88,18 @@ public class RegistrazioneActivityTest {
   @Test
   public void controlloConfermaPasswordTest(){
     String confermaPassword = "mariAA000!!";
+    //Caso 1 : conferma password uguale alla password
     assertFalse(act.controlloConfermaPassword(lista.get(0).getPassword(),confermaPassword));
+    //Caso 2 : conferma password diversa dalla password
     assertTrue(act.controlloConfermaPassword(lista.get(0).getPassword(),"abc"));
   }
 
   @Test
   public void confrontaMailTest(){
     act.listaUtente = lista;
+    //Caso 1 : e-mail presente nel database
     assertTrue(act.confrontaMail(lista.get(1).getEmail()));
+    //Caso 2 : e-mail assente dal database
     assertFalse(act.confrontaMail("ciao@mail.com"));
   }
 
@@ -114,19 +123,40 @@ public class RegistrazioneActivityTest {
 
 
 
+  @Test
+  public void createUserTest(){
+    FirebaseAuth mFirebaseAuth = mock(FirebaseAuth.class);
+    DatabaseReference databaseUser = mock(DatabaseReference.class);
+    act.email = emailCorretta;
+    act.password = passwordCorretta;
+    act.nome = "Maria";
+    act.cognome = "Verdi";
+    act.sesso="D";
+    act.date = "12/12/1996";
+    act.databaseUtente = databaseUser;
+    act.firebaseAuth = mFirebaseAuth;
+
+    act.createUser();
+    assertTrue(act.user.getDisplayName().equals("Maria"));
+
+
+  }
+
 /*
   @Test
   public void registraUtente() {
     RegistrazioneActivity act = new RegistrazioneActivity();
-    act.editTextRegNome.setText(nome);
-    act.editTextRegCognome.setText(cognome);
-    act.editTextRegPassword.setText(password);
-    act.editTextRegRipetiPassword.setText(password);
+    act.nome = nome;
+    act.cognome = cognome;
+    act.password = passwordCorretta;
+    act.ripPassword = passwordCorretta;
+    act.radioDonna = new RadioButton(act);
     act.radioDonna.setSelected(true);
-    act.editTextRegEmail.setText(email);
+    act.checkboxPrivacy.setSelected(true);
+    act.email = emailCorretta;
     act.editDatePicker.init(1994,10,10,null);
+
     act.registraUtente();
-    //aspettare firebase
   }
-  */
+*/
 }

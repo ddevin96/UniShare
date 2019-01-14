@@ -45,7 +45,7 @@ public class LoginActivityInstrumentedTest {
     //Caso 3: lunghezza password non valida, si considera il caso di password vuota
     onView(withId(R.id.InserisciEmail)).perform(clearText());
     onView(withId(R.id.InserisciEmail)).perform(typeText(mailCorretta),closeSoftKeyboard());
-    onView(withId(R.id.InserisciEmail)).perform(clearText());
+    onView(withId(R.id.InserisciPassword)).perform(clearText());
     onView(withId(R.id.Accedi)).perform(click());
     errorExpected = "La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri";
     assertEquals(errorExpected,mActivityRule.getActivity().password.getError());

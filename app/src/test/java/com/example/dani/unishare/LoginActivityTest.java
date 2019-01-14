@@ -48,7 +48,9 @@ public class LoginActivityTest {
   @Test
   public void confrontaMailTest(){
     act.listaUtente = lista;
+    //Caso 1: e-mail esistente nel database
     assertTrue(act.confrontaMail(lista.get(0).getEmail()));
+    //Caso 2 : e-mail assente dal database
     assertFalse(act.confrontaMail(""));
   }
 

@@ -1,18 +1,14 @@
 package com.example.dani.unishare;
 
-import android.content.Intent;
-import android.view.Menu;
-import android.widget.Toast;
+import com.example.dani.unishare.GestioneForum.MainActivity;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.robolectric.Shadows.shadowOf;

@@ -1,22 +1,14 @@
 package com.example.dani.unishare;
 
-import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
+import com.example.dani.unishare.GestioneForum.MainActivity;
 
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-import java.lang.reflect.Method;
-import java.security.DomainCombiner;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class BachecaListTest {
   private ArrayList<Bacheca> listaB;

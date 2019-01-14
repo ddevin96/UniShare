@@ -1,4 +1,4 @@
-package com.example.dani.unishare;
+package com.example.dani.unishare.GestioneUtente;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +18,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dani.unishare.FirebaseInterface;
+import com.example.dani.unishare.GestioneForum.CommentiActivity;
+import com.example.dani.unishare.GestioneForum.MainActivity;
+import com.example.dani.unishare.Post;
+import com.example.dani.unishare.PostList;
+import com.example.dani.unishare.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

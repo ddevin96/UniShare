@@ -1,18 +1,13 @@
 package com.example.dani.unishare;
 
-import android.view.View;
-import android.widget.ListView;
+import com.example.dani.unishare.GestioneForum.CommentiActivity;
 
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class CommentiListTest {
    List<Commento> listaC;

@@ -1,15 +1,11 @@
 package com.example.dani.unishare;
 
-import android.view.View;
-import android.widget.ListView;
+import com.example.dani.unishare.GestioneUtente.PostActivity;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class PostListTest {
   ArrayList<Post> listaPost;

@@ -1,11 +1,10 @@
-package com.example.dani.unishare;
+package com.example.dani.unishare.GestioneForum;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +17,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dani.unishare.CommentiList;
+import com.example.dani.unishare.Commento;
+import com.example.dani.unishare.FirebaseInterface;
+import com.example.dani.unishare.GestioneUtente.ProfiloActivity;
+import com.example.dani.unishare.GestioneUtente.RegistrazioneActivity;
+import com.example.dani.unishare.GestioneUtente.RicercaProfiloActivity;
+import com.example.dani.unishare.GestioneUtente.LoginActivity;
+import com.example.dani.unishare.GestioneUtente.ManagerActivity;
+import com.example.dani.unishare.GestioneUtente.PostActivity;
+import com.example.dani.unishare.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

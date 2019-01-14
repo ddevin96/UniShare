@@ -1,12 +1,11 @@
 package com.example.dani.unishare;
 
+import com.example.dani.unishare.GestioneUtente.ManagerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class ManagerActivityTest extends ManagerActivity{
+public class ManagerActivityTest extends ManagerActivity {
 
   ManagerActivity act;
   FirebaseAuth databaseId;

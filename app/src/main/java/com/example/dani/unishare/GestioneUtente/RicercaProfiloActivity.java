@@ -1,4 +1,4 @@
-package com.example.dani.unishare;
+package com.example.dani.unishare.GestioneUtente;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,8 +8,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.dani.unishare.Commento;
+import com.example.dani.unishare.FirebaseInterface;
+import com.example.dani.unishare.R;
+import com.example.dani.unishare.Utente;
+import com.example.dani.unishare.UtenteList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

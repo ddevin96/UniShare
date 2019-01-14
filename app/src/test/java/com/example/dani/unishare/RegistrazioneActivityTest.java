@@ -1,14 +1,9 @@
 package com.example.dani.unishare;
 
-import android.widget.RadioButton;
-
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
+import com.example.dani.unishare.GestioneUtente.RegistrazioneActivity;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 

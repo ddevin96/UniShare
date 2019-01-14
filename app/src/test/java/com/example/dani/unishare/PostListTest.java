@@ -25,12 +25,5 @@ public class PostListTest {
     lista = new PostList(act,listaPost);
   }
 
-  @Test
-  public void getView() {
-    act.listaPost = listaPost;
-    ListView listView = act.listViewPost;
-    View v = null;
-    v = lista.getView(0,null,listView);
-    assertNotNull(v);
-  }
+
 }

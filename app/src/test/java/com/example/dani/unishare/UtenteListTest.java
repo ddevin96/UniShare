@@ -24,10 +24,5 @@ public class UtenteListTest {
     lista = new UtenteList(act,listaUtenti);
   }
 
-  @Test
-  public void getView() {
-    act.listaUtenti = listaUtenti;
-    ListView listView = act.listViewUtenti;
-    lista.getView(0,null,listView);
-  }
+
 }

@@ -13,25 +13,18 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
-@RunWith(MockitoJUnitRunner.class)
+
 public class CommentiListTest {
-  private List<Commento> lista;
+   List<Commento> listaC;
   CommentiList mCommentiList;
   CommentiActivity act;
   @Before
   public void setUp() throws Exception {
-    lista = new ArrayList<>();
-    lista.add(new Commento("AS","Descri","Mario","MAR",new Date()));
-    lista.add(new Commento("AB","Descr","Maria","MRI",new Date()));
     act = new CommentiActivity();
-    mCommentiList = new CommentiList(act, lista);
-  }
-
-  @Test
-  public void getViewTest(){
-    act.lista = lista;
-
-    ListView listView = act.listViewCommenti;
-    mCommentiList.getView(0,null,listView);
+    listaC = new ArrayList<>();
+    listaC.add(new Commento("AS","Descri","Mario","MAR",new Date()));
+    listaC.add(new Commento("AB","Descr","Maria","MRI",new Date()));
+    act.lista = listaC ;
+    mCommentiList = new CommentiList(act, listaC);
   }
 }

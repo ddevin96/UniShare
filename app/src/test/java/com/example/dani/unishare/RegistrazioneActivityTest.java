@@ -123,7 +123,7 @@ public class RegistrazioneActivityTest {
 
 
 
-  @Test
+  /*@Test
   public void createUserTest(){
     FirebaseAuth mFirebaseAuth = mock(FirebaseAuth.class);
     DatabaseReference databaseUser = mock(DatabaseReference.class);
@@ -141,7 +141,7 @@ public class RegistrazioneActivityTest {
 
 
   }
-
+*/
 /*
   @Test
   public void registraUtente() {

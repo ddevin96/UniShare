@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background_gradient"
-    tools:context=".GestioneUtente.RicercaProfiloActivity">
+    tools:context=".RicercaProfiloActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

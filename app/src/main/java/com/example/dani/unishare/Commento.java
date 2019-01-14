@@ -1,4 +1,4 @@
-package com.example.dani.unishare.Bean;
+package com.example.dani.unishare;
 
 import java.util.Date;
 

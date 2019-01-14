@@ -1,6 +1,5 @@
 package com.example.dani.unishare;
 
-import com.example.dani.unishare.GestioneUtente.ManagerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.junit.Test;

@@ -1,7 +1,5 @@
 package com.example.dani.unishare;
 
-import com.example.dani.unishare.GestioneUtente.RicercaProfiloActivity;
-
 import org.junit.Before;
 import org.junit.Test;
 

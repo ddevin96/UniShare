@@ -3,8 +3,6 @@ package com.example.dani.unishare;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.dani.unishare.GestioneUtente.LoginActivity;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

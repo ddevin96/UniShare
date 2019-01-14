@@ -35,15 +35,15 @@ import java.util.List;
  * <p>Inserimento del commento: </p>
  * <p>Spiegata nella documentazione legata al metodo addCommento().</p>
  *
- *  <p>Modifica commento:</p>
- *  <p>Si userà una finestra di dialogo spiegata in seguito.</p>
+ * <p>Modifica commento:</p>
+ * <p>Si userà una finestra di dialogo spiegata in seguito.</p>
  *
- *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni e dei longPress.</p>
- *  <p>Verranno gestiti i permessi per gli utenti non loggati(ospiti),
- *  gli utenti loggati e i manager</p>
- *  <p>Verrà gestita la ricerca di un commento all'interno di un post (riga 140)</p>
+ * <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni e dei longPress.</p>
+ * <p>Verranno gestiti i permessi per gli utenti non loggati(ospiti),
+ * gli utenti loggati e i manager</p>
+ * <p>Verrà gestita la ricerca di un commento all'interno di un post (riga 140)</p>
  */
-public class CommentiActivity extends Activity implements FirebaseInterface{
+public class CommentiActivity extends Activity implements FirebaseInterface {
 
   EditText searchbar;
   Button searcButton;
@@ -189,12 +189,13 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
   /**
    * <p>Activity della finestra di dialog usato per modificare il commento di un utente.</p>
    * <p>I campi richiesti sono quelli che compongono il costruttore della classe Commento</p>
-   * @see Commento
+   *
    * @param commento Oggetto contenente il commento da modificare
-   * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
-   * <p>Vengono gestiti gli eventi legati al "Click" dei bottoni
-   * modificaCommentoButton e cancellaCommentoButton.</p>
-   * <p>Vengono chiamati tutti i metodi di controllo dei parametri inseriti.</p>
+   *                 <p>I dati vengono reinseriti tramite EditText dedicate.</p>
+   *                 <p>Vengono gestiti gli eventi legati al "Click" dei bottoni
+   *                 modificaCommentoButton e cancellaCommentoButton.</p>
+   *                 <p>Vengono chiamati tutti i metodi di controllo dei parametri inseriti.</p>
+   * @see Commento
    */
   private synchronized void modificaCommentoDialog(Commento commento) {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -254,8 +255,9 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
    * <p>Metodo usato per aggiungere un commento ad un post.</p>
    * <p>Verrà inserita tramite EditText la descrizione del Commento.</p>
    * <p>Gli altri dati richiesti nella classe Commento verranno prelevati da database e,
-   *  alcuni di essi, verranno visualizzati tramite TextView</p>
-   *  @see Commento
+   * alcuni di essi, verranno visualizzati tramite TextView</p>
+   *
+   * @see Commento
    */
   private void addCommento() {
     String description = editTextCommentDescription.getText().toString();
@@ -277,6 +279,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
   /**
    * metodo private usato per cancellare un commento dal database.
+   *
    * @param id codice univoco che identifica il commento
    */
   private void cancellaCommento(String id) {
@@ -286,6 +289,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
   /**
    * Metodo protected usato per verificare se un utente loggato è manager.
+   *
    * @return valore boolean.
    * <p>Se il valore di ritorno è true, l'utente loggato è  Manager.</p>
    */
@@ -299,6 +303,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
   /**
    * Metodo protected usato per verificare se l'utente corrente è l'autore di un certo commento.
+   *
    * @param id codice univoco che identifica l'utente.
    * @return valore boolean.
    * <p>Se il valore di ritorno è true, l'utente associato all'id (parametro)
@@ -315,24 +320,26 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
   /**
    * Metodo protected utilizzato per verificare che la descrizione
    * di un commento rispetti le precondizioni stabilite.
+   *
    * @param descrizione Stringa che contiene la descriione da controllare.
    * @return valore boolean.
    * <p>Se il valore di ritorno è true, la descrizione NON rispetta le caratteristice.</p>
    */
-  protected boolean controlloDescrizione(String descrizione){
-    if (descrizione.isEmpty() || descrizione.length() >= 65535){
+  protected boolean controlloDescrizione(String descrizione) {
+    if (descrizione.isEmpty() || descrizione.length() >= 65535) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
   /**
-   * Metodo protected utilizzato per prelevare tutte le parole inserite in una stringa di ricerca (frase).
+   * Metodo protected utilizzato per prelevare tutte le parole
+   * inserite in una stringa di ricerca (frase).
+   *
    * @param stringa Stringa di ricerca.
    * @return listaParole Lista di Stringhe che contiene le parole
-   * contenute nella frase digitata nella barra di ricerca.
+   *         contenute nella frase digitata nella barra di ricerca.
    */
   protected List<String> trovaParole(String stringa) {
     String parola = "";
@@ -353,6 +360,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
   /**
    * Metodo public utilizzato per la creazione di un option menu.
+   *
    * @param menu Oggetto contenente il menu
    * @return valore boolean.
    */
@@ -367,6 +375,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
   /**
    * Metodo public usato per la visualizzazione delle voci del menu in base al ruolo dell'utente.
+   *
    * @param menu Oggetto contenente il menu
    * @return valore boolean.
    */
@@ -401,8 +410,9 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
   }
 
   /**
-   * Metodo public usato per il reindirizzamento alle pagine
-   * desiderato al momento del click di ogni voce del menu
+   * Metodo public usato per il reindirizzamento alle pagine.
+   * desiderato al momento del click di ogni voce del menu.
+   *
    * @param item Oggetto contenente l'oggetto che rappresenta la voce singola dell'optionMenu
    * @return valore boolean.
    */
@@ -416,10 +426,10 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
         startActivity(intent);
         break;
       case R.id.logoutMenu:
-          logout();
-          Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
-          startActivity(intent1);
-          finish();
+        logout();
+        Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent1);
+        finish();
         break;
       case R.id.registrazioneMenu:
         Intent intent2 = new Intent(getApplicationContext(), RegistrazioneActivity.class);
@@ -453,14 +463,14 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
    * <p>Metodi per FirebaseAuth.</p>
    */
   /**
-   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication)</p>
+   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication).</p>
    */
-  public void istance(){
+  public void istance() {
     databaseId = FirebaseAuth.getInstance();
   }
 
   /**
-   * <p>Metdo public usato per creare un istanza dell'Utente che
+   * <p>Metdo public usato per creare un istanza dell'Utente che.
    * ha effettuato un accesso al database</p>
    */
   @Override
@@ -470,6 +480,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
   /**
    * Metodo public utilizzato per prelevare l'id dell'utente corrente.
+   *
    * @return Stringa contenente l'id.
    */
   @Override
@@ -479,6 +490,7 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
 
   /**
    * Metodo public utilizzato per prelevare il nome dell'utente corrente.
+   *
    * @return Stringa contenente il nome.
    */
   @Override
@@ -499,71 +511,80 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
    */
   /**
    * Metodo public usato per avere un riferimento ad una certa tabella del database.
+   *
    * @param reference Stringa contenente il nome della tabella a cui si vuole accedere.
    * @return DatabaseReference riferimento alla tabella desiderata del database.
    */
-  public DatabaseReference istanceReference(String reference){
+  public DatabaseReference istanceReference(String reference) {
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   /**
    * Metodo public usato per accedere ad un certo campo di una tabella specifica del database.
+   *
    * @param reference Stringa contenenente il nome dall tabella a cui si vuole accedere.
-   * @param childId Stringa contenente il nome del campo della tabella a cui si vuole accedere.
+   * @param childId   Stringa contenente il nome del campo della tabella a cui si vuole accedere.
    * @return DatabaseReference riferimento al campo della tabella del database desiderato.
    */
-  public DatabaseReference getChild(String reference, String childId){
+  public DatabaseReference getChild(String reference, String childId) {
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
   /**
    * Metodo usato per generare un nuovo id all'interno di un certo riferimento al database.
+   *
    * @param data Oggeto contenente il riferimento al database desiderato.
    * @return Stringa contenente il nuovo id.
    */
-  public String getIdObject(DatabaseReference data){
+  public String getIdObject(DatabaseReference data) {
     return data.push().getKey();
   }
 
   /**
    * Metodo usato per inserire un oggetto all'interno del database.
-   * @param data Oggetto contenente il riferimento al database.
-   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'inserimento.
-   * @param object Oggetto che si vuole inserire nel database.
+   *
+   * @param data    Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere
+   *                per effettuare l'inserimento.
+   * @param object  Oggetto che si vuole inserire nel database.
    */
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
-    data.child(idChild).setValue((Commento)object);
+    data.child(idChild).setValue((Commento) object);
   }
 
   /**
    * Metodo usato per inserire un oggetto all'interno del database.
-   *(Seconda versione del metodo precedente)
-   * @param data Oggetto contenente il riferimento al database.
+   * (Seconda versione del metodo precedente)
+   *
+   * @param data   Oggetto contenente il riferimento al database.
    * @param object Oggetto che si vuole inserire nel database.
    */
-  public void addValue(DatabaseReference data, Object object){
-    data.setValue((Commento)object);
+  public void addValue(DatabaseReference data, Object object) {
+    data.setValue((Commento) object);
   }
 
   /**
    * Metodo usato per eliminare un oggetto dal database.
-   * @param data Oggetto contenente il riferimento al database.
-   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'eliminazione.
+   *
+   * @param data    Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole
+   *                accedere per effettuare l'eliminazione.
    */
   @Override
-  public void deleteValue(DatabaseReference data,String idChild) {
+  public void deleteValue(DatabaseReference data, String idChild) {
     data.child(idChild).removeValue();
   }
 
   /**
    * Metodo usato per eliminare un oggetto dal database.
    * (Seconda versione del metodo precedente)
+   *
    * @param data Oggetto contenente il riferimento al database.
    */
-  public void deleteValue(DatabaseReference data){
+  public void deleteValue(DatabaseReference data) {
     data.removeValue();
   }
 }

@@ -36,7 +36,8 @@ import java.util.List;
  *
  *  <p>Modifica bacheca:</p>
  *  <p>Si userà una finestra di dialogo spiegata in seguito.</p>
- *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni e i longPress.</p>
+ *
+ *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni e dei longPress.</p>
  *  <p>Verranno gestiti i permessi per gli utenti non loggati(ospiti),
  *  gli utenti loggati e i manager</p>
  */
@@ -164,7 +165,7 @@ public class MainActivity extends Activity implements FirebaseInterface{
   }
 
   /**
-   * <p>Activity del Dialog usato per creare una bacheca.</p>
+   * <p>Activity della finestra di dialog usato per creare una bacheca.</p>
    * <p>I campi richiesti sono quelli che compongono il costruttore della classe Bacheca.</p>
    * @see Bacheca
    * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
@@ -220,10 +221,12 @@ public class MainActivity extends Activity implements FirebaseInterface{
     });
 
   }
+
   /**
-   * <p>Activity del Dialog usato per modificare una bacheca creata in precedenza.</p>
+   * <p>Activity della finestra di dialog usato per modificare una bacheca creata in precedenza.</p>
    * <p>I campi richiesti sono quelli che compongono il costruttore della classe Bacheca.</p>
    * @see Bacheca
+   * @param bacheca oggetto contenente la bacheca da modificare
    * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
    * <p>Viengono gestiti gli eventi legati al "Click" dei bottoni
    * modificaBachecaButton e cancellaBachecaButton.</p>

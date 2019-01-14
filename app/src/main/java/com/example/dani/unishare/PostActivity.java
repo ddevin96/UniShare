@@ -31,6 +31,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *  <p>Activity usata per la gestione delle attività legate ai post.</p>
+ *  <p>Inserimento post:</p>
+ *  <p>Si userà una finestra di dialogo spiegata in seguito.</p>
+ *
+ *  <p>Modifica post:</p>
+ *  <p>Si userà una finestra di dialogo spiegata in seguito.</p>
+ *
+ *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni e dei longPress.</p>
+ *  <p>Verranno gestiti i permessi per gli utenti non loggati(ospiti),
+ *  gli utenti loggati e i manager</p>
+ *  <p>Verrà gestita la ricerca di un post all'interno di una bacheca (riga 112)</p>
+ */
 public class PostActivity extends Activity implements FirebaseInterface{
 
   public static final String POST_ID = "postid";
@@ -177,6 +190,15 @@ public class PostActivity extends Activity implements FirebaseInterface{
     });
   }
 
+  /**
+   * <p>Activity della finestra di dialog usato per creare una post.</p>
+   * <p>I campi richiesti sono quelli che compongono il costruttore della classe Post.</p>
+   * @see Post
+   * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
+   * <p>Viene gestito l'evento legato al "Click" del bottone
+   * pubblica.</p>
+   * <p>Vengono chiamati tutti i metodi di controllo dei parametri inseriti.</p>
+   */
   @SuppressLint("WrongViewCast")
   private void showCreateDialog() {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -226,7 +248,16 @@ public class PostActivity extends Activity implements FirebaseInterface{
     });
   }
 
-
+  /**
+   * <p>Activity della finestra di dialog usato per modificare il post di un utente.</p>
+   * <p>I campi richiesti sono quelli che compongono il costruttore della classe Post</p>
+   * @see Post
+   * @param post Oggetto contenente il post da modificare
+   * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
+   * <p>Vengono gestiti gli eventi legati al "Click" dei bottoni
+   * modificaPostButton e cancellaPostButton.</p>
+   * <p>Vengono chiamati tutti i metodi di controllo dei parametri inseriti.</p>
+   */
   private synchronized void modificaPostDialog(Post post) {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
     LayoutInflater inflater = getLayoutInflater();
@@ -290,8 +321,8 @@ public class PostActivity extends Activity implements FirebaseInterface{
   }
 
   /**
-   *
-   * @param id
+   * Metodo usato per eliminare un post dal database.
+   * @param id Stringa contenente il codice univoco del post da eliminare.
    */
   private void deletePost(String id) {
     deleteValue(databasePost, id);

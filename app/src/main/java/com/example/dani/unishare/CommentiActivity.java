@@ -33,15 +33,15 @@ import java.util.List;
 /**
  * <p>Activity usata per la gestione delle attività legate ai commenti.</p>
  * <p>Inserimento del commento: </p>
- * <p>Spiegata di seguito nella documentazione legata al metodo addCommento().</p>
- *  @see Commento
+ * <p>Spiegata nella documentazione legata al metodo addCommento().</p>
  *
  *  <p>Modifica commento:</p>
  *  <p>Si userà una finestra di dialogo spiegata in seguito.</p>
- *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni e i longPress.</p>
+ *
+ *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni e dei longPress.</p>
  *  <p>Verranno gestiti i permessi per gli utenti non loggati(ospiti),
  *  gli utenti loggati e i manager</p>
- *  <p>Verrà gestita la ricerca di un commento all'interno di un ppost (riga 140)</p>
+ *  <p>Verrà gestita la ricerca di un commento all'interno di un post (riga 140)</p>
  */
 public class CommentiActivity extends Activity implements FirebaseInterface{
 
@@ -187,9 +187,10 @@ public class CommentiActivity extends Activity implements FirebaseInterface{
   }
 
   /**
-   * <p>Activity del Dialog usato per modificare il commento di un utente.</p>
+   * <p>Activity della finestra di dialog usato per modificare il commento di un utente.</p>
    * <p>I campi richiesti sono quelli che compongono il costruttore della classe Commento</p>
    * @see Commento
+   * @param commento Oggetto contenente il commento da modificare
    * <p>I dati vengono reinseriti tramite EditText dedicate.</p>
    * <p>Vengono gestiti gli eventi legati al "Click" dei bottoni
    * modificaCommentoButton e cancellaCommentoButton.</p>

@@ -34,7 +34,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 
+ * <p>Activity usata per la gestione delle attività legate al profilo di un utente.</p>
+ * <p>Verranno visualizzati a video i dati che l'utente ha inserito al momento della registazione.</p>
+ * @see RegistrazioneActivity
+ *
+ *  <p>Modifica profilo:</p>
+ *  <p>Si userà una finestra di dialogo spiegata in seguito.</p>
+ *
+ *  <p>Verranno gestiti tutti gli eventi conseguenti al "Click" dei bottoni.</p>
  */
 public class ProfiloActivity extends Activity implements FirebaseInterface{
 
@@ -74,11 +81,9 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
 
     istance();
     getUser();
-    //databesaProfilo = FirebaseDatabase.getInstance().getReference("utente").child(getUserId());
     databaseProfilo = getChild("utente", getUserId());
 
     listaUtente = new ArrayList<>();
-    //databaseUtente = FirebaseDatabase.getInstance().getReference("utente");
     databaseUtente = istanceReference("utente");
     databaseUtente.addValueEventListener(new ValueEventListener() {
       @Override
@@ -173,7 +178,6 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
     editTextEmail.setText(emailEdit);
     editTextPassword.setText(passwordEdit);
 
-    /*aggiornaData(dataPicker);*/
     dialogBuilder.setTitle("Modifica profilo");
     final AlertDialog alertDialog = dialogBuilder.create();
     alertDialog.show();
@@ -240,7 +244,6 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
         user.updateEmail(email);
         user.updatePassword(password);
         Utente utente = new Utente(id, nome, cognome, sesso, date, email, password, ruolo);
-        //databaseProfilo.setValue(utente);
         addValue(databaseProfilo, utente);
         Toast.makeText(getApplicationContext(), "La modifica ha avuto successo",
                 Toast.LENGTH_SHORT).show();
@@ -260,7 +263,6 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
   private void deleteProfilo() {
     logout();
     user.delete();
-    //databesaProfilo.removeValue();
     deleteValue(databaseProfilo);
     Toast.makeText(this, "Il profilo è stato cancellato", Toast.LENGTH_SHORT).show();
     startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -288,6 +290,13 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
     return value;
   }
 
+  /**
+   * Metodo protected utilizzato per verificare che il parametro
+   * di un post (Nome o Cognome) rispetti le precondizioni stabilite.
+   * @param parametro Stringa che contiene il parametro da controllare.
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, il parametro NON rispetta le caratteristice.</p>
+   */
   protected boolean controllaParametri(String parametro){
     if (parametro.isEmpty() || parametro.length() > 20){
       return true;
@@ -297,6 +306,13 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
     }
   }
 
+  /**
+   * Metodo protected usato per verificare che l' e-mail
+   * inserita rispetti le precondizioni stabilite
+   * @param mail Stringa contenente l'e-mail inserita dall'utente
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, il parametro NON rispetta le precondizioni.</p>
+   */
   protected boolean controllaMail(String mail){
     if (mail.isEmpty()
             || mail.length() < 3
@@ -308,6 +324,13 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
     }
   }
 
+  /**
+   * Metodo protected usato per verificare che la password
+   * inserita rispetti le precondizioni stabilite
+   * @param password Stringa contenente la password inserita dall'utente
+   * @return valore boolean.
+   * <p>Se il valore di ritorno è true, il parametro NON rispetta le precondizioni.</p>
+   */
   protected boolean controllaPassword(String password){
     if (password.isEmpty()
             || password.length() < 8
@@ -357,89 +380,124 @@ public class ProfiloActivity extends Activity implements FirebaseInterface{
     return matcher.matches();
   }
 
- /* /**
-   * Metodo privato usato per modificare la data di nascita selezionata in precedenza
-   * alla modifica del profilo.
-   * @param data1 parametro di tipo DatePicker in cui viene selezionata la data
-   *             desiderata dall'utente.
+  /**
+   * <p>Implementazione delle firme dei metodi dell'interfaccia</p>
+   * @see FirebaseInterface
    */
-  /*protected void aggiornaData(DatePicker data1) {
-    int year = 0;
-    int month = 0;
-    int day = 0;
-    int count = 0;
-    String temp = "";
-    for (int i = 0; i < data.length(); i++) {
-      if (!(data.charAt(i) == '/')) {
-        temp += data.charAt(i);
-      } else if (count == 0) {
-        day = Integer.parseInt(temp);
-        count++;
-        temp = "";
-      } else if (count == 1) {
-        month = Integer.parseInt(temp);
-        count++;
-        temp = "";
-      } else if (count == 2) {
-        year = Integer.parseInt(temp);
-        break;
-      }
-    }
-    data1.updateDate(year, month + 1, day);
-  }*/
-
+  /**
+   * <p>Metodi per FirebaseAuth.</p>
+   */
+  /**
+   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication)</p>
+   */
   public void istance(){
     databaseId = FirebaseAuth.getInstance();
   }
 
+  /**
+   * <p>Metdo public usato per creare un istanza dell'Utente che
+   * ha effettuato un accesso al database</p>
+   */
   @Override
   public void getUser() {
     user = databaseId.getCurrentUser();
   }
 
+  /**
+   * Metodo public utilizzato per prelevare l'id dell'utente corrente.
+   * @return Stringa contenente l'id.
+   */
   @Override
   public String getUserId() {
     return user.getUid();
   }
 
+  /**
+   * Metodo public utilizzato per prelevare il nome dell'utente corrente.
+   * @return Stringa contenente il nome.
+   */
   @Override
   public String getUserName() {
     return user.getDisplayName();
   }
 
+  /**
+   * <p>Metodo utilizzato per effettuare il logout dal database.</p>
+   */
   @Override
   public void logout() {
     FirebaseAuth.getInstance().signOut();
   }
 
+  /**
+   * <p>Metodi per DatabaseReference.</p>
+   */
+  /**
+   * Metodo public usato per avere un riferimento ad una certa tabella del database.
+   * @param reference Stringa contenente il nome della tabella a cui si vuole accedere.
+   * @return DatabaseReference riferimento alla tabella desiderata del database.
+   */
   public DatabaseReference istanceReference(String reference){
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
+  /**
+   * Metodo public usato per accedere ad un certo campo di una tabella specifica del database.
+   * @param reference Stringa contenenente il nome dall tabella a cui si vuole accedere.
+   * @param childId Stringa contenente il nome del campo della tabella a cui si vuole accedere.
+   * @return DatabaseReference riferimento al campo della tabella del database desiderato.
+   */
   public DatabaseReference getChild(String reference, String childId){
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
+  /**
+   * Metodo usato per generare un nuovo id all'interno di un certo riferimento al database.
+   * @param data Oggeto contenente il riferimento al database desiderato.
+   * @return Stringa contenente il nuovo id.
+   */
   public String getIdObject(DatabaseReference data){
     return data.push().getKey();
   }
 
+  /**
+   * Metodo usato per inserire un oggetto all'interno del database.
+   * @param data Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'inserimento.
+   * @param object Oggetto che si vuole inserire nel database.
+   */
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
     data.child(idChild).setValue((Utente)object);
   }
 
+  /**
+   * Metodo usato per inserire un oggetto all'interno del database.
+   *(Seconda versione del metodo precedente)
+   * @param data Oggetto contenente il riferimento al database.
+   * @param object Oggetto che si vuole inserire nel database.
+   */
   public void addValue(DatabaseReference data, Object object){
     data.setValue((Utente)object);
   }
 
+  /**
+   * Metodo usato per eliminare un oggetto dal database.
+   * @param data Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'eliminazione.
+   */
   @Override
   public void deleteValue(DatabaseReference data,String idChild) {
     data.child(idChild).removeValue();
   }
 
+  /**
+   * Metodo usato per eliminare un oggetto dal database.
+   * (Seconda versione del metodo precedente)
+   * @param data Oggetto contenente il riferimento al database.
+   */
   @Override
   public void deleteValue(DatabaseReference data) {
     data.removeValue();

@@ -1,11 +1,10 @@
 package com.example.dani.unishare;
 
+import com.example.dani.unishare.Bean.Utente;
 import com.example.dani.unishare.GestioneUtente.RegistrazioneActivity;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 import static org.junit.Assert.*;

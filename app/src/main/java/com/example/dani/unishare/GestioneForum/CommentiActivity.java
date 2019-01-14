@@ -17,8 +17,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dani.unishare.CommentiList;
-import com.example.dani.unishare.Commento;
+import com.example.dani.unishare.List.CommentiList;
+import com.example.dani.unishare.Bean.Commento;
 import com.example.dani.unishare.FirebaseInterface;
 import com.example.dani.unishare.GestioneUtente.ProfiloActivity;
 import com.example.dani.unishare.GestioneUtente.RegistrazioneActivity;

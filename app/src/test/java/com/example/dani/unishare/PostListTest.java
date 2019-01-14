@@ -1,6 +1,8 @@
 package com.example.dani.unishare;
 
+import com.example.dani.unishare.Bean.Post;
 import com.example.dani.unishare.GestioneUtente.PostActivity;
+import com.example.dani.unishare.List.PostList;
 
 import org.junit.Before;
 

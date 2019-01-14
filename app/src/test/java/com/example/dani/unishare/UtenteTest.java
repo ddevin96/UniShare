@@ -1,5 +1,7 @@
 package com.example.dani.unishare;
 
+import com.example.dani.unishare.Bean.Utente;
+
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,6 +1,4 @@
-package com.example.dani.unishare;
-
-import java.util.Date;
+package com.example.dani.unishare.Bean;
 
 public class Utente {
 

@@ -16,15 +16,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.dani.unishare.Bacheca;
-import com.example.dani.unishare.BachecaList;
+import com.example.dani.unishare.Bean.Bacheca;
+import com.example.dani.unishare.List.BachecaList;
 import com.example.dani.unishare.FirebaseInterface;
 import com.example.dani.unishare.GestioneUtente.ProfiloActivity;
 import com.example.dani.unishare.GestioneUtente.RegistrazioneActivity;
 import com.example.dani.unishare.GestioneUtente.RicercaProfiloActivity;
 import com.example.dani.unishare.GestioneUtente.LoginActivity;
 import com.example.dani.unishare.GestioneUtente.ManagerActivity;
-import com.example.dani.unishare.Post;
+import com.example.dani.unishare.Bean.Post;
 import com.example.dani.unishare.GestioneUtente.PostActivity;
 import com.example.dani.unishare.R;
 import com.google.firebase.FirebaseApp;

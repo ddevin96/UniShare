@@ -1,11 +1,10 @@
 package com.example.dani.unishare;
 
+import com.example.dani.unishare.Bean.Bacheca;
 import com.example.dani.unishare.GestioneForum.MainActivity;
+import com.example.dani.unishare.List.BachecaList;
 
 import org.junit.Before;
-import org.mockito.Mock;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Date;

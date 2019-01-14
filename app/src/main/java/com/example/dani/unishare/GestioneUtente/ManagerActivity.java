@@ -9,11 +9,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.dani.unishare.Commento;
+import com.example.dani.unishare.Bean.Commento;
 import com.example.dani.unishare.FirebaseInterface;
 import com.example.dani.unishare.R;
-import com.example.dani.unishare.Utente;
-import com.example.dani.unishare.UtenteList;
+import com.example.dani.unishare.Bean.Utente;
+import com.example.dani.unishare.List.UtenteList;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

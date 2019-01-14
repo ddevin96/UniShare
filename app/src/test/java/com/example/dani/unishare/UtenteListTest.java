@@ -1,6 +1,8 @@
 package com.example.dani.unishare;
 
+import com.example.dani.unishare.Bean.Utente;
 import com.example.dani.unishare.GestioneUtente.RicercaProfiloActivity;
+import com.example.dani.unishare.List.UtenteList;
 
 import org.junit.Before;
 

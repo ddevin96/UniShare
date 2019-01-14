@@ -32,6 +32,7 @@ public class PostList extends ArrayAdapter<Post> {
     this.listaPost = listaPost;
   }
 
+  @Override
   public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
     LayoutInflater inflater = context.getLayoutInflater();
     View listViewItem = inflater.inflate(R.layout.list_vew_post, null, true);

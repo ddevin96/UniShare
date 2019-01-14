@@ -17,12 +17,11 @@ public class CommentiList extends ArrayAdapter<Commento> {
   List<Commento> lista;
 
   /**
-   * Classe CommentiList
-   *
-   * @see CommentiList
+   * Classe CommentiList.
    *
    * @param context oggetto di tipo Activity in cui è utilizzata la listView
-   * @param lista Oggetto di tipo List che contiene i commenti presenti nel database
+   * @param lista   Oggetto di tipo List che contiene i commenti presenti nel database
+   * @see CommentiList
    */
   public CommentiList(Activity context, List<Commento> lista) {
     super(context, R.layout.list_view_commenti, lista);

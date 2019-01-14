@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * <p>Activity usata per la gestione della ricerca del profilo di un altro utente.</p>
  */
-public class RicercaProfiloActivity extends Activity implements FirebaseInterface{
+public class RicercaProfiloActivity extends Activity implements FirebaseInterface {
 
   Button searchUtenteButton;
   TextView searchbarUtente;
@@ -161,10 +161,12 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
   }
 
   /**
-   * Metodo protected utilizzato per prelevare tutte le parole inserite in una stringa di ricerca (frase).
+   * Metodo protected utilizzato per prelevare tutte le parole inserite
+   * in una stringa di ricerca (frase).
+   *
    * @param stringa Stringa di ricerca.
    * @return listaParole Lista di Stringhe che contiene le parole
-   * contenute nella frase digitata nella barra di ricerca.
+   *         contenute nella frase digitata nella barra di ricerca.
    */
   protected List<String> trovaParole(String stringa) {
     String parola = "";
@@ -192,40 +194,42 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
    * <p>Metodi per FirebaseAuth.</p>
    */
   /**
-   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication)</p>
+   * <p>Metodo public utilizzato per creareun istanza di FirbaseAuth (autentication).</p>
    */
-  public void istance(){
+  public void istance() {
     databaseId = FirebaseAuth.getInstance();
   }
 
   /**
-   * <p>Metdo public usato per creare un istanza dell'Utente che
+   * <p>Metdo public usato per creare un istanza dell'Utente che.
    * ha effettuato un accesso al database</p>
    */
-  public void getUser(){
+  public void getUser() {
     mUser = databaseId.getCurrentUser();
   }
 
   /**
    * Metodo public utilizzato per prelevare l'id dell'utente corrente.
+   *
    * @return Stringa contenente l'id.
    */
-  public String getUserId(){
+  public String getUserId() {
     return mUser.getUid();
   }
 
   /**
    * Metodo public utilizzato per prelevare il nome dell'utente corrente.
+   *
    * @return Stringa contenente il nome.
    */
-  public String getUserName(){
+  public String getUserName() {
     return mUser.getDisplayName();
   }
 
   /**
    * <p>Metodo utilizzato per effettuare il logout dal database.</p>
    */
-  public void logout(){
+  public void logout() {
     FirebaseAuth.getInstance().signOut();
   }
 
@@ -234,49 +238,55 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
    */
   /**
    * Metodo public usato per avere un riferimento ad una certa tabella del database.
+   *
    * @param reference Stringa contenente il nome della tabella a cui si vuole accedere.
    * @return DatabaseReference riferimento alla tabella desiderata del database.
    */
-  public DatabaseReference istanceReference(String reference){
+  public DatabaseReference istanceReference(String reference) {
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference);
     return temp;
   }
 
   /**
    * Metodo public usato per accedere ad un certo campo di una tabella specifica del database.
+   *
    * @param reference Stringa contenenente il nome dall tabella a cui si vuole accedere.
-   * @param childId Stringa contenente il nome del campo della tabella a cui si vuole accedere.
+   * @param childId   Stringa contenente il nome del campo della tabella a cui si vuole accedere.
    * @return DatabaseReference riferimento al campo della tabella del database desiderato.
    */
-  public DatabaseReference getChild(String reference, String childId){
+  public DatabaseReference getChild(String reference, String childId) {
     DatabaseReference temp = FirebaseDatabase.getInstance().getReference(reference).child(childId);
     return temp;
   }
 
   /**
    * Metodo usato per generare un nuovo id all'interno di un certo riferimento al database.
+   *
    * @param data Oggeto contenente il riferimento al database desiderato.
    * @return Stringa contenente il nuovo id.
    */
-  public String getIdObject(DatabaseReference data){
+  public String getIdObject(DatabaseReference data) {
     return data.push().getKey();
   }
 
   /**
    * Metodo usato per inserire un oggetto all'interno del database.
-   * @param data Oggetto contenente il riferimento al database.
-   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'inserimento.
-   * @param object Oggetto che si vuole inserire nel database.
+   *
+   * @param data    Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per
+   *                effettuare l'inserimento.
+   * @param object  Oggetto che si vuole inserire nel database.
    */
   @Override
   public void addValue(DatabaseReference data, String idChild, Object object) {
-    data.child(idChild).setValue((Commento)object);
+    data.child(idChild).setValue((Commento) object);
   }
 
   /**
    * Metodo usato per inserire un oggetto all'interno del database.
-   *(Seconda versione del metodo precedente)
-   * @param data Oggetto contenente il riferimento al database.
+   * (Seconda versione del metodo precedente)
+   *
+   * @param data   Oggetto contenente il riferimento al database.
    * @param object Oggetto che si vuole inserire nel database.
    */
   @Override
@@ -286,20 +296,23 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
 
   /**
    * Metodo usato per eliminare un oggetto dal database.
-   * @param data Oggetto contenente il riferimento al database.
-   * @param idChild Stringa contenente il campo a cui si vuole accedere per effettuare l'eliminazione.
+   *
+   * @param data    Oggetto contenente il riferimento al database.
+   * @param idChild Stringa contenente il campo a cui si vuole accedere per
+   *                effettuare l'eliminazione.
    */
   @Override
-  public void deleteValue(DatabaseReference data,String idChild) {
+  public void deleteValue(DatabaseReference data, String idChild) {
     data.child(idChild).removeValue();
   }
 
   /**
    * Metodo usato per eliminare un oggetto dal database.
    * (Seconda versione del metodo precedente)
+   *
    * @param data Oggetto contenente il riferimento al database.
    */
-  public void deleteValue(DatabaseReference data){
+  public void deleteValue(DatabaseReference data) {
 
   }
 }

@@ -33,17 +33,6 @@ public class BachecaListTest {
   }
 
 
-  @Test
-  public void getView() {
-    MainActivity act = new MainActivity();
-    act.listaBacheca = listaB;
-    lista = new BachecaList(act,listaB);
-    ListView listView = new ListView(act);
-    View v = null;
-    v = lista.getView(0,null,listView);
-    assertNotNull(v);
-
-  }
 
 
 }

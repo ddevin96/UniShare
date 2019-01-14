@@ -1,8 +1,5 @@
 package com.example.dani.unishare;
 
-import com.example.dani.unishare.Bean.Bacheca;
-import com.example.dani.unishare.GestioneForum.MainActivity;
-
 import org.junit.Before;
 import org.junit.Test;
 

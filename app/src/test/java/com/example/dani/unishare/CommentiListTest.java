@@ -1,9 +1,5 @@
 package com.example.dani.unishare;
 
-import com.example.dani.unishare.Bean.Commento;
-import com.example.dani.unishare.GestioneForum.CommentiActivity;
-import com.example.dani.unishare.List.CommentiList;
-
 import org.junit.Before;
 
 import java.util.ArrayList;

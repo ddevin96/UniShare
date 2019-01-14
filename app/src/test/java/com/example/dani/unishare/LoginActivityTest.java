@@ -1,6 +1,4 @@
 package com.example.dani.unishare;
-import com.example.dani.unishare.Bean.Utente;
-import com.example.dani.unishare.GestioneUtente.LoginActivity;
 
 import static org.junit.Assert.*;
 import org.junit.Before;

@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GestioneForum.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GestioneUtente.PostActivity" />
-        <activity android:name=".GestioneForum.CommentiActivity" />
-        <activity android:name=".GestioneUtente.RegistrazioneActivity" />
-        <activity android:name=".GestioneUtente.LoginActivity" />
-        <activity android:name=".GestioneUtente.ProfiloActivity" />
-        <activity android:name=".GestioneUtente.ManagerActivity" />
-        <activity android:name=".GestioneUtente.RicercaProfiloActivity"></activity>
+        <activity android:name=".PostActivity" />
+        <activity android:name=".CommentiActivity" />
+        <activity android:name=".RegistrazioneActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ProfiloActivity" />
+        <activity android:name=".ManagerActivity" />
+        <activity android:name=".RicercaProfiloActivity"></activity>
     </application>
 
 </manifest>

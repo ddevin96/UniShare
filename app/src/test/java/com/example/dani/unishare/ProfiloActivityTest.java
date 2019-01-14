@@ -1,5 +1,4 @@
 package com.example.dani.unishare;
-import com.example.dani.unishare.GestioneUtente.ProfiloActivity;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.example.dani.unishare.GestioneUtente;
+package com.example.dani.unishare;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,10 +14,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dani.unishare.FirebaseInterface;
-import com.example.dani.unishare.GestioneForum.MainActivity;
-import com.example.dani.unishare.R;
-import com.example.dani.unishare.Bean.Utente;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

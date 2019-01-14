@@ -1,4 +1,4 @@
-package com.example.dani.unishare.List;
+package com.example.dani.unishare;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import com.example.dani.unishare.Bean.Utente;
-import com.example.dani.unishare.R;
 
 import java.util.List;
 

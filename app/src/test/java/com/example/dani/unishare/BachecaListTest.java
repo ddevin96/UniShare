@@ -1,9 +1,5 @@
 package com.example.dani.unishare;
 
-import com.example.dani.unishare.Bean.Bacheca;
-import com.example.dani.unishare.GestioneForum.MainActivity;
-import com.example.dani.unishare.List.BachecaList;
-
 import org.junit.Before;
 
 import java.util.ArrayList;

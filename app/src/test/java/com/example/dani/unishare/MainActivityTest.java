@@ -12,7 +12,7 @@ import static org.robolectric.Shadows.shadowOf;
 
 public class MainActivityTest {
 
-  private String ruolo1, ruolo2;
+  private String ruolo1, ruolo2,stringaLunga;
   private ArrayList<Bacheca> lista;
   MainActivity act;
   @Before
@@ -26,7 +26,11 @@ public class MainActivityTest {
     lista.add(new Bacheca("FRC","Francia","Descrizione","Luigi","LDP",new Date()));
     lista.add(new Bacheca("SPA","Spagna","Descrizione","Luigi","LDP",new Date()));
     lista.add(new Bacheca("SVI","Svizzera","Descrizione","Federica","FUN",new Date()));
-
+    //Inizializzazione per controlloDescrizione
+    stringaLunga = "";
+    for(int i = 0;i<201;i++){
+      stringaLunga = stringaLunga.concat("a");
+    }
   }
 
   @Test
@@ -42,5 +46,29 @@ public class MainActivityTest {
     assertTrue(act.isManager());
     act.ruoloManager = ruolo2;
     assertFalse(act.isManager());
+  }
+
+  @Test
+  public void controlloTitolo(){
+    act.listaBacheca = lista;
+    //Caso 1 : titolo vuoto
+    assertTrue(act.controlloTitolo("","abc"));
+    //Caso 2 : titolo supera i 20 caratteri
+    assertTrue(act.controlloTitolo(stringaLunga,"abc"));
+    //Caso 3 : bacheca già esiste
+    assertTrue(act.controlloTitolo(lista.get(0).getTitle(),"FRA"));
+    //Caso 4 : bacheca inserita
+    assertFalse(act.controlloTitolo("Svezia","SVE"));
+
+  }
+
+  @Test
+  public void controlloDescrizione(){
+    //Caso 1 : descrizione vuota
+    assertTrue(act.controlloDescrizione(""));
+    //Caso 2 : descrizione supera 200 caratteri
+    assertTrue(act.controlloDescrizione(stringaLunga));
+    //Caso 3 : descrizione accettata
+    assertFalse(act.controlloDescrizione("Descrizione"));
   }
 }

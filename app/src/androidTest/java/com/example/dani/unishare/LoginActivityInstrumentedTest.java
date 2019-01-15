@@ -2,12 +2,10 @@ package com.example.dani.unishare;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.clearText;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -51,5 +49,6 @@ public class LoginActivityInstrumentedTest {
     onView(withId(R.id.Accedi)).perform(click());
     errorExpected = "La password non può essere vuota\nMin 8 caratteri\nMax 20 caratteri";
     assertEquals(errorExpected,mActivityRule.getActivity().password.getError());
+
   }
 }

@@ -21,9 +21,9 @@ public class RegistrazioneActivityTest {
     lista = new ArrayList<>();
     lista.add(new Utente("MVD","Maria","Verdi","D",
             "15/02/1995","maria@libero.it","mariAA000!!","utente"));
-    lista.add(new Utente("LDP","Luigi","Di Palma","M","18/04/1997",
+    lista.add(new Utente("LDP","Luigi","Di Palma","U","18/04/1997",
             "dypalma@gmail.com","@Dip123456","utente"));
-    lista.add(new Utente("DCF","Donatella","Cioffi","F",
+    lista.add(new Utente("DCF","Donatella","Cioffi","D",
             "27/06/1997","donaciof@live.com","passW@456789","utente"));
 
     //E-mail

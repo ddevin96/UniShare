@@ -34,7 +34,8 @@
             android:layout_height="23dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="4dp"
-            android:text="cerca" />
+            android:text="cerca"
+            android:fontFamily="@font/acme"/>
 
     </LinearLayout>
 

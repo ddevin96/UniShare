@@ -71,7 +71,7 @@ public class MainActivity extends Activity implements FirebaseInterface {
     setContentView(R.layout.activity_main);
     FirebaseApp.initializeApp(this);
 
-    SharedPreferences sp = getSharedPreferences(String.valueOf(getBaseContext()), Context.MODE_PRIVATE);
+    SharedPreferences sp = getSharedPreferences(String.valueOf(getApplicationContext()), Context.MODE_PRIVATE);
     if (!sp.getBoolean("first", false)) {
       SharedPreferences.Editor editor = sp.edit();
       editor.putBoolean("first", true);
@@ -79,6 +79,14 @@ public class MainActivity extends Activity implements FirebaseInterface {
       Intent intent = new Intent(this, IntoActivity.class); // Call the AppIntro java class
       startActivity(intent);
     }
+    //  Make a new preferences editor
+    SharedPreferences.Editor e = sp.edit();
+
+    //  Edit preference to make it false because we don't want this to run again
+    e.putBoolean("firstStart", false);
+
+    //  Apply changes
+    e.apply();
 
 
 

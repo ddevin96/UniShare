@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="com.example.dani.unishare.IntoActivity"
+            android:label="@string/welcome" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +26,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfiloActivity" />
         <activity android:name=".ManagerActivity" />
-        <activity android:name=".RicercaProfiloActivity"></activity>
+        <activity android:name=".RicercaProfiloActivity" />
     </application>
 
 </manifest>

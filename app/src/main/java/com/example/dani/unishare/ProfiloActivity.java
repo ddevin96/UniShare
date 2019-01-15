@@ -186,7 +186,7 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
       public void onClick(View v) {
         String nome = editTextNome.getText().toString();
         String sesso;
-        if (radioButtonUomo.isSelected()) {
+        if (radioButtonUomo.isChecked()) {
           sesso = "U";
         } else {
           sesso = "D";

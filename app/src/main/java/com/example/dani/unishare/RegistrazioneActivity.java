@@ -136,7 +136,7 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
     int day = editDatePicker.getDayOfMonth();
 
     date = day + "/" + month + "/" + year;
-    if (radioDonna.isSelected()) {
+    if (radioDonna.isChecked()) {
       sesso = "D";
     } else {
       sesso = "U";

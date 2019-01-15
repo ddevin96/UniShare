@@ -78,7 +78,7 @@ public class IntoActivity extends AppIntro {
         super.onDonePressed(currentFragment);
         // Do something when users tap on Done button.
     }
-
+    //ciao
     @Override
     public void onSlideChanged(@Nullable Fragment oldFragment, @Nullable Fragment newFragment) {
         super.onSlideChanged(oldFragment, newFragment);

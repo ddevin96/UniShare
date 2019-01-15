@@ -53,8 +53,9 @@ public class PostActivityTest {
   @Test
   public void controllaParametroTest(){
     PostActivity act = new PostActivity();
-    assertFalse(act.controllaParametro("abc"));
+    assertTrue(act.controllaParametro(""));
     assertTrue(act.controllaParametro(stringaLunga));
+    assertFalse(act.controllaParametro("abc"));
   }
 
 

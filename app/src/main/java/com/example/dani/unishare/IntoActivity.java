@@ -25,43 +25,43 @@ public class IntoActivity extends AppIntro {
         SliderPage sliderPage = new SliderPage();
         sliderPage.setTitle(title);
         sliderPage.setDescription(description);
-        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
+        //sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage));
 
         String title1 ="UNISHARE";
         String description1 = "Se non sei registrato puoi consultare " +
                 "i post e i commenti degli altri utenti in base alla bacheca che ti interessa.";
         SliderPage sliderPage1 = new SliderPage();
-        sliderPage.setTitle(title1);
-        sliderPage.setDescription(description1);
-        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
+        sliderPage1.setTitle(title1);
+        sliderPage1.setDescription(description1);
+        //sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage1));
 
         String title2 ="UNISHARE";
         String description2 = "Se vuoi pubblicare post o commenti devi essere registrato." +
                 "Per registrarti clicca sul menù in alto a destra e seleziona la voce Registrati";
         SliderPage sliderPage2 = new SliderPage();
-        sliderPage.setTitle(title2);
-        sliderPage.setDescription(description2);
-        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
+        sliderPage2.setTitle(title2);
+        sliderPage2.setDescription(description2);
+        //sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage2));
 
         String title3 ="UNISHARE";
         String description3 = "Una volta registrato avrai un profilo tutto tuo!" +
                 "Potrai cercare i contatti che ti interessano.";
         SliderPage sliderPage3 = new SliderPage();
-        sliderPage.setTitle(title3);
-        sliderPage.setDescription(description3);
-        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
+        sliderPage3.setTitle(title3);
+        sliderPage3.setDescription(description3);
+        //sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage3));
 
         String title4 ="UNISHARE";
         String description4 = "BENVENUTO SU UNISHARE!" +
                 "Let's start!";
         SliderPage sliderPage4 = new SliderPage();
-        sliderPage.setTitle(title4);
-        sliderPage.setDescription(description4);
-        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
+        sliderPage4.setTitle(title4);
+        sliderPage4.setDescription(description4);
+        //sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage4));
     }
 

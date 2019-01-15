@@ -53,8 +53,11 @@ public class PostActivityTest {
   @Test
   public void controllaParametroTest(){
     PostActivity act = new PostActivity();
+    //Caso 1 : Stringa vuota
     assertTrue(act.controllaParametro(""));
+    //Caso 2 : stringa che supera il limite massimo di caratteri
     assertTrue(act.controllaParametro(stringaLunga));
+    //Caso 3 : stringa ok
     assertFalse(act.controllaParametro("abc"));
   }
 

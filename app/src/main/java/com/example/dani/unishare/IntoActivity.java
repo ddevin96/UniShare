@@ -12,8 +12,6 @@ import com.github.paolorotolo.appintro.model.SliderPage;
 
 public class IntoActivity extends AppIntro {
 
-    String color = "#000";
-    int backgroundColor = Integer.parseInt(color);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +25,7 @@ public class IntoActivity extends AppIntro {
         SliderPage sliderPage = new SliderPage();
         sliderPage.setTitle(title);
         sliderPage.setDescription(description);
-        sliderPage.setBgColor(backgroundColor);
+        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage));
 
         String title1 ="UNISHARE";
@@ -36,7 +34,7 @@ public class IntoActivity extends AppIntro {
         SliderPage sliderPage1 = new SliderPage();
         sliderPage.setTitle(title1);
         sliderPage.setDescription(description1);
-        sliderPage.setBgColor(backgroundColor);
+        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage1));
 
         String title2 ="UNISHARE";
@@ -45,7 +43,7 @@ public class IntoActivity extends AppIntro {
         SliderPage sliderPage2 = new SliderPage();
         sliderPage.setTitle(title2);
         sliderPage.setDescription(description2);
-        sliderPage.setBgColor(backgroundColor);
+        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage2));
 
         String title3 ="UNISHARE";
@@ -54,7 +52,7 @@ public class IntoActivity extends AppIntro {
         SliderPage sliderPage3 = new SliderPage();
         sliderPage.setTitle(title3);
         sliderPage.setDescription(description3);
-        sliderPage.setBgColor(backgroundColor);
+        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage3));
 
         String title4 ="UNISHARE";
@@ -63,7 +61,7 @@ public class IntoActivity extends AppIntro {
         SliderPage sliderPage4 = new SliderPage();
         sliderPage.setTitle(title4);
         sliderPage.setDescription(description4);
-        sliderPage.setBgColor(backgroundColor);
+        sliderPage.setBgColor(Integer.parseInt("@color/nero"));
         addSlide(AppIntroFragment.newInstance(sliderPage4));
     }
 

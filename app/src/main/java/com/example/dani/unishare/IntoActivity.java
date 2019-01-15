@@ -1,6 +1,7 @@
 package com.example.dani.unishare;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -74,7 +75,7 @@ public class IntoActivity extends AppIntro {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        // Do something when users tap on Done button.
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
     //ciao1
     @Override

@@ -33,12 +33,14 @@ public class RegistrazioneActivityInstrumentedTest {
 
   @Test
   public void registrazioneTest(){
-    //I seguenti casi sono stati testati in RegistrazioneActivityTest.java
-    // Caso 1 : e-mail < 3 caratteri
-    //Caso 2 : e-mail > 63 caratteri
-    //Caso 3 : e-mail in formato scorretto
-    //Caso 4 : password < 8 caratteri
-    //Caso 5 : password > 20 caratteri
+    /*
+    I seguenti casi sono stati testati in RegistrazioneActivityTest.java
+    Caso 1 : e-mail < 3 caratteri
+    Caso 2 : e-mail > 63 caratteri
+    Caso 3 : e-mail in formato scorretto
+    Caso 4 : password < 8 caratteri
+    Caso 5 : password > 20 caratteri
+    */
     onView(withId(R.id.editTextRegEmail)).perform(typeText(emailCorretta),closeSoftKeyboard());
     onView(withId(R.id.editTextRegPassword)).perform(typeText(passwordCorretta),closeSoftKeyboard());
     //Caso 6 : nome vuoto
@@ -69,8 +71,6 @@ public class RegistrazioneActivityInstrumentedTest {
 
     onView(withId(R.id.editTextRegCognome)).perform(clearText());
     onView(withId(R.id.editTextRegCognome)).perform(typeText(cognomeCorretto),closeSoftKeyboard());
-
-
 
     //Caso 10 : conferma password diverso da password
     onView(withId(R.id.editTextRegRipetiPassword)).perform(typeText("abc"),closeSoftKeyboard());

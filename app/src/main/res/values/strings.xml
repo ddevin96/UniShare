@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">UniShare</string>
     <string name="bacheche">Bacheche</string>
-    <string name="subtitle_bacheca">Scegli la meta giusta per te!</string>
+    <string name="subtitle_bacheca">Clicca sulla zona!</string>
     <string name="create_bacheca">Crea bacheca</string>
     <string name="confirm">Conferma</string>
     <string name="share">Pubblica</string>

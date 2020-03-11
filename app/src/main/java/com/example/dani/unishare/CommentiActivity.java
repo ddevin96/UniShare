@@ -185,6 +185,13 @@ public class CommentiActivity extends Activity implements FirebaseInterface {
 
   }
 
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    databaseId.signOut();
+
+  }
+
   /**
    * <p>Activity della finestra di dialog usato per modificare il commento di un utente.</p>
    * <p>I campi richiesti sono quelli che compongono il costruttore della classe Commento</p>

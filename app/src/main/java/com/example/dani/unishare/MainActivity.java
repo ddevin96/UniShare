@@ -179,6 +179,13 @@ public class MainActivity extends Activity implements FirebaseInterface {
 
   }
 
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    DatabaseId.signOut();
+
+  }
+
   /**
    * <p>Activity della finestra di dialog usato per creare una bacheca.</p>
    * <p>I campi richiesti sono quelli che compongono il costruttore della classe Bacheca.</p>

@@ -180,11 +180,18 @@ public class MainActivity extends Activity implements FirebaseInterface {
   }
 
   @Override
-  protected void onDestroy() {
-    super.onDestroy();
+  protected void onStop() {
+    super.onStop();
     DatabaseId.signOut();
 
   }
+
+  //  @Override
+//  protected void onDestroy() {
+//    super.onDestroy();
+//    DatabaseId.signOut();
+//
+//  }
 
   /**
    * <p>Activity della finestra di dialog usato per creare una bacheca.</p>

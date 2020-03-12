@@ -140,6 +140,13 @@ public class ProfiloActivity extends Activity implements FirebaseInterface {
     });
   }
 
+//  @Override
+//  protected void onDestroy() {
+//    super.onDestroy();
+//    databaseId.signOut();
+//
+//  }
+
   /**
    * <p>Activity del Dialog usato per modificare il profilo di un utente.</p>
    * <p>I campi richiesti sono quelli che compongono il costruttore della classe Utente</p>

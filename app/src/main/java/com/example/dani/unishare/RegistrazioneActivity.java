@@ -191,6 +191,13 @@ public class RegistrazioneActivity extends Activity implements FirebaseInterface
   }
 
 
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    firebaseAuth.signOut();
+
+  }
+
   /**
    * Metodo private usato per confrontare la password inserita dall'utente con il formato richiesto.
    *

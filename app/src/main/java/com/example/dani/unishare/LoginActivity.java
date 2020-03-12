@@ -127,6 +127,13 @@ public class LoginActivity extends Activity implements FirebaseInterface {
     }
   }
 
+//  @Override
+//  protected void onDestroy() {
+//    super.onDestroy();
+//    databaseLogin.signOut();
+//
+//  }
+
   /**
    * Metodo private usato per confrontare la password inserita dall'utente con il formato richiesto.
    *

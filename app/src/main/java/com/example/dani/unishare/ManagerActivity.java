@@ -93,6 +93,12 @@ public class ManagerActivity extends Activity implements FirebaseInterface {
 
   }
 
+//  @Override
+////  protected void onDestroy() {
+////    super.onDestroy();
+////    databaseId.signOut();
+////  }
+
   /**
    * <p>Implementazione delle firme dei metodi dell'interfaccia</p>
    * @see FirebaseInterface

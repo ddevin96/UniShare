@@ -189,6 +189,21 @@ public class PostActivity extends Activity implements FirebaseInterface {
     });
   }
 
+  @Override
+  protected void onStop() {
+    super.onStop();
+    databaseId.signOut();
+
+  }
+
+  //  @Override
+//  protected void onDestroy() {
+//    super.onDestroy();
+//    databaseId.signOut();
+//
+//  }
+
+
   /**
    * <p>Activity della finestra di dialog usato per creare una post.</p>
    * <p>I campi richiesti sono quelli che compongono il costruttore della classe Post.</p>

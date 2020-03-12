@@ -159,6 +159,13 @@ public class RicercaProfiloActivity extends Activity implements FirebaseInterfac
 
   }
 
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    databaseId.signOut();
+
+  }
+
   /**
    * Metodo protected utilizzato per prelevare tutte le parole inserite
    * in una stringa di ricerca (frase).
